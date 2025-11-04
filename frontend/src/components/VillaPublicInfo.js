@@ -497,7 +497,7 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '10px', marginTop: '10px' }}>
             {publicData.public_images.map((media, idx) => (
-              <div key={idx} style={{ position: 'relative' }}>
+              <div key={idx} style={{ position: 'relative', border: publicData.default_public_image_index === idx ? '3px solid gold' : 'none', borderRadius: '5px' }}>
                 {media.startsWith('data:video') ? (
                   <video src={media} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '5px' }} controls />
                 ) : (
@@ -516,10 +516,32 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
                     width: '25px',
                     height: '25px',
                     cursor: 'pointer',
-                    fontWeight: 'bold'
+                    fontWeight: 'bold',
+                    zIndex: 2
                   }}
                 >
                   ×
+                </button>
+                <button
+                  onClick={() => setPublicData({ ...publicData, default_public_image_index: idx })}
+                  style={{
+                    position: 'absolute',
+                    top: '5px',
+                    left: '5px',
+                    background: publicData.default_public_image_index === idx ? 'gold' : 'rgba(255,255,255,0.8)',
+                    color: publicData.default_public_image_index === idx ? 'white' : '#666',
+                    border: 'none',
+                    borderRadius: '50%',
+                    width: '25px',
+                    height: '25px',
+                    cursor: 'pointer',
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    zIndex: 2
+                  }}
+                  title="Marcar como imagen de catálogo"
+                >
+                  ⭐
                 </button>
                 <span style={{
                   position: 'absolute',
@@ -533,6 +555,21 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
                 }}>
                   {idx + 1}
                 </span>
+                {publicData.default_public_image_index === idx && (
+                  <span style={{
+                    position: 'absolute',
+                    bottom: '5px',
+                    right: '5px',
+                    background: 'gold',
+                    color: 'white',
+                    padding: '2px 6px',
+                    borderRadius: '3px',
+                    fontSize: '0.7rem',
+                    fontWeight: 'bold'
+                  }}>
+                    CATÁLOGO
+                  </span>
+                )}
               </div>
             ))}
           </div>
