@@ -226,8 +226,8 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
-                          {/* PASADÍA */}
-                          {villa.catalog_show_pasadia && (
+                          {/* PASADÍA - Show if explicitly enabled OR if data exists (backwards compatibility) */}
+                          {(villa.catalog_show_pasadia || villa.catalog_description_pasadia || villa.catalog_price_pasadia) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
                               <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 ☀️ Pasadía
@@ -246,7 +246,7 @@ const Villas = () => {
                                   {villa.catalog_description_pasadia}
                                 </p>
                               )}
-                              {villa.catalog_show_price && villa.catalog_price_pasadia && (
+                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_pasadia && (
                                 <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
                                   💰 {villa.catalog_currency_pasadia || 'RD$'} {parseFloat(villa.catalog_price_pasadia).toLocaleString()}
                                 </div>
@@ -259,8 +259,8 @@ const Villas = () => {
                             </div>
                           )}
 
-                          {/* AMANECIDA */}
-                          {villa.catalog_show_amanecida && (
+                          {/* AMANECIDA - Show if explicitly enabled OR if data exists (backwards compatibility) */}
+                          {(villa.catalog_show_amanecida || villa.catalog_description_amanecida || villa.catalog_price_amanecida) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eef2ff', borderRadius: '6px', border: '1px solid #6366f1' }}>
                               <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 🌙 Amanecida
@@ -279,7 +279,7 @@ const Villas = () => {
                                   {villa.catalog_description_amanecida}
                                 </p>
                               )}
-                              {villa.catalog_show_price && villa.catalog_price_amanecida && (
+                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_amanecida && (
                                 <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
                                   💰 {villa.catalog_currency_amanecida || 'RD$'} {parseFloat(villa.catalog_price_amanecida).toLocaleString()}
                                 </div>
