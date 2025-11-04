@@ -307,6 +307,242 @@ const Villas = () => {
           )}
         </div>
       </section>
+
+      {/* Modal de Detalles de Villa */}
+      {selectedVilla && (
+        <div 
+          onClick={closeModal}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'rgba(0,0,0,0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            padding: '20px',
+            overflow: 'auto'
+          }}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: 'white',
+              borderRadius: '15px',
+              maxWidth: '900px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflow: 'auto',
+              position: 'relative'
+            }}
+          >
+            {/* Botón cerrar */}
+            <button
+              onClick={closeModal}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'rgba(0,0,0,0.7)',
+                color: 'white',
+                border: 'none',
+                borderRadius: '50%',
+                width: '40px',
+                height: '40px',
+                fontSize: '24px',
+                cursor: 'pointer',
+                zIndex: 10
+              }}
+            >
+              ×
+            </button>
+
+            {/* Carrusel de imágenes grande */}
+            {selectedVilla.images && selectedVilla.images.length > 0 && (
+              <div style={{ position: 'relative', height: '400px', background: '#000' }}>
+                {selectedVilla.images[currentImageIndex[selectedVilla.id] || 0].startsWith('data:video') ? (
+                  <video 
+                    src={selectedVilla.images[currentImageIndex[selectedVilla.id] || 0]}
+                    controls
+                    style={{ width: '100%', height: '400px', objectFit: 'contain' }}
+                  />
+                ) : (
+                  <img 
+                    src={selectedVilla.images[currentImageIndex[selectedVilla.id] || 0]}
+                    alt={selectedVilla.code}
+                    style={{ width: '100%', height: '400px', objectFit: 'contain' }}
+                  />
+                )}
+                
+                {selectedVilla.images.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => prevImage(selectedVilla.id, e)}
+                      style={{
+                        position: 'absolute',
+                        left: '20px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'rgba(0,0,0,0.7)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '50px',
+                        height: '50px',
+                        fontSize: '28px',
+                        cursor: 'pointer',
+                        display: (currentImageIndex[selectedVilla.id] || 0) > 0 ? 'flex' : 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={(e) => nextImage(selectedVilla.id, e)}
+                      style={{
+                        position: 'absolute',
+                        right: '20px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        background: 'rgba(0,0,0,0.7)',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '50%',
+                        width: '50px',
+                        height: '50px',
+                        fontSize: '28px',
+                        cursor: 'pointer',
+                        display: (currentImageIndex[selectedVilla.id] || 0) < selectedVilla.images.length - 1 ? 'flex' : 'none',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      ›
+                    </button>
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '20px',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      background: 'rgba(0,0,0,0.7)',
+                      color: 'white',
+                      padding: '8px 16px',
+                      borderRadius: '20px',
+                      fontSize: '1rem'
+                    }}>
+                      {(currentImageIndex[selectedVilla.id] || 0) + 1} / {selectedVilla.images.length}
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* Contenido del modal */}
+            <div style={{ padding: '30px' }}>
+              <h2 style={{ fontSize: '2.5rem', color: '#080644', marginBottom: '10px' }}>
+                {selectedVilla.code}
+              </h2>
+              
+              {/* Modalidades */}
+              {(selectedVilla.has_pasadia || selectedVilla.has_amanecida) && (
+                <div style={{ marginBottom: '20px', padding: '15px', background: '#f9fafb', borderRadius: '10px' }}>
+                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                    👥 Capacidad
+                  </h3>
+                  {selectedVilla.has_pasadia && selectedVilla.public_max_guests_pasadia && (
+                    <p style={{ fontSize: '1rem', marginBottom: '5px' }}>
+                      ☀️ <strong>Pasadía:</strong> Hasta {selectedVilla.public_max_guests_pasadia} personas
+                    </p>
+                  )}
+                  {selectedVilla.has_amanecida && selectedVilla.public_max_guests_amanecida && (
+                    <p style={{ fontSize: '1rem' }}>
+                      🌙 <strong>Amanecida:</strong> Hasta {selectedVilla.public_max_guests_amanecida} personas
+                    </p>
+                  )}
+                </div>
+              )}
+
+              {/* Descripción con formato preservado */}
+              {selectedVilla.description && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                    📝 Descripción
+                  </h3>
+                  <p style={{ 
+                    fontSize: '1rem', 
+                    lineHeight: '1.6', 
+                    color: '#333',
+                    whiteSpace: 'pre-line'
+                  }}>
+                    {selectedVilla.description}
+                  </p>
+                </div>
+              )}
+
+              {/* Amenidades */}
+              {selectedVilla.amenities && selectedVilla.amenities.length > 0 && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                    ✨ Amenidades
+                  </h3>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                    {selectedVilla.amenities.map((amenity, idx) => (
+                      <span 
+                        key={idx}
+                        style={{
+                          background: '#080644',
+                          color: 'white',
+                          fontSize: '0.9rem',
+                          padding: '8px 15px',
+                          borderRadius: '20px'
+                        }}
+                      >
+                        ✓ {amenity}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Características */}
+              {selectedVilla.features && selectedVilla.features.length > 0 && (
+                <div style={{ marginBottom: '20px' }}>
+                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                    ⭐ Características Destacadas
+                  </h3>
+                  <ul style={{ listStyle: 'none', padding: 0 }}>
+                    {selectedVilla.features.map((feature, idx) => (
+                      <li key={idx} style={{ fontSize: '1rem', color: '#CFA57D', marginBottom: '8px' }}>
+                        ★ {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Botón de WhatsApp */}
+              <a 
+                href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${selectedVilla.code} en ${selectedVilla.zone}. ¿Podrían darme más información sobre disponibilidad y precios?`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary" 
+                style={{ 
+                  width: '100%', 
+                  textAlign: 'center',
+                  fontSize: '1.1rem',
+                  padding: '15px'
+                }}
+              >
+                Consultar Disponibilidad y Precios por WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
