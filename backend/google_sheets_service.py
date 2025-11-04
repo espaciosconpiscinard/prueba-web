@@ -95,6 +95,14 @@ class GoogleSheetsService:
                 if not self.connect():
                     return False
             
+            # Inicializar headers si es necesario
+            try:
+                first_row = self.sheet.row_values(1)
+                if not first_row or first_row[0] == '':
+                    self.initialize_headers()
+            except:
+                self.initialize_headers()
+            
             # Preparar detalles de villas
             villas_details = []
             for villa in data.get('villas', []):
