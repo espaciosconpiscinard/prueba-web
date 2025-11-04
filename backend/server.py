@@ -3457,6 +3457,379 @@ async def import_reservations_file(file: UploadFile = File(...), current_user: d
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al importar: {str(e)}")
 
+# ============ CMS ENDPOINTS FOR PUBLIC WEBSITE ============
+
+# Website Content Endpoints
+@api_router.get("/cms/content", response_model=List[WebsiteContent])
+async def get_website_content(section: Optional[str] = None):
+    """Get website content (public endpoint - no auth required)"""
+    try:
+        query = {"section": section} if section else {}
+        content = await db.website_content.find(query, {"_id": 0}).to_list(100)
+        return serialize_docs(content, ["updated_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener contenido: {str(e)}")
+
+@api_router.put("/cms/content/{section}", response_model=WebsiteContent)
+async def update_website_content(
+    section: str,
+    content_update: WebsiteContentUpdate,
+    current_user: dict = Depends(require_admin)
+):
+    """Update website content (admin only)"""
+    try:
+        existing = await db.website_content.find_one({"section": section}, {"_id": 0})
+        
+        if not existing:
+            # Create new content
+            new_content = WebsiteContent(
+                section=section,
+                **content_update.model_dump(exclude_unset=True),
+                updated_by=current_user["id"]
+            )
+            content_dict = prepare_doc_for_insert(new_content.model_dump())
+            await db.website_content.insert_one(content_dict)
+            return new_content
+        
+        # Update existing
+        update_data = content_update.model_dump(exclude_unset=True)
+        update_data["updated_at"] = datetime.now(timezone.utc)
+        update_data["updated_by"] = current_user["id"]
+        
+        await db.website_content.update_one(
+            {"section": section},
+            {"$set": prepare_doc_for_insert(update_data)}
+        )
+        
+        updated = await db.website_content.find_one({"section": section}, {"_id": 0})
+        return restore_datetimes(updated, ["updated_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar contenido: {str(e)}")
+
+# Website Images Endpoints
+@api_router.get("/cms/images", response_model=List[WebsiteImage])
+async def get_website_images(section: Optional[str] = None):
+    """Get website images (public endpoint)"""
+    try:
+        query = {"section": section, "is_active": True} if section else {"is_active": True}
+        images = await db.website_images.find(query, {"_id": 0}).sort("order", 1).to_list(100)
+        return serialize_docs(images, ["uploaded_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener imágenes: {str(e)}")
+
+@api_router.post("/cms/images", response_model=WebsiteImage)
+async def create_website_image(
+    image_data: WebsiteImageCreate,
+    current_user: dict = Depends(require_admin)
+):
+    """Create new website image (admin only)"""
+    try:
+        new_image = WebsiteImage(
+            **image_data.model_dump(),
+            uploaded_by=current_user["id"]
+        )
+        image_dict = prepare_doc_for_insert(new_image.model_dump())
+        await db.website_images.insert_one(image_dict)
+        return new_image
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al crear imagen: {str(e)}")
+
+@api_router.put("/cms/images/{image_id}", response_model=WebsiteImage)
+async def update_website_image(
+    image_id: str,
+    image_update: WebsiteImageUpdate,
+    current_user: dict = Depends(require_admin)
+):
+    """Update website image (admin only)"""
+    try:
+        existing = await db.website_images.find_one({"id": image_id}, {"_id": 0})
+        if not existing:
+            raise HTTPException(status_code=404, detail="Imagen no encontrada")
+        
+        update_data = image_update.model_dump(exclude_unset=True)
+        await db.website_images.update_one(
+            {"id": image_id},
+            {"$set": prepare_doc_for_insert(update_data)}
+        )
+        
+        updated = await db.website_images.find_one({"id": image_id}, {"_id": 0})
+        return restore_datetimes(updated, ["uploaded_at"])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar imagen: {str(e)}")
+
+@api_router.delete("/cms/images/{image_id}")
+async def delete_website_image(
+    image_id: str,
+    current_user: dict = Depends(require_admin)
+):
+    """Delete website image (admin only)"""
+    try:
+        result = await db.website_images.delete_one({"id": image_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Imagen no encontrada")
+        return {"message": "Imagen eliminada exitosamente"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al eliminar imagen: {str(e)}")
+
+# Public Services Endpoints
+@api_router.get("/cms/services", response_model=List[PublicService])
+async def get_public_services(category: Optional[str] = None):
+    """Get public services (public endpoint)"""
+    try:
+        query = {"category": category, "is_active": True} if category else {"is_active": True}
+        services = await db.public_services.find(query, {"_id": 0}).sort("order", 1).to_list(100)
+        return serialize_docs(services, ["created_at", "updated_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener servicios: {str(e)}")
+
+@api_router.get("/cms/services/{service_id}", response_model=PublicService)
+async def get_public_service(service_id: str):
+    """Get single public service (public endpoint)"""
+    try:
+        service = await db.public_services.find_one({"id": service_id}, {"_id": 0})
+        if not service:
+            raise HTTPException(status_code=404, detail="Servicio no encontrado")
+        return restore_datetimes(service, ["created_at", "updated_at"])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener servicio: {str(e)}")
+
+@api_router.post("/cms/services", response_model=PublicService)
+async def create_public_service(
+    service_data: PublicServiceCreate,
+    current_user: dict = Depends(require_admin)
+):
+    """Create new public service (admin only)"""
+    try:
+        new_service = PublicService(
+            **service_data.model_dump(),
+            created_by=current_user["id"]
+        )
+        service_dict = prepare_doc_for_insert(new_service.model_dump())
+        await db.public_services.insert_one(service_dict)
+        return new_service
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al crear servicio: {str(e)}")
+
+@api_router.put("/cms/services/{service_id}", response_model=PublicService)
+async def update_public_service(
+    service_id: str,
+    service_update: PublicServiceUpdate,
+    current_user: dict = Depends(require_admin)
+):
+    """Update public service (admin only)"""
+    try:
+        existing = await db.public_services.find_one({"id": service_id}, {"_id": 0})
+        if not existing:
+            raise HTTPException(status_code=404, detail="Servicio no encontrado")
+        
+        update_data = service_update.model_dump(exclude_unset=True)
+        update_data["updated_at"] = datetime.now(timezone.utc)
+        
+        await db.public_services.update_one(
+            {"id": service_id},
+            {"$set": prepare_doc_for_insert(update_data)}
+        )
+        
+        updated = await db.public_services.find_one({"id": service_id}, {"_id": 0})
+        return restore_datetimes(updated, ["created_at", "updated_at"])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar servicio: {str(e)}")
+
+@api_router.delete("/cms/services/{service_id}")
+async def delete_public_service(
+    service_id: str,
+    current_user: dict = Depends(require_admin)
+):
+    """Delete public service (admin only)"""
+    try:
+        result = await db.public_services.delete_one({"id": service_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Servicio no encontrado")
+        return {"message": "Servicio eliminado exitosamente"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al eliminar servicio: {str(e)}")
+
+# ChatBot Questions Endpoints
+@api_router.get("/cms/chatbot/questions", response_model=List[ChatBotQuestion])
+async def get_chatbot_questions():
+    """Get active chatbot questions in order (public endpoint)"""
+    try:
+        questions = await db.chatbot_questions.find(
+            {"is_active": True},
+            {"_id": 0}
+        ).sort("order", 1).to_list(100)
+        return serialize_docs(questions, ["created_at", "updated_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener preguntas: {str(e)}")
+
+@api_router.post("/cms/chatbot/questions", response_model=ChatBotQuestion)
+async def create_chatbot_question(
+    question_data: ChatBotQuestionCreate,
+    current_user: dict = Depends(require_admin)
+):
+    """Create new chatbot question (admin only)"""
+    try:
+        new_question = ChatBotQuestion(
+            **question_data.model_dump(),
+            created_by=current_user["id"]
+        )
+        question_dict = prepare_doc_for_insert(new_question.model_dump())
+        await db.chatbot_questions.insert_one(question_dict)
+        return new_question
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al crear pregunta: {str(e)}")
+
+@api_router.put("/cms/chatbot/questions/{question_id}", response_model=ChatBotQuestion)
+async def update_chatbot_question(
+    question_id: str,
+    question_update: ChatBotQuestionUpdate,
+    current_user: dict = Depends(require_admin)
+):
+    """Update chatbot question (admin only)"""
+    try:
+        existing = await db.chatbot_questions.find_one({"id": question_id}, {"_id": 0})
+        if not existing:
+            raise HTTPException(status_code=404, detail="Pregunta no encontrada")
+        
+        update_data = question_update.model_dump(exclude_unset=True)
+        update_data["updated_at"] = datetime.now(timezone.utc)
+        
+        await db.chatbot_questions.update_one(
+            {"id": question_id},
+            {"$set": prepare_doc_for_insert(update_data)}
+        )
+        
+        updated = await db.chatbot_questions.find_one({"id": question_id}, {"_id": 0})
+        return restore_datetimes(updated, ["created_at", "updated_at"])
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar pregunta: {str(e)}")
+
+@api_router.delete("/cms/chatbot/questions/{question_id}")
+async def delete_chatbot_question(
+    question_id: str,
+    current_user: dict = Depends(require_admin)
+):
+    """Delete chatbot question (admin only)"""
+    try:
+        result = await db.chatbot_questions.delete_one({"id": question_id})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Pregunta no encontrada")
+        return {"message": "Pregunta eliminada exitosamente"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al eliminar pregunta: {str(e)}")
+
+# Client Quotations Endpoints
+@api_router.post("/cms/quotations", response_model=ClientQuotation)
+async def create_client_quotation(quotation_data: ClientQuotationCreate):
+    """Create new client quotation from public website (no auth required)"""
+    try:
+        new_quotation = ClientQuotation(**quotation_data.model_dump())
+        quotation_dict = prepare_doc_for_insert(new_quotation.model_dump())
+        await db.client_quotations.insert_one(quotation_dict)
+        
+        # TODO: Send email notification to admin
+        # TODO: Send WhatsApp notification
+        
+        return new_quotation
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al crear cotización: {str(e)}")
+
+@api_router.get("/cms/quotations", response_model=List[ClientQuotation])
+async def get_client_quotations(
+    status: Optional[str] = None,
+    current_user: dict = Depends(require_admin)
+):
+    """Get client quotations (admin only)"""
+    try:
+        query = {"status": status} if status else {}
+        quotations = await db.client_quotations.find(query, {"_id": 0}).sort("created_at", -1).to_list(100)
+        return serialize_docs(quotations, ["created_at", "updated_at"])
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener cotizaciones: {str(e)}")
+
+@api_router.patch("/cms/quotations/{quotation_id}/status")
+async def update_quotation_status(
+    quotation_id: str,
+    status: str,
+    current_user: dict = Depends(require_admin)
+):
+    """Update quotation status (admin only)"""
+    try:
+        result = await db.client_quotations.update_one(
+            {"id": quotation_id},
+            {"$set": {"status": status, "updated_at": datetime.now(timezone.utc)}}
+        )
+        if result.matched_count == 0:
+            raise HTTPException(status_code=404, detail="Cotización no encontrada")
+        return {"message": "Estado actualizado exitosamente"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar estado: {str(e)}")
+
+# Public Villas Endpoint (for website catalog)
+@api_router.get("/public/villas")
+async def get_public_villas(zone: Optional[str] = None):
+    """Get villas for public website catalog"""
+    try:
+        # Get villas with category info
+        query = {}
+        if zone:
+            # Find category by name
+            category = await db.categories.find_one({"name": zone}, {"_id": 0})
+            if category:
+                query["category_id"] = category["id"]
+        
+        villas = await db.villas.find(query, {"_id": 0}).to_list(100)
+        
+        # Group by category
+        categorized_villas = {}
+        for villa in villas:
+            if villa.get("category_id"):
+                category = await db.categories.find_one({"id": villa["category_id"]}, {"_id": 0})
+                zone_name = category["name"] if category else "Sin Categoría"
+            else:
+                zone_name = "Sin Categoría"
+            
+            if zone_name not in categorized_villas:
+                categorized_villas[zone_name] = []
+            
+            # Only include public-facing data
+            public_villa = {
+                "id": villa["id"],
+                "name": villa["name"],
+                "code": villa["code"],
+                "description": villa.get("description", ""),
+                "max_guests": villa.get("max_guests", 0),
+                "zone": zone_name,
+                "pasadia_prices": villa.get("pasadia_prices", []),
+                "amanecida_prices": villa.get("amanecida_prices", []),
+                "evento_prices": villa.get("evento_prices", []),
+                "default_check_in_time_pasadia": villa.get("default_check_in_time_pasadia"),
+                "default_check_out_time_pasadia": villa.get("default_check_out_time_pasadia"),
+                "default_check_in_time_amanecida": villa.get("default_check_in_time_amanecida"),
+                "default_check_out_time_amanecida": villa.get("default_check_out_time_amanecida"),
+            }
+            categorized_villas[zone_name].append(public_villa)
+        
+        return categorized_villas
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al obtener villas públicas: {str(e)}")
+
 app.include_router(api_router)
 
 # CORS middleware
