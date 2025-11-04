@@ -169,14 +169,15 @@ section {
 }
 
 .card-title {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: var(--navy-blue);
   margin-bottom: 0.5rem;
 }
 
 .card-description {
   color: var(--text-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.85rem;
 }
 
 /* WhatsApp Button */
