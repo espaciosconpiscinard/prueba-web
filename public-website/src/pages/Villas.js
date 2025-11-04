@@ -123,18 +123,18 @@ const Villas = () => {
                     <div key={villa.id} className="card" onClick={() => openVillaDetails(villa)} style={{ cursor: 'pointer' }}>
                       {/* Carrusel de imágenes */}
                       {hasImages ? (
-                        <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+                        <div style={{ position: 'relative', height: '160px', overflow: 'hidden' }}>
                           {currentImage.startsWith('data:video') ? (
                             <video 
                               src={currentImage}
-                              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                              style={{ width: '100%', height: '160px', objectFit: 'cover' }}
                             />
                           ) : (
                             <img 
                               src={currentImage} 
                               alt={villa.code}
                               className="card-image"
-                              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                              style={{ width: '100%', height: '160px', objectFit: 'cover' }}
                             />
                           )}
                           
