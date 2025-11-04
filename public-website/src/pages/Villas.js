@@ -452,15 +452,15 @@ const Villas = () => {
             )}
 
             {/* Contenido del modal */}
-            <div style={{ padding: '30px' }}>
-              <h2 style={{ fontSize: '2.5rem', color: '#080644', marginBottom: '10px' }}>
+            <div style={{ padding: '20px' }}>
+              <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '8px' }}>
                 {selectedVilla.code}
               </h2>
               
               {/* Modalidades */}
               {(selectedVilla.has_pasadia || selectedVilla.has_amanecida) && (
-                <div style={{ marginBottom: '20px', padding: '15px', background: '#f9fafb', borderRadius: '10px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                <div style={{ marginBottom: '15px', padding: '12px', background: '#f9fafb', borderRadius: '8px' }}>
+                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
                     👥 Capacidad
                   </h3>
                   {selectedVilla.has_pasadia && selectedVilla.public_max_guests_pasadia && (
