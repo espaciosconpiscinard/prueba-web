@@ -9,6 +9,7 @@ import io
 import uuid
 from typing import List, Optional
 from datetime import datetime, timezone, timedelta
+from pydantic import BaseModel
 
 # Import local modules
 from models import (
