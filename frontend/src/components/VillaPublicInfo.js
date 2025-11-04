@@ -14,10 +14,23 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     public_max_guests_amanecida: villa.public_max_guests_amanecida || villa.max_guests || 0,
     public_has_pasadia: villa.public_has_pasadia !== undefined ? villa.public_has_pasadia : villa.has_pasadia || false,
     public_has_amanecida: villa.public_has_amanecida !== undefined ? villa.public_has_amanecida : villa.has_amanecida || false,
-    // Datos de catálogo
-    catalog_description: villa.catalog_description || '',
+    
+    // Datos de catálogo - Pasadía
+    catalog_description_pasadia: villa.catalog_description_pasadia || '',
+    catalog_price_pasadia: villa.catalog_price_pasadia || '',
+    catalog_currency_pasadia: villa.catalog_currency_pasadia || 'RD$',
+    
+    // Datos de catálogo - Amanecida
+    catalog_description_amanecida: villa.catalog_description_amanecida || '',
+    catalog_price_amanecida: villa.catalog_price_amanecida || '',
+    catalog_currency_amanecida: villa.catalog_currency_amanecida || 'RD$',
+    
+    // Descripciones detalladas (modal)
+    public_description_pasadia: villa.public_description_pasadia || '',
+    public_description_amanecida: villa.public_description_amanecida || '',
+    
+    // Controles de visibilidad
     catalog_show_price: villa.catalog_show_price || false,
-    catalog_price: villa.catalog_price || '',
     catalog_show_pasadia: villa.catalog_show_pasadia || false,
     catalog_show_amanecida: villa.catalog_show_amanecida || false
   });
