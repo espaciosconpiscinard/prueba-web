@@ -147,6 +147,12 @@ class VillaBase(BaseModel):
     max_guests: int = 0
     amenities: List[str] = []  # Piscina, Jacuzzi, BBQ, etc.
     is_active: bool = True
+    
+    # Información pública para la página web
+    public_description: Optional[str] = None  # Descripción para mostrar en web pública
+    public_images: List[str] = []  # URLs de imágenes públicas (base64 o URLs)
+    public_amenities: List[str] = []  # Amenidades a mostrar públicamente
+    public_features: List[str] = []  # Características destacadas para web pública
 
 class VillaCreate(VillaBase):
     pass
