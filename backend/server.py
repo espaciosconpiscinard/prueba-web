@@ -3836,6 +3836,41 @@ async def get_public_villas(zone: Optional[str] = None):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al obtener villas públicas: {str(e)}")
 
+# Update villa public info (images, description, etc)
+@api_router.put("/villas/{villa_id}/public-info")
+async def update_villa_public_info(
+    villa_id: str,
+    public_data: dict,
+    current_user: dict = Depends(require_admin)
+):
+    """Update public information for a villa (admin only)"""
+    try:
+        existing = await db.villas.find_one({"id": villa_id}, {"_id": 0})
+        if not existing:
+            raise HTTPException(status_code=404, detail="Villa no encontrada")
+        
+        # Only update public fields
+        update_fields = {}
+        if "public_description" in public_data:
+            update_fields["public_description"] = public_data["public_description"]
+        if "public_images" in public_data:
+            update_fields["public_images"] = public_data["public_images"]
+        if "public_amenities" in public_data:
+            update_fields["public_amenities"] = public_data["public_amenities"]
+        if "public_features" in public_data:
+            update_fields["public_features"] = public_data["public_features"]
+        
+        await db.villas.update_one(
+            {"id": villa_id},
+            {"$set": update_fields}
+        )
+        
+        return {"message": "Información pública actualizada exitosamente"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error al actualizar: {str(e)}")
+
 app.include_router(api_router)
 
 # Serve public website on /public-site route
