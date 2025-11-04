@@ -188,14 +188,14 @@ const Villas = () => {
                               {/* Indicador de posición */}
                               <div style={{
                                 position: 'absolute',
-                                bottom: '10px',
+                                bottom: '5px',
                                 left: '50%',
                                 transform: 'translateX(-50%)',
                                 background: 'rgba(0,0,0,0.6)',
                                 color: 'white',
-                                padding: '3px 10px',
-                                borderRadius: '12px',
-                                fontSize: '0.85rem'
+                                padding: '2px 8px',
+                                borderRadius: '10px',
+                                fontSize: '0.75rem'
                               }}>
                                 {currentIdx + 1} / {villa.images.length}
                               </div>
