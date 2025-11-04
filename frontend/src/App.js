@@ -60,6 +60,8 @@ const AppContent = () => {
         return <InvoiceEditor />;
       case 'commissions':
         return <Commissions />;
+      case 'public-web':
+        return <PublicWebView />;
       default:
         return <Dashboard />;
     }
