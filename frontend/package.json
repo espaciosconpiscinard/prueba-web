@@ -6,6 +6,12 @@
   "homepage": "./",
   "main": "electron.js",
   "private": true,
+  "proxy": {
+    "/public-site": {
+      "target": "http://localhost:8001",
+      "changeOrigin": true
+    }
+  },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-accordion": "^1.2.8",
