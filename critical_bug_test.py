@@ -10,7 +10,7 @@ import time
 from typing import Dict, Any, Optional
 
 # Backend URL from environment
-BACKEND_URL = "https://villa-cms.preview.emergentagent.com/api"
+BACKEND_URL = "https://pool-space-mgmt.preview.emergentagent.com/api"
 
 class CriticalBugTester:
     def __init__(self):
