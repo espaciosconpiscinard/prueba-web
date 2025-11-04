@@ -53,6 +53,14 @@ const Villas = () => {
     setSelectedVilla(null);
   };
 
+  const handleAddToCart = (villa, modality) => {
+    const success = addToCart(villa, modality);
+    if (success) {
+      alert(`✅ ${villa.code} agregada a tu lista de interés`);
+    }
+    setShowModalitySelector(null);
+  };
+
   if (loading) {
     return (
       <div style={{ paddingTop: '80px', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
