@@ -4146,9 +4146,8 @@ app.add_middleware(
 # Startup event
 @app.on_event("startup")
 async def startup_event():
-    # Inicializar conexión con Google Sheets
-    sheets_service.connect()
-    sheets_service.initialize_headers()
+    # Google Sheets se conectará cuando sea necesario (lazy loading)
+    logger.info("✅ Backend iniciado. Google Sheets se conectará al recibir la primera solicitud.")
 
 # Shutdown event
 @app.on_event("shutdown")
