@@ -1420,6 +1420,18 @@ const VillasManagementNew = () => {
         </div>
       )}
 
+      {/* Modal para editar información pública */}
+      {editingPublicInfo && (
+        <VillaPublicInfo
+          villa={editingPublicInfo}
+          onClose={() => setEditingPublicInfo(null)}
+          onUpdate={() => {
+            fetchVillas();
+            setEditingPublicInfo(null);
+          }}
+        />
+      )}
+
     </div>
   );
 };
