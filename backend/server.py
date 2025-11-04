@@ -3813,6 +3813,10 @@ async def get_public_villas(zone: Optional[str] = None):
             if zone and zone_name != zone:
                 continue
             
+            # Ensure zone exists in dict (in case of new categories)
+            if zone_name not in categorized_villas:
+                categorized_villas[zone_name] = []
+            
             # Only include public-facing data
             public_villa = {
                 "id": villa["id"],
