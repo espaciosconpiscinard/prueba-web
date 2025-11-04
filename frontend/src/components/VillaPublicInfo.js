@@ -422,24 +422,54 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           </div>
         </div>
 
-        {/* Description */}
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>
-            Descripción Pública
-          </label>
-          <textarea
-            value={publicData.public_description}
-            onChange={(e) => setPublicData({ ...publicData, public_description: e.target.value })}
-            placeholder="Escribe una descripción atractiva para mostrar en la web..."
-            style={{
-              width: '100%',
-              padding: '10px',
-              border: '1px solid #ddd',
-              borderRadius: '5px',
-              minHeight: '100px',
-              fontSize: '1rem'
-            }}
-          />
+        {/* Descripciones Detalladas para Modal */}
+        <div style={{ marginBottom: '20px', padding: '20px', background: '#ede9fe', borderRadius: '10px', border: '2px solid #8b5cf6' }}>
+          <h3 style={{ fontSize: '1.2rem', color: '#5b21b6', marginBottom: '15px', fontWeight: 'bold' }}>
+            📝 DESCRIPCIONES DETALLADAS (Modal - Al hacer clic en villa)
+          </h3>
+          <p style={{ fontSize: '0.9rem', color: '#6b21a8', marginBottom: '15px' }}>
+            Estas descripciones se mostrarán cuando el usuario haga clic en la villa del catálogo
+          </p>
+
+          {/* Descripción Detallada Pasadía */}
+          <div style={{ marginBottom: '15px', padding: '12px', background: 'white', borderRadius: '8px', border: '1px solid #3b82f6' }}>
+            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '8px', color: '#1e40af' }}>
+              ☀️ Descripción Completa - Pasadía
+            </label>
+            <textarea
+              value={publicData.public_description_pasadia}
+              onChange={(e) => setPublicData({ ...publicData, public_description_pasadia: e.target.value })}
+              placeholder="Descripción completa y detallada para la modalidad de Pasadía. Incluye horarios, servicios incluidos, restricciones, etc."
+              style={{
+                width: '100%',
+                padding: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '5px',
+                minHeight: '120px',
+                fontSize: '0.95rem'
+              }}
+            />
+          </div>
+
+          {/* Descripción Detallada Amanecida */}
+          <div style={{ padding: '12px', background: 'white', borderRadius: '8px', border: '1px solid #6366f1' }}>
+            <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '8px', color: '#4338ca' }}>
+              🌙 Descripción Completa - Amanecida
+            </label>
+            <textarea
+              value={publicData.public_description_amanecida}
+              onChange={(e) => setPublicData({ ...publicData, public_description_amanecida: e.target.value })}
+              placeholder="Descripción completa y detallada para la modalidad de Amanecida. Incluye horarios, servicios incluidos, restricciones, etc."
+              style={{
+                width: '100%',
+                padding: '10px',
+                border: '1px solid #ddd',
+                borderRadius: '5px',
+                minHeight: '120px',
+                fontSize: '0.95rem'
+              }}
+            />
+          </div>
         </div>
 
         {/* Images and Videos */}
