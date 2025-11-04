@@ -188,6 +188,81 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           </button>
         </div>
 
+        {/* AI Generator from Airbnb */}
+        <div style={{ marginBottom: '20px', padding: '15px', background: '#f0f9ff', borderRadius: '8px', border: '2px dashed #3b82f6' }}>
+          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '10px', color: '#1e40af' }}>
+            🤖 Generar Descripción con IA desde Airbnb
+          </label>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <input
+              type="url"
+              value={airbnbLink}
+              onChange={(e) => setAirbnbLink(e.target.value)}
+              placeholder="https://www.airbnb.com/rooms/..."
+              style={{ flex: 1, padding: '10px', border: '1px solid #3b82f6', borderRadius: '5px' }}
+            />
+            <Button 
+              onClick={generateDescriptionFromAirbnb} 
+              disabled={generatingAI}
+              style={{ background: '#3b82f6', color: 'white', minWidth: '120px' }}
+            >
+              {generatingAI ? <><Loader className="animate-spin" size={16} /> Generando...</> : 'Generar'}
+            </Button>
+          </div>
+          <p style={{ fontSize: '0.85rem', color: '#6b7280', marginTop: '5px' }}>
+            Pega el link de Airbnb y la IA extraerá la información automáticamente
+          </p>
+        </div>
+
+        {/* Capacity Configuration */}
+        <div style={{ marginBottom: '20px', padding: '15px', background: '#f9fafb', borderRadius: '8px' }}>
+          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>
+            👥 Capacidad de Personas
+          </label>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' }}>
+            <div>
+              <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                <input
+                  type="checkbox"
+                  checked={publicData.public_has_pasadia}
+                  onChange={(e) => setPublicData({ ...publicData, public_has_pasadia: e.target.checked })}
+                  style={{ marginRight: '8px' }}
+                />
+                <span style={{ fontWeight: 'bold' }}>Pasadía</span>
+              </label>
+              {publicData.public_has_pasadia && (
+                <input
+                  type="number"
+                  value={publicData.public_max_guests_pasadia}
+                  onChange={(e) => setPublicData({ ...publicData, public_max_guests_pasadia: parseInt(e.target.value) || 0 })}
+                  placeholder="Máximo de personas"
+                  style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                />
+              )}
+            </div>
+            <div>
+              <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                <input
+                  type="checkbox"
+                  checked={publicData.public_has_amanecida}
+                  onChange={(e) => setPublicData({ ...publicData, public_has_amanecida: e.target.checked })}
+                  style={{ marginRight: '8px' }}
+                />
+                <span style={{ fontWeight: 'bold' }}>Amanecida</span>
+              </label>
+              {publicData.public_has_amanecida && (
+                <input
+                  type="number"
+                  value={publicData.public_max_guests_amanecida}
+                  onChange={(e) => setPublicData({ ...publicData, public_max_guests_amanecida: parseInt(e.target.value) || 0 })}
+                  placeholder="Máximo de personas"
+                  style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Description */}
         <div style={{ marginBottom: '20px' }}>
           <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '5px' }}>
