@@ -5,6 +5,8 @@ const Villas = () => {
   const [villasByZone, setVillasByZone] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedZone, setSelectedZone] = useState('all');
+  const [selectedVilla, setSelectedVilla] = useState(null); // Para el modal
+  const [currentImageIndex, setCurrentImageIndex] = useState({}); // Para controlar el slide de cada villa
 
   useEffect(() => {
     fetchVillas();
