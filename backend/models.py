@@ -150,9 +150,13 @@ class VillaBase(BaseModel):
     
     # Información pública para la página web
     public_description: Optional[str] = None  # Descripción para mostrar en web pública
-    public_images: List[str] = []  # URLs de imágenes públicas (base64 o URLs)
+    public_images: List[str] = []  # URLs de imágenes y videos públicos (base64 o URLs) - hasta 20
     public_amenities: List[str] = []  # Amenidades a mostrar públicamente
     public_features: List[str] = []  # Características destacadas para web pública
+    public_max_guests_pasadia: Optional[int] = None  # Capacidad para pasadía
+    public_max_guests_amanecida: Optional[int] = None  # Capacidad para amanecida
+    public_has_pasadia: Optional[bool] = None  # Si aplica para pasadía
+    public_has_amanecida: Optional[bool] = None  # Si aplica para amanecida
 
 class VillaCreate(VillaBase):
     pass
