@@ -3834,11 +3834,19 @@ app.include_router(api_router)
 
 # Serve public website static files
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 import os
 
 public_web_path = os.path.join(os.path.dirname(__file__), "public-web-build")
 if os.path.exists(public_web_path):
-    app.mount("/web", StaticFiles(directory=public_web_path, html=True), name="public-web")
+    # Serve static assets
+    app.mount("/web/static", StaticFiles(directory=os.path.join(public_web_path, "static")), name="public-web-static")
+    
+    # Serve index.html for all /web routes
+    @app.get("/web/{full_path:path}")
+    async def serve_public_web(full_path: str):
+        index_path = os.path.join(public_web_path, "index.html")
+        return FileResponse(index_path)
 
 # CORS middleware
 app.add_middleware(
