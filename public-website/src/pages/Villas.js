@@ -336,6 +336,118 @@ const Villas = () => {
                         >
                           Ver Detalles
                         </button>
+
+                        {/* Botón Agregar a Lista de Interés */}
+                        <div style={{ position: 'relative', marginTop: '10px' }}>
+                          <button 
+                            onClick={(e) => { 
+                              e.stopPropagation(); 
+                              setShowModalitySelector(showModalitySelector === villa.id ? null : villa.id);
+                            }}
+                            style={{ 
+                              width: '100%',
+                              padding: '8px',
+                              background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                              color: 'white',
+                              border: 'none',
+                              borderRadius: '5px',
+                              fontSize: '0.85rem',
+                              cursor: 'pointer',
+                              fontWeight: 'bold'
+                            }}
+                          >
+                            🏠 Agregar a mi Lista
+                          </button>
+
+                          {/* Selector de modalidad */}
+                          {showModalitySelector === villa.id && (
+                            <div style={{
+                              position: 'absolute',
+                              bottom: '45px',
+                              left: '0',
+                              right: '0',
+                              background: 'white',
+                              border: '2px solid #080644',
+                              borderRadius: '8px',
+                              padding: '10px',
+                              zIndex: 100,
+                              boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                            }}>
+                              <div style={{ fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '8px', color: '#080644' }}>
+                                Selecciona modalidad:
+                              </div>
+                              {villa.catalog_show_pasadia && (
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'pasadia'); }}
+                                  style={{
+                                    width: '100%',
+                                    padding: '6px',
+                                    marginBottom: '5px',
+                                    background: '#eff6ff',
+                                    border: '1px solid #3b82f6',
+                                    borderRadius: '4px',
+                                    fontSize: '0.75rem',
+                                    cursor: 'pointer',
+                                    textAlign: 'left'
+                                  }}
+                                >
+                                  ☀️ Pasadía
+                                </button>
+                              )}
+                              {villa.catalog_show_amanecida && (
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'amanecida'); }}
+                                  style={{
+                                    width: '100%',
+                                    padding: '6px',
+                                    marginBottom: '5px',
+                                    background: '#eef2ff',
+                                    border: '1px solid #6366f1',
+                                    borderRadius: '4px',
+                                    fontSize: '0.75rem',
+                                    cursor: 'pointer',
+                                    textAlign: 'left'
+                                  }}
+                                >
+                                  🌙 Amanecida
+                                </button>
+                              )}
+                              {villa.catalog_show_pasadia && villa.catalog_show_amanecida && (
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'ambas'); }}
+                                  style={{
+                                    width: '100%',
+                                    padding: '6px',
+                                    marginBottom: '5px',
+                                    background: '#f0fdf4',
+                                    border: '1px solid #22c55e',
+                                    borderRadius: '4px',
+                                    fontSize: '0.75rem',
+                                    cursor: 'pointer',
+                                    textAlign: 'left'
+                                  }}
+                                >
+                                  ☀️🌙 Ambas
+                                </button>
+                              )}
+                              <button
+                                onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'evento'); }}
+                                style={{
+                                  width: '100%',
+                                  padding: '6px',
+                                  background: '#fef3c7',
+                                  border: '1px solid #f59e0b',
+                                  borderRadius: '4px',
+                                  fontSize: '0.75rem',
+                                  cursor: 'pointer',
+                                  textAlign: 'left'
+                                }}
+                              >
+                                🎉 Evento
+                              </button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );
