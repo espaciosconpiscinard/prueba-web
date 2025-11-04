@@ -211,7 +211,7 @@ const CartModal = () => {
             </div>
           ) : (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: '#666' }}>
-              <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>🏠</p>
+              <p style={{ fontSize: '1.2rem', marginBottom: '10px' }}>🛒</p>
               <p>No has agregado villas aún</p>
               <p style={{ fontSize: '0.9rem' }}>Explora nuestro catálogo y agrega las que te interesen</p>
             </div>
