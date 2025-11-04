@@ -8,6 +8,7 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
   const [publicData, setPublicData] = useState({
     public_description: villa.public_description || '',
     public_images: villa.public_images || [],
+    default_public_image_index: villa.default_public_image_index !== undefined ? villa.default_public_image_index : 0,
     public_amenities: villa.public_amenities || [],
     public_features: villa.public_features || [],
     public_max_guests_pasadia: villa.public_max_guests_pasadia || villa.max_guests || 0,
