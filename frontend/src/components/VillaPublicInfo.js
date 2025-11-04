@@ -96,41 +96,43 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     setPublicData({ ...publicData, public_features: updated });
   };
 
-  const generateDescriptionFromAirbnb = async () => {
-    if (!airbnbLink.trim()) {
-      alert('Por favor ingresa un link de Airbnb');
+  const generateCatalogDescription = async () => {
+    if (!publicData.public_description.trim()) {
+      alert('Primero necesitas agregar la descripción completa');
       return;
     }
 
-    setGeneratingAI(true);
+    setGeneratingCatalogAI(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`${API_URL}/api/ai/generate-description`, {
+      const response = await fetch(`${API_URL}/api/ai/generate-catalog-description`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ url: airbnbLink })
+        body: JSON.stringify({ 
+          full_description: publicData.public_description,
+          villa_code: villa.code,
+          amenities: publicData.public_amenities
+        })
       });
 
       if (response.ok) {
         const data = await response.json();
         setPublicData({
           ...publicData,
-          public_description: data.description || '',
-          public_amenities: data.amenities || publicData.public_amenities,
-          public_features: data.features || publicData.public_features
+          catalog_description: data.catalog_description || ''
         });
-        alert('¡Descripción generada exitosamente!');
+        alert('¡Descripción de catálogo generada!');
       } else {
-        alert('Error al generar descripción. Verifica el link.');
+        alert('Error al generar descripción.');
       }
     } catch (error) {
       console.error('Error:', error);
       alert('Error al conectar con la IA');
     } finally {
-      setGeneratingAI(false);
+      setGeneratingCatalogAI(false);
     }
   };
 
