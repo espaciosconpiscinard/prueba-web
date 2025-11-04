@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useCart } from '../context/CartContext';
 
 const Villas = () => {
+  const { addToCart } = useCart();
   const [villasByZone, setVillasByZone] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedZone, setSelectedZone] = useState('all');
   const [selectedVilla, setSelectedVilla] = useState(null); // Para el modal
   const [currentImageIndex, setCurrentImageIndex] = useState({}); // Para controlar el slide de cada villa
+  const [showModalitySelector, setShowModalitySelector] = useState(null); // Para mostrar selector de modalidad
 
   useEffect(() => {
     fetchVillas();
