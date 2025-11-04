@@ -3786,16 +3786,16 @@ async def update_quotation_status(
 async def get_public_villas(zone: Optional[str] = None):
     """Get villas for public website catalog"""
     try:
-        # Get ALL categories first
-        all_categories = await db.categories.find({}, {"_id": 0}).to_list(100)
+        # Get ALL categories first (sin límite)
+        all_categories = await db.categories.find({}, {"_id": 0}).to_list(None)
         
         # Initialize with all categories (empty arrays for now)
         categorized_villas = {}
         for category in all_categories:
             categorized_villas[category["name"]] = []
         
-        # Get all villas
-        villas = await db.villas.find({}, {"_id": 0}).to_list(100)
+        # Get ALL villas (sin límite de 100)
+        villas = await db.villas.find({}, {"_id": 0}).to_list(None)
         
         # Add "Sin Categoría" if there are villas without category
         categorized_villas["Sin Categoría"] = []
