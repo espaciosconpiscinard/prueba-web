@@ -15,6 +15,7 @@ import Users from './components/Users';
 import Configuration from './components/Configuration';
 import InvoiceEditor from './components/InvoiceEditor';
 import Commissions from './components/Commissions';
+import PublicWebView from './components/PublicWebView';
 import './App.css';
 
 const AppContent = () => {
