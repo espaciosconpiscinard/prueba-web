@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/pagina-web/static/css/main.3d7f1556.css",
-    "main.js": "/pagina-web/static/js/main.5ba382b3.js",
+    "main.js": "/pagina-web/static/js/main.f84c8942.js",
     "index.html": "/pagina-web/index.html",
     "main.3d7f1556.css.map": "/pagina-web/static/css/main.3d7f1556.css.map",
-    "main.5ba382b3.js.map": "/pagina-web/static/js/main.5ba382b3.js.map"
+    "main.f84c8942.js.map": "/pagina-web/static/js/main.f84c8942.js.map"
   },
   "entrypoints": [
     "static/css/main.3d7f1556.css",
-    "static/js/main.5ba382b3.js"
+    "static/js/main.f84c8942.js"
   ]
 }
