@@ -3786,24 +3786,24 @@ async def update_quotation_status(
 async def get_public_villas(zone: Optional[str] = None):
     """Get villas for public website catalog"""
     try:
-        # Get villas with category info
-        query = {}
-        if zone:
-            # Find category by name
-            category = await db.categories.find_one({"name": zone}, {"_id": 0})
-            if category:
-                query["category_id"] = category["id"]
-        
-        villas = await db.villas.find(query, {"_id": 0}).to_list(100)
+        # Get all villas (no authentication required for public view)
+        villas = await db.villas.find({}, {"_id": 0}).to_list(100)
         
         # Group by category
         categorized_villas = {}
         for villa in villas:
+            # Determine zone name
+            zone_name = "Todas las Villas"
             if villa.get("category_id"):
                 category = await db.categories.find_one({"id": villa["category_id"]}, {"_id": 0})
-                zone_name = category["name"] if category else "Sin Categoría"
+                if category:
+                    zone_name = category["name"]
             else:
                 zone_name = "Sin Categoría"
+            
+            # Filter by zone if specified
+            if zone and zone_name != zone:
+                continue
             
             if zone_name not in categorized_villas:
                 categorized_villas[zone_name] = []
