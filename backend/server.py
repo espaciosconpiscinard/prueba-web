@@ -43,6 +43,7 @@ from auth import (
     get_current_user, require_admin
 )
 from database import Database, serialize_doc, serialize_docs, prepare_doc_for_insert, restore_datetimes
+from google_sheets_service import sheets_service
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
