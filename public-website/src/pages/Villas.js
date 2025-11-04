@@ -356,7 +356,7 @@ const Villas = () => {
                               fontWeight: 'bold'
                             }}
                           >
-                            🏠 Agregar a mi Lista
+                            🛒 Agregar a mi Lista
                           </button>
 
                           {/* Selector de modalidad */}
