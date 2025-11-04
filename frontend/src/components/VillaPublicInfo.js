@@ -91,6 +91,44 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     setPublicData({ ...publicData, public_features: updated });
   };
 
+  const generateDescriptionFromAirbnb = async () => {
+    if (!airbnbLink.trim()) {
+      alert('Por favor ingresa un link de Airbnb');
+      return;
+    }
+
+    setGeneratingAI(true);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${API_URL}/api/ai/generate-description`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ url: airbnbLink })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setPublicData({
+          ...publicData,
+          public_description: data.description || '',
+          public_amenities: data.amenities || publicData.public_amenities,
+          public_features: data.features || publicData.public_features
+        });
+        alert('¡Descripción generada exitosamente!');
+      } else {
+        alert('Error al generar descripción. Verifica el link.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Error al conectar con la IA');
+    } finally {
+      setGeneratingAI(false);
+    }
+  };
+
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -108,7 +146,8 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
         onUpdate();
         onClose();
       } else {
-        alert('Error al actualizar');
+        const errorData = await response.json();
+        alert(`Error al actualizar: ${errorData.detail || 'Error desconocido'}`);
       }
     } catch (error) {
       console.error('Error:', error);
