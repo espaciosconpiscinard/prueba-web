@@ -20,6 +20,10 @@ class GoogleSheetsService:
     def connect(self):
         """Conectar con Google Sheets"""
         try:
+            if self.client and self.sheet:
+                # Ya está conectado
+                return True
+                
             creds = ServiceAccountCredentials.from_json_keyfile_name(
                 self.credentials_path, 
                 self.scope
@@ -30,6 +34,8 @@ class GoogleSheetsService:
             return True
         except Exception as e:
             logger.error(f"❌ Error al conectar con Google Sheets: {str(e)}")
+            self.client = None
+            self.sheet = None
             return False
     
     def initialize_headers(self):
