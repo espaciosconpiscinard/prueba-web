@@ -224,43 +224,69 @@ const Villas = () => {
                           {villa.code}
                         </h3>
                         
-                        {/* Descripción de catálogo o fallback */}
-                        {(villa.catalog_description || villa.description) && (
-                          <p className="card-description" style={{ 
-                            textAlign: 'center', 
-                            marginTop: '8px',
-                            fontSize: '0.75rem',
-                            whiteSpace: 'pre-line',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            display: '-webkit-box',
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: 'vertical',
-                            lineHeight: '1.3'
-                          }}>
-                            {villa.catalog_description || villa.description}
-                          </p>
-                        )}
-                        
-                        <div style={{ marginTop: '10px', textAlign: 'center', fontSize: '0.75rem' }}>
-                          {/* Precio si está configurado */}
-                          {villa.catalog_show_price && villa.catalog_price && (
-                            <div style={{ marginBottom: '6px', fontWeight: 'bold', color: '#CFA57D', fontSize: '0.85rem' }}>
-                              💰 {villa.catalog_price}
-                            </div>
-                          )}
-                          
-                          {/* Modalidades según configuración */}
-                          {(villa.catalog_show_pasadia || villa.catalog_show_amanecida) && (
-                            <div style={{ marginBottom: '6px' }}>
-                              {villa.catalog_show_pasadia && villa.max_guests_pasadia && (
-                                <div style={{ marginBottom: '2px' }}>
-                                  ☀️ Pasadía: {villa.max_guests_pasadia}p
+                        {/* Información de catálogo dividida por modalidad */}
+                        <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
+                          {/* PASADÍA */}
+                          {villa.catalog_show_pasadia && (
+                            <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
+                              <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
+                                ☀️ Pasadía
+                              </div>
+                              {villa.catalog_description_pasadia && (
+                                <p style={{ 
+                                  fontSize: '0.7rem',
+                                  lineHeight: '1.2',
+                                  marginBottom: '4px',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical'
+                                }}>
+                                  {villa.catalog_description_pasadia}
+                                </p>
+                              )}
+                              {villa.catalog_show_price && villa.catalog_price_pasadia && (
+                                <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
+                                  💰 {villa.catalog_currency_pasadia || 'RD$'} {parseFloat(villa.catalog_price_pasadia).toLocaleString()}
                                 </div>
                               )}
-                              {villa.catalog_show_amanecida && villa.max_guests_amanecida && (
-                                <div>
-                                  🌙 Amanecida: {villa.max_guests_amanecida}p
+                              {villa.max_guests_pasadia && (
+                                <div style={{ fontSize: '0.7rem', color: '#666' }}>
+                                  👥 Hasta {villa.max_guests_pasadia} personas
+                                </div>
+                              )}
+                            </div>
+                          )}
+
+                          {/* AMANECIDA */}
+                          {villa.catalog_show_amanecida && (
+                            <div style={{ marginBottom: '8px', padding: '8px', background: '#eef2ff', borderRadius: '6px', border: '1px solid #6366f1' }}>
+                              <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
+                                🌙 Amanecida
+                              </div>
+                              {villa.catalog_description_amanecida && (
+                                <p style={{ 
+                                  fontSize: '0.7rem',
+                                  lineHeight: '1.2',
+                                  marginBottom: '4px',
+                                  overflow: 'hidden',
+                                  textOverflow: 'ellipsis',
+                                  display: '-webkit-box',
+                                  WebkitLineClamp: 2,
+                                  WebkitBoxOrient: 'vertical'
+                                }}>
+                                  {villa.catalog_description_amanecida}
+                                </p>
+                              )}
+                              {villa.catalog_show_price && villa.catalog_price_amanecida && (
+                                <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
+                                  💰 {villa.catalog_currency_amanecida || 'RD$'} {parseFloat(villa.catalog_price_amanecida).toLocaleString()}
+                                </div>
+                              )}
+                              {villa.max_guests_amanecida && (
+                                <div style={{ fontSize: '0.7rem', color: '#666' }}>
+                                  👥 Hasta {villa.max_guests_amanecida} personas
                                 </div>
                               )}
                             </div>
@@ -268,7 +294,7 @@ const Villas = () => {
                           
                           {/* Amenidades - solo 2 */}
                           {villa.amenities && villa.amenities.length > 0 && (
-                            <div style={{ marginTop: '6px' }}>
+                            <div style={{ marginTop: '6px', textAlign: 'center' }}>
                               {villa.amenities.slice(0, 2).map((amenity, idx) => (
                                 <span 
                                   key={idx}
