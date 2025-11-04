@@ -712,3 +712,151 @@ class LogoConfig(BaseModel):
     uploaded_by: str
 
 
+# ============ CMS MODELS FOR PUBLIC WEBSITE ============
+
+# Modelo para contenido editable de la página (hero, textos, etc.)
+class WebsiteContent(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    section: str  # 'hero', 'about', 'services', etc.
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    description: Optional[str] = None
+    button_text: Optional[str] = None
+    button_link: Optional[str] = None
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_by: str
+
+class WebsiteContentUpdate(BaseModel):
+    title: Optional[str] = None
+    subtitle: Optional[str] = None
+    description: Optional[str] = None
+    button_text: Optional[str] = None
+    button_link: Optional[str] = None
+
+# Modelo para imágenes/slides de la página
+class WebsiteImage(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    section: str  # 'hero_slider', 'background', 'gallery', etc.
+    image_url: str  # URL de la imagen (puede ser base64 o URL externa)
+    alt_text: Optional[str] = None
+    order: int = 0  # Para ordenar slides
+    is_active: bool = True
+    uploaded_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    uploaded_by: str
+
+class WebsiteImageCreate(BaseModel):
+    section: str
+    image_url: str
+    alt_text: Optional[str] = None
+    order: int = 0
+    is_active: bool = True
+
+class WebsiteImageUpdate(BaseModel):
+    image_url: Optional[str] = None
+    alt_text: Optional[str] = None
+    order: Optional[int] = None
+    is_active: Optional[bool] = None
+
+# Modelo para servicios públicos (catálogo)
+class PublicService(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    category: str  # 'hoteles', 'resort', 'decoracion', 'eventos', 'mobiliario', 'catering'
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    price_range: Optional[str] = None  # "Desde RD$ 5,000"
+    features: List[str] = []  # Lista de características
+    is_active: bool = True
+    order: int = 0
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_by: str
+
+class PublicServiceCreate(BaseModel):
+    name: str
+    category: str
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    price_range: Optional[str] = None
+    features: List[str] = []
+    is_active: bool = True
+    order: int = 0
+
+class PublicServiceUpdate(BaseModel):
+    name: Optional[str] = None
+    category: Optional[str] = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
+    price_range: Optional[str] = None
+    features: Optional[List[str]] = None
+    is_active: Optional[bool] = None
+    order: Optional[int] = None
+
+# Modelo para preguntas del chatbot
+class ChatBotQuestion(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    question_text: str
+    question_type: Literal["text", "choice", "date", "number"] = "text"
+    options: List[str] = []  # Para preguntas tipo choice
+    order: int = 0
+    is_required: bool = True
+    is_active: bool = True
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_by: str
+
+class ChatBotQuestionCreate(BaseModel):
+    question_text: str
+    question_type: Literal["text", "choice", "date", "number"] = "text"
+    options: List[str] = []
+    order: int = 0
+    is_required: bool = True
+    is_active: bool = True
+
+class ChatBotQuestionUpdate(BaseModel):
+    question_text: Optional[str] = None
+    question_type: Optional[Literal["text", "choice", "date", "number"]] = None
+    options: Optional[List[str]] = None
+    order: Optional[int] = None
+    is_required: Optional[bool] = None
+    is_active: Optional[bool] = None
+
+# Modelo para cotizaciones del cliente (lead capture)
+class ClientQuotation(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    client_name: str
+    client_phone: str
+    client_email: Optional[str] = None
+    event_date: Optional[str] = None
+    guests_count: Optional[int] = None
+    event_type: Optional[str] = None  # 'cumpleaños', 'boda', 'empresarial', etc.
+    zone_preference: Optional[str] = None
+    rental_type: Optional[str] = None  # 'pasadia', 'amanecida'
+    selected_villas: List[str] = []  # IDs de villas
+    selected_services: List[str] = []  # IDs de servicios
+    additional_info: Optional[str] = None
+    chatbot_responses: Optional[Dict[str, Any]] = None  # Respuestas del bot
+    status: Literal["new", "contacted", "quoted", "closed"] = "new"
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class ClientQuotationCreate(BaseModel):
+    client_name: str
+    client_phone: str
+    client_email: Optional[str] = None
+    event_date: Optional[str] = None
+    guests_count: Optional[int] = None
+    event_type: Optional[str] = None
+    zone_preference: Optional[str] = None
+    rental_type: Optional[str] = None
+    selected_villas: List[str] = []
+    selected_services: List[str] = []
+    additional_info: Optional[str] = None
+    chatbot_responses: Optional[Dict[str, Any]] = None
+
+
