@@ -23,29 +23,6 @@ const Villas = () => {
 
   const zones = Object.keys(villasByZone);
 
-  const getPriceRange = (villa) => {
-    let prices = [];
-    if (villa.pasadia_prices && villa.pasadia_prices.length > 0) {
-      prices = [...prices, ...villa.pasadia_prices.map(p => p.client_price)];
-    }
-    if (villa.amanecida_prices && villa.amanecida_prices.length > 0) {
-      prices = [...prices, ...villa.amanecida_prices.map(p => p.client_price)];
-    }
-    if (villa.evento_prices && villa.evento_prices.length > 0) {
-      prices = [...prices, ...villa.evento_prices.map(p => p.client_price)];
-    }
-    
-    if (prices.length === 0) return 'Precio bajo consulta';
-    
-    const minPrice = Math.min(...prices);
-    const maxPrice = Math.max(...prices);
-    
-    if (minPrice === maxPrice) {
-      return `RD$ ${minPrice.toLocaleString()}`;
-    }
-    return `Desde RD$ ${minPrice.toLocaleString()}`;
-  };
-
   if (loading) {
     return (
       <div style={{ paddingTop: '80px', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
