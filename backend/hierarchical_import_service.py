@@ -225,9 +225,7 @@ async def import_villas(file_content: bytes, db) -> Dict:
                     has_pasadia = str(row.get('Tiene Pasadía', 'SI')).strip().upper() in ['SI', 'SÍ', 'YES', 'TRUE', '1']
                 
                 pasadia_prices = parse_prices_from_excel(row.get('Precios Pasadía *', ''))
-                if not pasadia_prices and has_pasadia:
-                    errors.append(f"Fila {idx+2}: Precios Pasadía es obligatorio si tiene pasadía")
-                    continue
+                # NO ES OBLIGATORIO - puede estar vacío
                 
                 # MODALIDAD AMANECIDA
                 has_amanecida = False
