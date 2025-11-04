@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { X, Loader } from 'lucide-react';
 import { Button } from './ui/button';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL || '';
@@ -9,11 +9,17 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     public_description: villa.public_description || '',
     public_images: villa.public_images || [],
     public_amenities: villa.public_amenities || [],
-    public_features: villa.public_features || []
+    public_features: villa.public_features || [],
+    public_max_guests_pasadia: villa.public_max_guests_pasadia || villa.max_guests || 0,
+    public_max_guests_amanecida: villa.public_max_guests_amanecida || villa.max_guests || 0,
+    public_has_pasadia: villa.public_has_pasadia !== undefined ? villa.public_has_pasadia : villa.has_pasadia || false,
+    public_has_amanecida: villa.public_has_amanecida !== undefined ? villa.public_has_amanecida : villa.has_amanecida || false
   });
   const [newAmenity, setNewAmenity] = useState('');
   const [newFeature, setNewFeature] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [airbnbLink, setAirbnbLink] = useState('');
+  const [generatingAI, setGeneratingAI] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = e.target.files;
