@@ -1137,12 +1137,11 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus:
-    - "Villa Catalog - Separate Pasadía/Amanecida Pricing and Descriptions"
+  current_focus: []
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  latest_test: "Implementado - Sistema de precios y descripciones separadas para Pasadía y Amanecida en catálogo público y modal de detalles."
+  latest_test: "COMPLETADO - Villa Catalog Separate Pricing: Todos los nuevos campos (catalog_description_pasadia/amanecida, catalog_price_pasadia/amanecida, catalog_currency_pasadia/amanecida, public_description_pasadia/amanecida) funcionando correctamente. Backend 100% funcional."
 
   - task: "Expenses Module - Supplier Payments and Extra Services"
     implemented: true
