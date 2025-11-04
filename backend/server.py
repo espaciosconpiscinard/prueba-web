@@ -3822,9 +3822,13 @@ async def get_public_villas(zone: Optional[str] = None):
                 "id": villa["id"],
                 "code": villa["code"],  # SOLO CÓDIGO
                 "description": villa.get("public_description") or villa.get("description", ""),  # Descripción pública
-                "max_guests": villa.get("max_guests", 0),  # Capacidad
+                "max_guests": villa.get("max_guests", 0),  # Capacidad (fallback)
+                "max_guests_pasadia": villa.get("public_max_guests_pasadia"),
+                "max_guests_amanecida": villa.get("public_max_guests_amanecida"),
+                "has_pasadia": villa.get("public_has_pasadia", False),
+                "has_amanecida": villa.get("public_has_amanecida", False),
                 "zone": zone_name,
-                "images": villa.get("public_images", []),  # Imágenes públicas
+                "images": villa.get("public_images", []),  # Imágenes y videos públicos
                 "amenities": villa.get("public_amenities", []),  # Amenidades públicas
                 "features": villa.get("public_features", [])  # Características públicas
                 # NO incluir: name, prices, owner_price, category_id, etc.
