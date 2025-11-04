@@ -217,59 +217,23 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
             Esta información se mostrará en la card del catálogo (antes de hacer clic)
           </p>
 
-          {/* Descripción Corta con IA */}
-          <div style={{ marginBottom: '15px' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-              <label style={{ fontWeight: 'bold' }}>Descripción Corta para Catálogo</label>
-              <Button 
-                onClick={generateCatalogDescription} 
-                disabled={generatingCatalogAI}
-                size="sm"
-                style={{ background: '#3b82f6', color: 'white' }}
-              >
-                {generatingCatalogAI ? <><Loader className="animate-spin" size={14} /> Generando...</> : '🤖 Generar con IA'}
-              </Button>
-            </div>
-            <textarea
-              value={publicData.catalog_description}
-              onChange={(e) => setPublicData({ ...publicData, catalog_description: e.target.value })}
-              placeholder="Descripción corta y atractiva (2-3 líneas). Usa IA para generar automáticamente desde la descripción completa."
-              style={{
-                width: '100%',
-                padding: '10px',
-                border: '1px solid #f59e0b',
-                borderRadius: '5px',
-                minHeight: '60px',
-                fontSize: '0.95rem'
-              }}
-            />
-          </div>
-
-          {/* Precio */}
+          {/* Control de visibilidad global */}
           <div style={{ marginBottom: '15px', padding: '12px', background: 'white', borderRadius: '8px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+            <label style={{ display: 'flex', alignItems: 'center' }}>
               <input
                 type="checkbox"
                 checked={publicData.catalog_show_price}
                 onChange={(e) => setPublicData({ ...publicData, catalog_show_price: e.target.checked })}
                 style={{ marginRight: '8px', width: '18px', height: '18px' }}
               />
-              <span style={{ fontWeight: 'bold' }}>💰 Mostrar Precio en Catálogo</span>
+              <span style={{ fontWeight: 'bold' }}>💰 Mostrar Precios en Catálogo</span>
             </label>
-            {publicData.catalog_show_price && (
-              <input
-                type="text"
-                value={publicData.catalog_price}
-                onChange={(e) => setPublicData({ ...publicData, catalog_price: e.target.value })}
-                placeholder="Ej: Desde RD$ 5,000 o RD$ 3,500/día"
-                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
-              />
-            )}
           </div>
 
-          {/* Capacidades en catálogo */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-            <div style={{ padding: '12px', background: 'white', borderRadius: '8px' }}>
+          {/* SECCIÓN PASADÍA */}
+          <div style={{ marginBottom: '15px', padding: '15px', background: 'white', borderRadius: '8px', border: '2px solid #3b82f6' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <h4 style={{ fontSize: '1.1rem', color: '#1e40af', fontWeight: 'bold' }}>☀️ PASADÍA</h4>
               <label style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="checkbox"
@@ -277,10 +241,70 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
                   onChange={(e) => setPublicData({ ...publicData, catalog_show_pasadia: e.target.checked })}
                   style={{ marginRight: '8px', width: '18px', height: '18px' }}
                 />
-                <span style={{ fontWeight: 'bold' }}>☀️ Mostrar Pasadía</span>
+                <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>Mostrar en Catálogo</span>
               </label>
             </div>
-            <div style={{ padding: '12px', background: 'white', borderRadius: '8px' }}>
+            
+            {publicData.catalog_show_pasadia && (
+              <>
+                {/* Descripción Corta Pasadía */}
+                <div style={{ marginBottom: '10px' }}>
+                  <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                    Descripción Corta (Catálogo)
+                  </label>
+                  <textarea
+                    value={publicData.catalog_description_pasadia}
+                    onChange={(e) => setPublicData({ ...publicData, catalog_description_pasadia: e.target.value })}
+                    placeholder="Descripción breve para mostrar en la card del catálogo (2-3 líneas)"
+                    style={{
+                      width: '100%',
+                      padding: '8px',
+                      border: '1px solid #ddd',
+                      borderRadius: '5px',
+                      minHeight: '50px',
+                      fontSize: '0.9rem'
+                    }}
+                  />
+                </div>
+
+                {/* Precio Pasadía */}
+                {publicData.catalog_show_price && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '10px' }}>
+                    <div>
+                      <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                        Precio
+                      </label>
+                      <input
+                        type="number"
+                        value={publicData.catalog_price_pasadia}
+                        onChange={(e) => setPublicData({ ...publicData, catalog_price_pasadia: e.target.value })}
+                        placeholder="Ej: 5000"
+                        style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                        Moneda
+                      </label>
+                      <select
+                        value={publicData.catalog_currency_pasadia}
+                        onChange={(e) => setPublicData({ ...publicData, catalog_currency_pasadia: e.target.value })}
+                        style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                      >
+                        <option value="RD$">RD$</option>
+                        <option value="USD$">USD$</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+
+          {/* SECCIÓN AMANECIDA */}
+          <div style={{ marginBottom: '0', padding: '15px', background: 'white', borderRadius: '8px', border: '2px solid #6366f1' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+              <h4 style={{ fontSize: '1.1rem', color: '#4338ca', fontWeight: 'bold' }}>🌙 AMANECIDA</h4>
               <label style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="checkbox"
@@ -288,9 +312,64 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
                   onChange={(e) => setPublicData({ ...publicData, catalog_show_amanecida: e.target.checked })}
                   style={{ marginRight: '8px', width: '18px', height: '18px' }}
                 />
-                <span style={{ fontWeight: 'bold' }}>🌙 Mostrar Amanecida</span>
+                <span style={{ fontWeight: 'bold', fontSize: '0.9rem' }}>Mostrar en Catálogo</span>
               </label>
             </div>
+            
+            {publicData.catalog_show_amanecida && (
+              <>
+                {/* Descripción Corta Amanecida */}
+                <div style={{ marginBottom: '10px' }}>
+                  <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                    Descripción Corta (Catálogo)
+                  </label>
+                  <textarea
+                    value={publicData.catalog_description_amanecida}
+                    onChange={(e) => setPublicData({ ...publicData, catalog_description_amanecida: e.target.value })}
+                    placeholder="Descripción breve para mostrar en la card del catálogo (2-3 líneas)"
+                    style={{
+                      width: '100%',
+                      padding: '8px',
+                      border: '1px solid #ddd',
+                      borderRadius: '5px',
+                      minHeight: '50px',
+                      fontSize: '0.9rem'
+                    }}
+                  />
+                </div>
+
+                {/* Precio Amanecida */}
+                {publicData.catalog_show_price && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '10px' }}>
+                    <div>
+                      <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                        Precio
+                      </label>
+                      <input
+                        type="number"
+                        value={publicData.catalog_price_amanecida}
+                        onChange={(e) => setPublicData({ ...publicData, catalog_price_amanecida: e.target.value })}
+                        placeholder="Ej: 8000"
+                        style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ fontWeight: 'bold', fontSize: '0.9rem', display: 'block', marginBottom: '5px' }}>
+                        Moneda
+                      </label>
+                      <select
+                        value={publicData.catalog_currency_amanecida}
+                        onChange={(e) => setPublicData({ ...publicData, catalog_currency_amanecida: e.target.value })}
+                        style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+                      >
+                        <option value="RD$">RD$</option>
+                        <option value="USD$">USD$</option>
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
           </div>
         </div>
 
