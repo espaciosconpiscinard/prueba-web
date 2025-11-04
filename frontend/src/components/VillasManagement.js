@@ -33,6 +33,9 @@ const VillasManagementNew = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [selectAllServices, setSelectAllServices] = useState(false);
   
+  // Estado para editor de información pública
+  const [editingPublicInfo, setEditingPublicInfo] = useState(null);
+  
   const [formData, setFormData] = useState({
     code: '',
     name: '',
