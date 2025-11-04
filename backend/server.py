@@ -4045,6 +4045,60 @@ async def update_villa_public_info(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al actualizar: {str(e)}")
 
+# ============ QUOTE REQUESTS (SOLICITUDES DE COTIZACIÓN) ============
+
+class VillaQuoteItem(BaseModel):
+    code: str
+    zone: str
+    modality: str
+    price: float = 0
+    currency: str = 'RD$'
+
+class QuoteRequestCreate(BaseModel):
+    nombre: str
+    telefono: str
+    fecha_interes: str
+    modalidad_general: Optional[str] = ''
+    tipo_actividad: Optional[str] = ''
+    villas: List[VillaQuoteItem]
+
+@api_router.post("/quote-requests")
+async def create_quote_request(request: QuoteRequestCreate):
+    """
+    Recibir solicitud de cotización y guardarla en Google Sheets
+    """
+    try:
+        # Preparar datos para Google Sheets
+        data = {
+            'nombre': request.nombre,
+            'telefono': request.telefono,
+            'fecha_interes': request.fecha_interes,
+            'modalidad_general': request.modalidad_general,
+            'tipo_actividad': request.tipo_actividad,
+            'villas': [villa.dict() for villa in request.villas]
+        }
+        
+        # Guardar en Google Sheets
+        success = sheets_service.add_quote_request(data)
+        
+        if not success:
+            raise HTTPException(
+                status_code=500, 
+                detail="Error al guardar la solicitud en Google Sheets"
+            )
+        
+        return {
+            "message": "Solicitud enviada exitosamente",
+            "success": True
+        }
+        
+    except Exception as e:
+        logger.error(f"Error al procesar solicitud de cotización: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error al procesar solicitud: {str(e)}"
+        )
+
 app.include_router(api_router)
 
 # Serve public website on /public-site route
