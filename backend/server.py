@@ -3817,21 +3817,14 @@ async def get_public_villas(zone: Optional[str] = None):
             if zone_name not in categorized_villas:
                 categorized_villas[zone_name] = []
             
-            # Only include public-facing data
+            # Only include public-facing data (NO PRICES, NO INTERNAL INFO)
             public_villa = {
                 "id": villa["id"],
-                "name": villa["name"],
-                "code": villa["code"],
-                "description": villa.get("description", ""),
-                "max_guests": villa.get("max_guests", 0),
-                "zone": zone_name,
-                "pasadia_prices": villa.get("pasadia_prices", []),
-                "amanecida_prices": villa.get("amanecida_prices", []),
-                "evento_prices": villa.get("evento_prices", []),
-                "default_check_in_time_pasadia": villa.get("default_check_in_time_pasadia"),
-                "default_check_out_time_pasadia": villa.get("default_check_out_time_pasadia"),
-                "default_check_in_time_amanecida": villa.get("default_check_in_time_amanecida"),
-                "default_check_out_time_amanecida": villa.get("default_check_out_time_amanecida"),
+                "code": villa["code"],  # SOLO CÓDIGO
+                "description": villa.get("description", ""),  # Descripción pública
+                "max_guests": villa.get("max_guests", 0),  # Capacidad
+                "zone": zone_name
+                # NO incluir: name, prices, owner_price, category_id, etc.
             }
             categorized_villas[zone_name].append(public_villa)
         
