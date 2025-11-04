@@ -151,6 +151,7 @@ class VillaBase(BaseModel):
     # Información pública para la página web
     public_description: Optional[str] = None  # Descripción completa (modal)
     public_images: List[str] = []  # URLs de imágenes y videos públicos (base64 o URLs) - hasta 20
+    default_public_image_index: Optional[int] = 0  # Índice de la imagen predeterminada para mostrar en catálogo (0-19)
     public_amenities: List[str] = []  # Amenidades a mostrar públicamente
     public_features: List[str] = []  # Características destacadas para web pública
     public_max_guests_pasadia: Optional[int] = None  # Capacidad para pasadía
