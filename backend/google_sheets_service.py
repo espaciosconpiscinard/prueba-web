@@ -9,13 +9,19 @@ logger = logging.getLogger(__name__)
 class GoogleSheetsService:
     def __init__(self):
         self.credentials_path = '/app/backend/google-credentials.json'
-        self.sheet_id = os.getenv('GOOGLE_SHEETS_ID')
+        self.sheet_id = None  # Se cargará al conectar
         self.scope = [
             'https://spreadsheets.google.com/feeds',
             'https://www.googleapis.com/auth/drive'
         ]
         self.client = None
         self.sheet = None
+    
+    def _get_sheet_id(self):
+        """Obtener Sheet ID desde variables de entorno"""
+        if not self.sheet_id:
+            self.sheet_id = os.getenv('GOOGLE_SHEETS_ID', '1t1yWGVajD1Z686aywJmIr1p41voeNws5-DaLPI-6XhM')
+        return self.sheet_id
         
     def connect(self):
         """Conectar con Google Sheets"""
