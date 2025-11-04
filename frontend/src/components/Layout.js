@@ -96,7 +96,7 @@ const Layout = ({ children, currentView, setCurrentView }) => {
           <div className="flex items-center space-x-4">
             {/* Botón Ver Página Web */}
             <a
-              href="https://piscinapp-1.preview.emergentagent.com:3001"
+              href={`${process.env.REACT_APP_BACKEND_URL.replace('/api', '')}/web`}
               target="_blank"
               rel="noopener noreferrer"
             >
