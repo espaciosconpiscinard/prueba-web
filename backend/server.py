@@ -4001,16 +4001,36 @@ async def update_villa_public_info(
             update_fields["public_has_pasadia"] = public_data["public_has_pasadia"]
         if "public_has_amanecida" in public_data:
             update_fields["public_has_amanecida"] = public_data["public_has_amanecida"]
-        if "catalog_description" in public_data:
-            update_fields["catalog_description"] = public_data["catalog_description"]
+        
+        # Controles de visibilidad del catálogo
         if "catalog_show_price" in public_data:
             update_fields["catalog_show_price"] = public_data["catalog_show_price"]
-        if "catalog_price" in public_data:
-            update_fields["catalog_price"] = public_data["catalog_price"]
         if "catalog_show_pasadia" in public_data:
             update_fields["catalog_show_pasadia"] = public_data["catalog_show_pasadia"]
         if "catalog_show_amanecida" in public_data:
             update_fields["catalog_show_amanecida"] = public_data["catalog_show_amanecida"]
+        
+        # Información de catálogo - Pasadía
+        if "catalog_description_pasadia" in public_data:
+            update_fields["catalog_description_pasadia"] = public_data["catalog_description_pasadia"]
+        if "catalog_price_pasadia" in public_data:
+            update_fields["catalog_price_pasadia"] = public_data["catalog_price_pasadia"]
+        if "catalog_currency_pasadia" in public_data:
+            update_fields["catalog_currency_pasadia"] = public_data["catalog_currency_pasadia"]
+        
+        # Información de catálogo - Amanecida
+        if "catalog_description_amanecida" in public_data:
+            update_fields["catalog_description_amanecida"] = public_data["catalog_description_amanecida"]
+        if "catalog_price_amanecida" in public_data:
+            update_fields["catalog_price_amanecida"] = public_data["catalog_price_amanecida"]
+        if "catalog_currency_amanecida" in public_data:
+            update_fields["catalog_currency_amanecida"] = public_data["catalog_currency_amanecida"]
+        
+        # Descripciones detalladas (modal)
+        if "public_description_pasadia" in public_data:
+            update_fields["public_description_pasadia"] = public_data["public_description_pasadia"]
+        if "public_description_amanecida" in public_data:
+            update_fields["public_description_amanecida"] = public_data["public_description_amanecida"]
         
         await db.villas.update_one(
             {"id": villa_id},
