@@ -159,12 +159,24 @@ class VillaBase(BaseModel):
     public_has_amanecida: Optional[bool] = None  # Si aplica para amanecida
     
     # Información específica del CATÁLOGO (card inicial)
-    catalog_description: Optional[str] = None  # Descripción corta para el catálogo
+    # Descripciones separadas por modalidad
+    catalog_description_pasadia: Optional[str] = None  # Descripción corta para pasadía en catálogo
+    catalog_description_amanecida: Optional[str] = None  # Descripción corta para amanecida en catálogo
+    
+    # Precios separados por modalidad con moneda
+    catalog_price_pasadia: Optional[float] = None  # Precio pasadía (número)
+    catalog_currency_pasadia: Optional[str] = "RD$"  # Moneda pasadía
+    catalog_price_amanecida: Optional[float] = None  # Precio amanecida (número)
+    catalog_currency_amanecida: Optional[str] = "RD$"  # Moneda amanecida
+    
+    # Controles de visibilidad del catálogo
     catalog_show_price: Optional[bool] = False  # Mostrar precios en catálogo
-    catalog_price_pasadia: Optional[str] = None  # Precio pasadía (ej: "RD$ 5,000")
-    catalog_price_amanecida: Optional[str] = None  # Precio amanecida (ej: "RD$ 8,000")
-    catalog_show_pasadia: Optional[bool] = False  # Mostrar capacidad pasadía
-    catalog_show_amanecida: Optional[bool] = False  # Mostrar capacidad amanecida
+    catalog_show_pasadia: Optional[bool] = False  # Mostrar sección pasadía
+    catalog_show_amanecida: Optional[bool] = False  # Mostrar sección amanecida
+    
+    # Descripciones detalladas separadas (para modal)
+    public_description_pasadia: Optional[str] = None  # Descripción completa pasadía (modal)
+    public_description_amanecida: Optional[str] = None  # Descripción completa amanecida (modal)
 
 class VillaCreate(VillaBase):
     pass
