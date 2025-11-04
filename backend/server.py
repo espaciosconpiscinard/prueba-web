@@ -4073,35 +4073,52 @@ class QuoteRequestCreate(BaseModel):
 @api_router.post("/quote-requests")
 async def create_quote_request(request: QuoteRequestCreate):
     """
-    Recibir solicitud de cotización y guardarla en Google Sheets
+    Recibir solicitud de cotización y guardarla en MongoDB + Google Sheets
     """
     try:
-        # Preparar datos para Google Sheets
-        data = {
+        # Crear documento para MongoDB
+        quote_doc = {
+            'id': str(uuid.uuid4()),
             'nombre': request.nombre,
             'telefono': request.telefono,
             'fecha_interes': request.fecha_interes,
             'modalidad_general': request.modalidad_general,
             'tipo_actividad': request.tipo_actividad,
-            'villas': [villa.dict() for villa in request.villas]
+            'villas': [villa.dict() for villa in request.villas],
+            'created_at': datetime.now(timezone.utc).isoformat(),
+            'status': 'Pendiente'
         }
         
-        # Guardar en Google Sheets
-        success = sheets_service.add_quote_request(data)
+        # 1. Guardar en MongoDB (prioritario)
+        await db.quote_requests.insert_one(quote_doc)
+        logger.info(f"✅ Solicitud guardada en MongoDB: {request.nombre}")
         
-        if not success:
-            raise HTTPException(
-                status_code=500, 
-                detail="Error al guardar la solicitud en Google Sheets"
-            )
+        # 2. Intentar guardar en Google Sheets (opcional)
+        try:
+            data = {
+                'nombre': request.nombre,
+                'telefono': request.telefono,
+                'fecha_interes': request.fecha_interes,
+                'modalidad_general': request.modalidad_general,
+                'tipo_actividad': request.tipo_actividad,
+                'villas': [villa.dict() for villa in request.villas]
+            }
+            sheets_success = sheets_service.add_quote_request(data)
+            if sheets_success:
+                logger.info(f"✅ Solicitud también guardada en Google Sheets")
+            else:
+                logger.warning(f"⚠️ No se pudo guardar en Google Sheets, pero está en MongoDB")
+        except Exception as sheets_error:
+            logger.warning(f"⚠️ Error al guardar en Google Sheets: {str(sheets_error)}, pero está en MongoDB")
         
         return {
             "message": "Solicitud enviada exitosamente",
-            "success": True
+            "success": True,
+            "id": quote_doc['id']
         }
         
     except Exception as e:
-        logger.error(f"Error al procesar solicitud de cotización: {str(e)}")
+        logger.error(f"❌ Error al procesar solicitud de cotización: {str(e)}")
         raise HTTPException(
             status_code=500,
             detail=f"Error al procesar solicitud: {str(e)}"
