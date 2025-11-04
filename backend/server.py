@@ -3786,27 +3786,32 @@ async def update_quotation_status(
 async def get_public_villas(zone: Optional[str] = None):
     """Get villas for public website catalog"""
     try:
-        # Get all villas (no authentication required for public view)
+        # Get ALL categories first
+        all_categories = await db.categories.find({}, {"_id": 0}).to_list(100)
+        
+        # Initialize with all categories (empty arrays for now)
+        categorized_villas = {}
+        for category in all_categories:
+            categorized_villas[category["name"]] = []
+        
+        # Get all villas
         villas = await db.villas.find({}, {"_id": 0}).to_list(100)
         
-        # Group by category
-        categorized_villas = {}
+        # Add "Sin Categoría" if there are villas without category
+        categorized_villas["Sin Categoría"] = []
+        
+        # Group villas by category
         for villa in villas:
             # Determine zone name
-            zone_name = "Todas las Villas"
+            zone_name = "Sin Categoría"
             if villa.get("category_id"):
                 category = await db.categories.find_one({"id": villa["category_id"]}, {"_id": 0})
                 if category:
                     zone_name = category["name"]
-            else:
-                zone_name = "Sin Categoría"
             
             # Filter by zone if specified
             if zone and zone_name != zone:
                 continue
-            
-            if zone_name not in categorized_villas:
-                categorized_villas[zone_name] = []
             
             # Only include public-facing data
             public_villa = {
@@ -3825,6 +3830,10 @@ async def get_public_villas(zone: Optional[str] = None):
                 "default_check_out_time_amanecida": villa.get("default_check_out_time_amanecida"),
             }
             categorized_villas[zone_name].append(public_villa)
+        
+        # Remove "Sin Categoría" if empty
+        if len(categorized_villas["Sin Categoría"]) == 0:
+            del categorized_villas["Sin Categoría"]
         
         return categorized_villas
     except Exception as e:
