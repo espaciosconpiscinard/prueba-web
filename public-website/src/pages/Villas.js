@@ -120,34 +120,34 @@ const Villas = () => {
                           alignItems: 'center', 
                           justifyContent: 'center', 
                           color: 'white', 
-                          fontSize: '2rem',
+                          fontSize: '3rem',
                           flexDirection: 'column'
                         }}
                       >
                         🏠
-                        <p style={{ fontSize: '1rem', marginTop: '10px' }}>{villa.code}</p>
                       </div>
                       <div className="card-content">
-                        <h3 className="card-title">{villa.name}</h3>
+                        <h3 className="card-title" style={{ fontSize: '1.8rem', textAlign: 'center', color: '#080644' }}>
+                          {villa.code}
+                        </h3>
                         {villa.description && (
-                          <p className="card-description">{villa.description}</p>
-                        )}
-                        <div style={{ marginTop: '15px' }}>
-                          <p style={{ fontSize: '0.9rem', color: '#666' }}>
-                            👥 Hasta {villa.max_guests} personas
+                          <p className="card-description" style={{ textAlign: 'center', marginTop: '10px' }}>
+                            {villa.description}
                           </p>
-                          <p style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#080644', marginTop: '10px' }}>
-                            {getPriceRange(villa)}
+                        )}
+                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                          <p style={{ fontSize: '1rem', color: '#666' }}>
+                            👥 Capacidad: Hasta {villa.max_guests} personas
                           </p>
                         </div>
                         <a 
-                          href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${villa.name} (${villa.code}). ¿Podrían darme más información?`)}`}
+                          href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${villa.code} en ${zone}. ¿Podrían darme más información sobre disponibilidad y precios?`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn-primary" 
-                          style={{ marginTop: '15px', width: '100%', textAlign: 'center' }}
+                          style={{ marginTop: '20px', width: '100%', textAlign: 'center' }}
                         >
-                          Consultar Disponibilidad
+                          Consultar Disponibilidad y Precios
                         </a>
                       </div>
                     </div>
