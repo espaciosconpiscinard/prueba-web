@@ -195,30 +195,90 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           </button>
         </div>
 
-        {/* AI Generator from Airbnb */}
-        <div style={{ marginBottom: '20px', padding: '15px', background: '#f0f9ff', borderRadius: '8px', border: '2px dashed #3b82f6' }}>
-          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '10px', color: '#1e40af' }}>
-            🤖 Generar Descripción con IA desde Airbnb
-          </label>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <input
-              type="url"
-              value={airbnbLink}
-              onChange={(e) => setAirbnbLink(e.target.value)}
-              placeholder="https://www.airbnb.com/rooms/..."
-              style={{ flex: 1, padding: '10px', border: '1px solid #3b82f6', borderRadius: '5px' }}
-            />
-            <Button 
-              onClick={generateDescriptionFromAirbnb} 
-              disabled={generatingAI}
-              style={{ background: '#3b82f6', color: 'white', minWidth: '120px' }}
-            >
-              {generatingAI ? <><Loader className="animate-spin" size={16} /> Generando...</> : 'Generar'}
-            </Button>
-          </div>
-          <p style={{ fontSize: '0.85rem', color: '#6b7280', marginTop: '5px' }}>
-            Pega el link de Airbnb y la IA extraerá la información automáticamente
+        {/* SECCIÓN DE CATÁLOGO */}
+        <div style={{ marginBottom: '25px', padding: '20px', background: '#fef3c7', borderRadius: '10px', border: '3px solid #f59e0b' }}>
+          <h3 style={{ fontSize: '1.3rem', color: '#92400e', marginBottom: '15px', fontWeight: 'bold' }}>
+            📋 INFORMACIÓN DEL CATÁLOGO (Vista Previa)
+          </h3>
+          <p style={{ fontSize: '0.9rem', color: '#78350f', marginBottom: '15px' }}>
+            Esta información se mostrará en la card del catálogo (antes de hacer clic)
           </p>
+
+          {/* Descripción Corta con IA */}
+          <div style={{ marginBottom: '15px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+              <label style={{ fontWeight: 'bold' }}>Descripción Corta para Catálogo</label>
+              <Button 
+                onClick={generateCatalogDescription} 
+                disabled={generatingCatalogAI}
+                size="sm"
+                style={{ background: '#3b82f6', color: 'white' }}
+              >
+                {generatingCatalogAI ? <><Loader className="animate-spin" size={14} /> Generando...</> : '🤖 Generar con IA'}
+              </Button>
+            </div>
+            <textarea
+              value={publicData.catalog_description}
+              onChange={(e) => setPublicData({ ...publicData, catalog_description: e.target.value })}
+              placeholder="Descripción corta y atractiva (2-3 líneas). Usa IA para generar automáticamente desde la descripción completa."
+              style={{
+                width: '100%',
+                padding: '10px',
+                border: '1px solid #f59e0b',
+                borderRadius: '5px',
+                minHeight: '60px',
+                fontSize: '0.95rem'
+              }}
+            />
+          </div>
+
+          {/* Precio */}
+          <div style={{ marginBottom: '15px', padding: '12px', background: 'white', borderRadius: '8px' }}>
+            <label style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+              <input
+                type="checkbox"
+                checked={publicData.catalog_show_price}
+                onChange={(e) => setPublicData({ ...publicData, catalog_show_price: e.target.checked })}
+                style={{ marginRight: '8px', width: '18px', height: '18px' }}
+              />
+              <span style={{ fontWeight: 'bold' }}>💰 Mostrar Precio en Catálogo</span>
+            </label>
+            {publicData.catalog_show_price && (
+              <input
+                type="text"
+                value={publicData.catalog_price}
+                onChange={(e) => setPublicData({ ...publicData, catalog_price: e.target.value })}
+                placeholder="Ej: Desde RD$ 5,000 o RD$ 3,500/día"
+                style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '5px' }}
+              />
+            )}
+          </div>
+
+          {/* Capacidades en catálogo */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            <div style={{ padding: '12px', background: 'white', borderRadius: '8px' }}>
+              <label style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="checkbox"
+                  checked={publicData.catalog_show_pasadia}
+                  onChange={(e) => setPublicData({ ...publicData, catalog_show_pasadia: e.target.checked })}
+                  style={{ marginRight: '8px', width: '18px', height: '18px' }}
+                />
+                <span style={{ fontWeight: 'bold' }}>☀️ Mostrar Pasadía</span>
+              </label>
+            </div>
+            <div style={{ padding: '12px', background: 'white', borderRadius: '8px' }}>
+              <label style={{ display: 'flex', alignItems: 'center' }}>
+                <input
+                  type="checkbox"
+                  checked={publicData.catalog_show_amanecida}
+                  onChange={(e) => setPublicData({ ...publicData, catalog_show_amanecida: e.target.checked })}
+                  style={{ marginRight: '8px', width: '18px', height: '18px' }}
+                />
+                <span style={{ fontWeight: 'bold' }}>🌙 Mostrar Amanecida</span>
+              </label>
+            </div>
+          </div>
         </div>
 
         {/* Capacity Configuration */}
