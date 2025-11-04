@@ -3832,12 +3832,12 @@ async def get_public_villas(zone: Optional[str] = None):
 
 app.include_router(api_router)
 
-# Serve public website - mount AFTER api routes
+# Serve public website on /public-site route
 from fastapi.staticfiles import StaticFiles
 
 public_web_path = os.path.join(os.path.dirname(__file__), "public-web-build")
 if os.path.exists(public_web_path):
-    app.mount("/web", StaticFiles(directory=public_web_path, html=True), name="public-website")
+    app.mount("/public-site", StaticFiles(directory=public_web_path, html=True), name="public-website")
 
 # CORS middleware
 app.add_middleware(
