@@ -3843,6 +3843,53 @@ async def get_public_villas(zone: Optional[str] = None):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al obtener villas públicas: {str(e)}")
 
+# AI endpoint to generate short catalog description
+@api_router.post("/ai/generate-catalog-description")
+async def generate_catalog_description(
+    data: dict,
+    current_user: dict = Depends(require_admin)
+):
+    """Generate short catalog description using AI"""
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        
+        full_description = data.get("full_description", "")
+        villa_code = data.get("villa_code", "Villa")
+        amenities = data.get("amenities", [])
+        
+        if not full_description:
+            raise HTTPException(status_code=400, detail="Se necesita una descripción completa primero")
+        
+        # Initialize AI chat
+        api_key = "sk-emergent-731F17fF01a2cA7Bf0"
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"catalog-{current_user['id']}",
+            system_message="Eres un experto en marketing inmobiliario. Creas descripciones cortas y atractivas para catálogos de villas."
+        ).with_model("openai", "gpt-4o-mini")
+        
+        amenities_text = ", ".join(amenities[:5]) if amenities else "comodidades modernas"
+        
+        prompt = f"""Basándote en esta descripción completa:
+
+{full_description}
+
+Crea una descripción CORTA (máximo 2-3 líneas, 50-70 palabras) y atractiva para mostrar en un catálogo de villas. 
+Debe ser persuasiva, destacar lo mejor de la villa y hacer que el cliente quiera saber más.
+Villa: {villa_code}
+Amenidades disponibles: {amenities_text}
+
+Solo devuelve la descripción corta, sin formato adicional."""
+
+        user_message = UserMessage(text=prompt)
+        response = await chat.send_message(user_message)
+        
+        return {"catalog_description": response.strip()}
+            
+    except Exception as e:
+        print(f"AI Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al generar descripción: {str(e)}")
+
 # AI endpoint to generate description from Airbnb link
 @api_router.post("/ai/generate-description")
 async def generate_description_from_airbnb(
