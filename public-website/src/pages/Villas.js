@@ -483,39 +483,73 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
-              {/* Modalidades */}
-              {(selectedVilla.has_pasadia || selectedVilla.has_amanecida) && (
-                <div style={{ marginBottom: '15px', padding: '12px', background: '#f9fafb', borderRadius: '8px' }}>
-                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
-                    👥 Capacidad
+              {/* Sección PASADÍA */}
+              {selectedVilla.has_pasadia && selectedVilla.max_guests_pasadia && (
+                <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
+                  <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
+                    ☀️ Pasadía
                   </h3>
-                  {selectedVilla.has_pasadia && selectedVilla.max_guests_pasadia && (
-                    <p style={{ fontSize: '0.9rem', marginBottom: '4px' }}>
-                      ☀️ <strong>Pasadía:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
+                  
+                  {/* Capacidad */}
+                  <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
+                    <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
+                  </p>
+                  
+                  {/* Precio Pasadía */}
+                  {selectedVilla.catalog_show_price && selectedVilla.catalog_price_pasadia && (
+                    <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
+                      <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_pasadia || 'RD$'} {parseFloat(selectedVilla.catalog_price_pasadia).toLocaleString()}
                     </p>
                   )}
-                  {selectedVilla.has_amanecida && selectedVilla.max_guests_amanecida && (
-                    <p style={{ fontSize: '0.9rem' }}>
-                      🌙 <strong>Amanecida:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
-                    </p>
+                  
+                  {/* Descripción Detallada Pasadía */}
+                  {selectedVilla.public_description_pasadia && (
+                    <div style={{ marginTop: '10px' }}>
+                      <p style={{ 
+                        fontSize: '0.85rem', 
+                        lineHeight: '1.5', 
+                        color: '#333',
+                        whiteSpace: 'pre-line'
+                      }}>
+                        {selectedVilla.public_description_pasadia}
+                      </p>
+                    </div>
                   )}
                 </div>
               )}
 
-              {/* Descripción con formato preservado */}
-              {selectedVilla.description && (
-                <div style={{ marginBottom: '15px' }}>
-                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
-                    📝 Descripción
+              {/* Sección AMANECIDA */}
+              {selectedVilla.has_amanecida && selectedVilla.max_guests_amanecida && (
+                <div style={{ marginBottom: '15px', padding: '15px', background: '#eef2ff', borderRadius: '10px', border: '2px solid #6366f1' }}>
+                  <h3 style={{ fontSize: '1.1rem', color: '#4338ca', marginBottom: '10px', fontWeight: 'bold' }}>
+                    🌙 Amanecida
                   </h3>
-                  <p style={{ 
-                    fontSize: '0.9rem', 
-                    lineHeight: '1.5', 
-                    color: '#333',
-                    whiteSpace: 'pre-line'
-                  }}>
-                    {selectedVilla.description}
+                  
+                  {/* Capacidad */}
+                  <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
+                    <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
                   </p>
+                  
+                  {/* Precio Amanecida */}
+                  {selectedVilla.catalog_show_price && selectedVilla.catalog_price_amanecida && (
+                    <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
+                      <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_amanecida || 'RD$'} {parseFloat(selectedVilla.catalog_price_amanecida).toLocaleString()}
+                    </p>
+                  )}
+                  
+                  {/* Descripción Detallada Amanecida */}
+                  {selectedVilla.public_description_amanecida && (
+                    <div style={{ marginTop: '10px' }}>
+                      <p style={{ 
+                        fontSize: '0.85rem', 
+                        lineHeight: '1.5', 
+                        color: '#333',
+                        whiteSpace: 'pre-line'
+                      }}>
+                        {selectedVilla.public_description_amanecida}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
