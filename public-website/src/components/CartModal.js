@@ -67,29 +67,52 @@ const CartModal = () => {
 
     mensaje += `_Enviado desde: ${window.location.origin}/pagina-web_`;
 
-    // Enviar por WhatsApp
-    const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER.replace(/[\+\s\-\(\)]/g, '');
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
-    
-    console.log('WhatsApp URL:', whatsappUrl);
-    console.log('Número:', whatsappNumber);
-    console.log('Mensaje:', mensaje);
-    
-    window.open(whatsappUrl, '_blank');
-
-    // Preguntar si quiere limpiar el carrito
-    const limpiar = window.confirm('¿Deseas limpiar tu lista de villas de interés?');
-    if (limpiar) {
-      clearCart();
-      setFormData({
-        nombre: '',
-        telefono: '',
-        fechaInteres: '',
-        modalidadGeneral: '',
-        tipoActividad: ''
+    // Enviar solicitud al backend
+    try {
+      const backendUrl = process.env.REACT_APP_BACKEND_URL;
+      const response = await fetch(`${backendUrl}/api/quote-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          nombre: formData.nombre,
+          telefono: formData.telefono,
+          fecha_interes: formData.fechaInteres,
+          modalidad_general: formData.modalidadGeneral,
+          tipo_actividad: formData.tipoActividad,
+          villas: cartItems.map(item => ({
+            code: item.code,
+            zone: item.zone,
+            modality: item.modality,
+            price: item.price,
+            currency: item.currency
+          }))
+        })
       });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert('✅ ¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.');
+        
+        // Limpiar carrito y formulario
+        clearCart();
+        setFormData({
+          nombre: '',
+          telefono: '',
+          fechaInteres: '',
+          modalidadGeneral: '',
+          tipoActividad: ''
+        });
+        closeCart();
+      } else {
+        alert('❌ Error al enviar la solicitud. Por favor, intenta nuevamente.');
+      }
+    } catch (error) {
+      console.error('Error al enviar solicitud:', error);
+      alert('❌ Error de conexión. Por favor, verifica tu internet e intenta nuevamente.');
     }
-    closeCart();
   };
 
   return (
