@@ -25,6 +25,31 @@ const Villas = () => {
 
   const zones = Object.keys(villasByZone);
 
+  const nextImage = (villaId, e) => {
+    e.stopPropagation();
+    setCurrentImageIndex(prev => ({
+      ...prev,
+      [villaId]: ((prev[villaId] || 0) + 1)
+    }));
+  };
+
+  const prevImage = (villaId, e) => {
+    e.stopPropagation();
+    setCurrentImageIndex(prev => ({
+      ...prev,
+      [villaId]: Math.max((prev[villaId] || 0) - 1, 0)
+    }));
+  };
+
+  const openVillaDetails = (villa) => {
+    setSelectedVilla(villa);
+    setCurrentImageIndex(prev => ({ ...prev, [villa.id]: 0 }));
+  };
+
+  const closeModal = () => {
+    setSelectedVilla(null);
+  };
+
   if (loading) {
     return (
       <div style={{ paddingTop: '80px', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
