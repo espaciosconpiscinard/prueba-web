@@ -160,8 +160,9 @@ class VillaBase(BaseModel):
     
     # Información específica del CATÁLOGO (card inicial)
     catalog_description: Optional[str] = None  # Descripción corta para el catálogo
-    catalog_show_price: Optional[bool] = False  # Mostrar precio en catálogo
-    catalog_price: Optional[str] = None  # Precio a mostrar (ej: "Desde RD$ 5,000")
+    catalog_show_price: Optional[bool] = False  # Mostrar precios en catálogo
+    catalog_price_pasadia: Optional[str] = None  # Precio pasadía (ej: "RD$ 5,000")
+    catalog_price_amanecida: Optional[str] = None  # Precio amanecida (ej: "RD$ 8,000")
     catalog_show_pasadia: Optional[bool] = False  # Mostrar capacidad pasadía
     catalog_show_amanecida: Optional[bool] = False  # Mostrar capacidad amanecida
 
