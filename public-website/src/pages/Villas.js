@@ -220,37 +220,47 @@ const Villas = () => {
                       )}
                       
                       <div className="card-content">
-                        <h3 className="card-title" style={{ fontSize: '1.3rem', textAlign: 'center', color: '#080644' }}>
+                        <h3 className="card-title" style={{ fontSize: '1.2rem', textAlign: 'center', color: '#080644', marginBottom: '8px' }}>
                           {villa.code}
                         </h3>
                         
-                        {villa.description && (
+                        {/* Descripción de catálogo o fallback */}
+                        {(villa.catalog_description || villa.description) && (
                           <p className="card-description" style={{ 
                             textAlign: 'center', 
-                            marginTop: '10px',
+                            marginTop: '8px',
+                            fontSize: '0.75rem',
                             whiteSpace: 'pre-line',
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             display: '-webkit-box',
                             WebkitLineClamp: 2,
-                            WebkitBoxOrient: 'vertical'
+                            WebkitBoxOrient: 'vertical',
+                            lineHeight: '1.3'
                           }}>
-                            {villa.description}
+                            {villa.catalog_description || villa.description}
                           </p>
                         )}
                         
-                        <div style={{ marginTop: '15px', textAlign: 'center' }}>
-                          {/* Modalidades */}
-                          {(villa.has_pasadia || villa.has_amanecida) && (
-                            <div style={{ marginBottom: '8px', fontSize: '0.8rem' }}>
-                              {villa.has_pasadia && villa.public_max_guests_pasadia && (
-                                <div style={{ marginBottom: '3px' }}>
-                                  ☀️ Pasadía: {villa.public_max_guests_pasadia}p
+                        <div style={{ marginTop: '10px', textAlign: 'center', fontSize: '0.75rem' }}>
+                          {/* Precio si está configurado */}
+                          {villa.catalog_show_price && villa.catalog_price && (
+                            <div style={{ marginBottom: '6px', fontWeight: 'bold', color: '#CFA57D', fontSize: '0.85rem' }}>
+                              💰 {villa.catalog_price}
+                            </div>
+                          )}
+                          
+                          {/* Modalidades según configuración */}
+                          {(villa.catalog_show_pasadia || villa.catalog_show_amanecida) && (
+                            <div style={{ marginBottom: '6px' }}>
+                              {villa.catalog_show_pasadia && villa.max_guests_pasadia && (
+                                <div style={{ marginBottom: '2px' }}>
+                                  ☀️ Pasadía: {villa.max_guests_pasadia}p
                                 </div>
                               )}
-                              {villa.has_amanecida && villa.public_max_guests_amanecida && (
+                              {villa.catalog_show_amanecida && villa.max_guests_amanecida && (
                                 <div>
-                                  🌙 Amanecida: {villa.public_max_guests_amanecida}p
+                                  🌙 Amanecida: {villa.max_guests_amanecida}p
                                 </div>
                               )}
                             </div>
@@ -258,7 +268,7 @@ const Villas = () => {
                           
                           {/* Amenidades - solo 2 */}
                           {villa.amenities && villa.amenities.length > 0 && (
-                            <div style={{ marginTop: '8px' }}>
+                            <div style={{ marginTop: '6px' }}>
                               {villa.amenities.slice(0, 2).map((amenity, idx) => (
                                 <span 
                                   key={idx}
@@ -266,17 +276,17 @@ const Villas = () => {
                                     display: 'inline-block',
                                     background: '#080644',
                                     color: 'white',
-                                    fontSize: '0.65rem',
-                                    padding: '2px 6px',
-                                    borderRadius: '10px',
-                                    margin: '2px'
+                                    fontSize: '0.6rem',
+                                    padding: '2px 5px',
+                                    borderRadius: '8px',
+                                    margin: '1px'
                                   }}
                                 >
                                   ✓ {amenity}
                                 </span>
                               ))}
                               {villa.amenities.length > 2 && (
-                                <span style={{ fontSize: '0.7rem', color: '#666' }}> +{villa.amenities.length - 2}</span>
+                                <span style={{ fontSize: '0.65rem', color: '#666' }}> +{villa.amenities.length - 2}</span>
                               )}
                             </div>
                           )}
