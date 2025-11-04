@@ -149,7 +149,7 @@ class VillaBase(BaseModel):
     is_active: bool = True
     
     # Información pública para la página web
-    public_description: Optional[str] = None  # Descripción para mostrar en web pública
+    public_description: Optional[str] = None  # Descripción completa (modal)
     public_images: List[str] = []  # URLs de imágenes y videos públicos (base64 o URLs) - hasta 20
     public_amenities: List[str] = []  # Amenidades a mostrar públicamente
     public_features: List[str] = []  # Características destacadas para web pública
@@ -157,6 +157,13 @@ class VillaBase(BaseModel):
     public_max_guests_amanecida: Optional[int] = None  # Capacidad para amanecida
     public_has_pasadia: Optional[bool] = None  # Si aplica para pasadía
     public_has_amanecida: Optional[bool] = None  # Si aplica para amanecida
+    
+    # Información específica del CATÁLOGO (card inicial)
+    catalog_description: Optional[str] = None  # Descripción corta para el catálogo
+    catalog_show_price: Optional[bool] = False  # Mostrar precio en catálogo
+    catalog_price: Optional[str] = None  # Precio a mostrar (ej: "Desde RD$ 5,000")
+    catalog_show_pasadia: Optional[bool] = False  # Mostrar capacidad pasadía
+    catalog_show_amanecida: Optional[bool] = False  # Mostrar capacidad amanecida
 
 class VillaCreate(VillaBase):
     pass
