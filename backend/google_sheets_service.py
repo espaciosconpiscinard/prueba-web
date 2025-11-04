@@ -22,18 +22,29 @@ class GoogleSheetsService:
         try:
             if self.client and self.sheet:
                 # Ya está conectado
+                logger.info("✅ Ya conectado a Google Sheets")
                 return True
+            
+            logger.info(f"Intentando conectar con Google Sheets...")
+            logger.info(f"Credentials path: {self.credentials_path}")
+            logger.info(f"Sheet ID: {self.sheet_id}")
                 
             creds = ServiceAccountCredentials.from_json_keyfile_name(
                 self.credentials_path, 
                 self.scope
             )
+            logger.info("✅ Credenciales cargadas")
+            
             self.client = gspread.authorize(creds)
+            logger.info("✅ Cliente autorizado")
+            
             self.sheet = self.client.open_by_key(self.sheet_id).sheet1
-            logger.info("✅ Conectado a Google Sheets")
+            logger.info(f"✅ Conectado a Google Sheets: {self.sheet.title}")
             return True
         except Exception as e:
-            logger.error(f"❌ Error al conectar con Google Sheets: {str(e)}")
+            logger.error(f"❌ Error al conectar con Google Sheets: {type(e).__name__}: {str(e)}")
+            import traceback
+            logger.error(traceback.format_exc())
             self.client = None
             self.sheet = None
             return False
