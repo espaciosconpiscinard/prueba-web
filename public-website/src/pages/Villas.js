@@ -89,34 +89,81 @@ const Villas = () => {
                 <div className="cards-grid">
                   {villasByZone[zone].map(villa => (
                     <div key={villa.id} className="card">
-                      <div 
-                        className="card-image" 
-                        style={{ 
-                          background: 'linear-gradient(135deg, #080644 0%, #EDDEBB 100%)', 
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center', 
-                          color: 'white', 
-                          fontSize: '3rem',
-                          flexDirection: 'column'
-                        }}
-                      >
-                        🏠
-                      </div>
+                      {/* Imagen de la villa o placeholder */}
+                      {villa.images && villa.images.length > 0 ? (
+                        <img 
+                          src={villa.images[0]} 
+                          alt={villa.code}
+                          className="card-image"
+                          style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <div 
+                          className="card-image" 
+                          style={{ 
+                            background: 'linear-gradient(135deg, #080644 0%, #EDDEBB 100%)', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'center', 
+                            color: 'white', 
+                            fontSize: '3rem',
+                            height: '200px'
+                          }}
+                        >
+                          🏠
+                        </div>
+                      )}
+                      
                       <div className="card-content">
                         <h3 className="card-title" style={{ fontSize: '1.8rem', textAlign: 'center', color: '#080644' }}>
                           {villa.code}
                         </h3>
+                        
                         {villa.description && (
                           <p className="card-description" style={{ textAlign: 'center', marginTop: '10px' }}>
                             {villa.description}
                           </p>
                         )}
-                        <div style={{ marginTop: '20px', textAlign: 'center' }}>
-                          <p style={{ fontSize: '1rem', color: '#666' }}>
+                        
+                        <div style={{ marginTop: '15px', textAlign: 'center' }}>
+                          <p style={{ fontSize: '1rem', color: '#666', marginBottom: '10px' }}>
                             👥 Capacidad: Hasta {villa.max_guests} personas
                           </p>
+                          
+                          {/* Amenidades */}
+                          {villa.amenities && villa.amenities.length > 0 && (
+                            <div style={{ marginTop: '10px' }}>
+                              {villa.amenities.slice(0, 3).map((amenity, idx) => (
+                                <span 
+                                  key={idx}
+                                  style={{
+                                    display: 'inline-block',
+                                    background: '#080644',
+                                    color: 'white',
+                                    fontSize: '0.8rem',
+                                    padding: '3px 8px',
+                                    borderRadius: '12px',
+                                    margin: '2px'
+                                  }}
+                                >
+                                  ✓ {amenity}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                          
+                          {/* Características */}
+                          {villa.features && villa.features.length > 0 && (
+                            <div style={{ marginTop: '10px' }}>
+                              {villa.features.slice(0, 2).map((feature, idx) => (
+                                <p key={idx} style={{ fontSize: '0.85rem', color: '#CFA57D', margin: '3px 0' }}>
+                                  ★ {feature}
+                                </p>
+                              ))}
+                            </div>
+                          )}
                         </div>
+                        
                         <a 
                           href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${villa.code} en ${zone}. ¿Podrían darme más información sobre disponibilidad y precios?`)}`}
                           target="_blank"
