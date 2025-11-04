@@ -225,27 +225,48 @@ const Villas = () => {
                         </h3>
                         
                         {villa.description && (
-                          <p className="card-description" style={{ textAlign: 'center', marginTop: '10px' }}>
+                          <p className="card-description" style={{ 
+                            textAlign: 'center', 
+                            marginTop: '10px',
+                            whiteSpace: 'pre-line',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical'
+                          }}>
                             {villa.description}
                           </p>
                         )}
                         
                         <div style={{ marginTop: '15px', textAlign: 'center' }}>
-                          <p style={{ fontSize: '1rem', color: '#666', marginBottom: '10px' }}>
-                            👥 Capacidad: Hasta {villa.max_guests} personas
-                          </p>
+                          {/* Modalidades */}
+                          {(villa.has_pasadia || villa.has_amanecida) && (
+                            <div style={{ marginBottom: '10px', fontSize: '0.9rem' }}>
+                              {villa.has_pasadia && villa.public_max_guests_pasadia && (
+                                <span style={{ marginRight: '10px' }}>
+                                  ☀️ Pasadía: {villa.public_max_guests_pasadia} personas
+                                </span>
+                              )}
+                              {villa.has_amanecida && villa.public_max_guests_amanecida && (
+                                <span>
+                                  🌙 Amanecida: {villa.public_max_guests_amanecida} personas
+                                </span>
+                              )}
+                            </div>
+                          )}
                           
-                          {/* Amenidades */}
+                          {/* Amenidades - solo 2 */}
                           {villa.amenities && villa.amenities.length > 0 && (
                             <div style={{ marginTop: '10px' }}>
-                              {villa.amenities.slice(0, 3).map((amenity, idx) => (
+                              {villa.amenities.slice(0, 2).map((amenity, idx) => (
                                 <span 
                                   key={idx}
                                   style={{
                                     display: 'inline-block',
                                     background: '#080644',
                                     color: 'white',
-                                    fontSize: '0.8rem',
+                                    fontSize: '0.75rem',
                                     padding: '3px 8px',
                                     borderRadius: '12px',
                                     margin: '2px'
@@ -254,33 +275,24 @@ const Villas = () => {
                                   ✓ {amenity}
                                 </span>
                               ))}
-                            </div>
-                          )}
-                          
-                          {/* Características */}
-                          {villa.features && villa.features.length > 0 && (
-                            <div style={{ marginTop: '10px' }}>
-                              {villa.features.slice(0, 2).map((feature, idx) => (
-                                <p key={idx} style={{ fontSize: '0.85rem', color: '#CFA57D', margin: '3px 0' }}>
-                                  ★ {feature}
-                                </p>
-                              ))}
+                              {villa.amenities.length > 2 && (
+                                <span style={{ fontSize: '0.8rem', color: '#666' }}> +{villa.amenities.length - 2} más</span>
+                              )}
                             </div>
                           )}
                         </div>
                         
-                        <a 
-                          href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${villa.code} en ${zone}. ¿Podrían darme más información sobre disponibilidad y precios?`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button 
+                          onClick={(e) => { e.stopPropagation(); openVillaDetails(villa); }}
                           className="btn-primary" 
                           style={{ marginTop: '20px', width: '100%', textAlign: 'center' }}
                         >
-                          Consultar Disponibilidad y Precios
-                        </a>
+                          Ver Detalles Completos
+                        </button>
                       </div>
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
               </div>
             );
