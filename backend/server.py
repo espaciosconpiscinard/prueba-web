@@ -4118,6 +4118,13 @@ app.add_middleware(
 )
 
 
+# Startup event
+@app.on_event("startup")
+async def startup_event():
+    # Inicializar conexión con Google Sheets
+    sheets_service.connect()
+    sheets_service.initialize_headers()
+
 # Shutdown event
 @app.on_event("shutdown")
 async def shutdown_event():
