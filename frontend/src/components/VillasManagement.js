@@ -1203,6 +1203,18 @@ const VillasManagementNew = () => {
                                   variant="outline"
                                   onClick={(e) => {
                                     e.stopPropagation();
+                                    setEditingPublicInfo(villa);
+                                  }}
+                                  className="text-blue-600 hover:text-blue-700"
+                                  title="Gestionar información y fotos públicas"
+                                >
+                                  <Image size={14} />
+                                </Button>
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  onClick={(e) => {
+                                    e.stopPropagation();
                                     handleDelete(villa.id);
                                   }}
                                   className="text-red-600 hover:text-red-700"
