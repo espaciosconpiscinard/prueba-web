@@ -82,8 +82,8 @@ if (config.enableVisualEdits) {
 
 // Setup dev server with visual edits and/or health check
 webpackConfig.devServer = (devServerConfig) => {
-  // Set admin to run on port 3001
-  devServerConfig.port = 3001;
+  // Set admin to run on port 3000 (default preview)
+  devServerConfig.port = 3000;
   
   // Apply visual edits dev server setup if enabled
   if (config.enableVisualEdits && setupDevServer) {
