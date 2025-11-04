@@ -2794,9 +2794,9 @@ class BackendTester:
         
         self.test_employee_login()
         
-        # PRIMARY FOCUS: Villa Modality Pricing Tests
-        print("\n🏠 VILLA MODALITY PRICING TESTS (PRIMARY FOCUS)")
-        self.test_villa_modality_pricing_structure()
+        # PRIMARY FOCUS: Villa Catalog Separate Pricing Tests
+        print("\n🏠 VILLA CATALOG SEPARATE PRICING TESTS (PRIMARY FOCUS)")
+        self.test_villa_catalog_separate_pricing()
         
         # Category tests (admin)
         print("\n🏷️ Category Tests (Admin)")
