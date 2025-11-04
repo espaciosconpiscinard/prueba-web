@@ -1426,7 +1426,7 @@ const VillasManagementNew = () => {
           villa={editingPublicInfo}
           onClose={() => setEditingPublicInfo(null)}
           onUpdate={() => {
-            fetchVillas();
+            fetchData();
             setEditingPublicInfo(null);
           }}
         />
