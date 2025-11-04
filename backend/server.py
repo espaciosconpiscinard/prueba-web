@@ -3821,18 +3821,35 @@ async def get_public_villas(zone: Optional[str] = None):
             public_villa = {
                 "id": villa["id"],
                 "code": villa["code"],  # SOLO CÓDIGO
-                "description": villa.get("public_description") or villa.get("description", ""),  # Descripción completa
-                "catalog_description": villa.get("catalog_description", ""),  # Descripción corta para catálogo
+                "zone": zone_name,
+                
+                # Controles de visibilidad
                 "catalog_show_price": villa.get("catalog_show_price", False),
-                "catalog_price": villa.get("catalog_price"),
                 "catalog_show_pasadia": villa.get("catalog_show_pasadia", False),
                 "catalog_show_amanecida": villa.get("catalog_show_amanecida", False),
+                
+                # Información de catálogo - Pasadía
+                "catalog_description_pasadia": villa.get("catalog_description_pasadia", ""),
+                "catalog_price_pasadia": villa.get("catalog_price_pasadia"),
+                "catalog_currency_pasadia": villa.get("catalog_currency_pasadia", "RD$"),
+                
+                # Información de catálogo - Amanecida
+                "catalog_description_amanecida": villa.get("catalog_description_amanecida", ""),
+                "catalog_price_amanecida": villa.get("catalog_price_amanecida"),
+                "catalog_currency_amanecida": villa.get("catalog_currency_amanecida", "RD$"),
+                
+                # Descripciones detalladas (modal)
+                "public_description_pasadia": villa.get("public_description_pasadia", ""),
+                "public_description_amanecida": villa.get("public_description_amanecida", ""),
+                
+                # Capacidades
                 "max_guests": villa.get("max_guests", 0),  # Capacidad (fallback)
                 "max_guests_pasadia": villa.get("public_max_guests_pasadia"),
                 "max_guests_amanecida": villa.get("public_max_guests_amanecida"),
                 "has_pasadia": villa.get("public_has_pasadia", False),
                 "has_amanecida": villa.get("public_has_amanecida", False),
-                "zone": zone_name,
+                
+                # Multimedia y características
                 "images": villa.get("public_images", []),  # Imágenes y videos públicos
                 "amenities": villa.get("public_amenities", []),  # Amenidades públicas
                 "features": villa.get("public_features", [])  # Características públicas
