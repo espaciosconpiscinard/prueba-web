@@ -357,7 +357,7 @@ const CartModal = () => {
               style={{
                 width: '100%',
                 padding: '15px',
-                background: cartItems.length === 0 ? '#d1d5db' : 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                background: cartItems.length === 0 ? '#d1d5db' : 'linear-gradient(135deg, #080644 0%, #CFA57D 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '10px',
@@ -370,8 +370,8 @@ const CartModal = () => {
                 gap: '10px'
               }}
             >
-              <span style={{ fontSize: '1.3rem' }}>📱</span>
-              Enviar por WhatsApp
+              <span style={{ fontSize: '1.3rem' }}>📧</span>
+              Enviar Solicitud
             </button>
           </form>
         </div>
