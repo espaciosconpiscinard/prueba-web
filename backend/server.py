@@ -3991,6 +3991,8 @@ async def update_villa_public_info(
             update_fields["public_description"] = public_data["public_description"]
         if "public_images" in public_data:
             update_fields["public_images"] = public_data["public_images"][:20]  # Limitar a 20
+        if "default_public_image_index" in public_data:
+            update_fields["default_public_image_index"] = public_data["default_public_image_index"]
         if "public_amenities" in public_data:
             update_fields["public_amenities"] = public_data["public_amenities"]
         if "public_features" in public_data:
