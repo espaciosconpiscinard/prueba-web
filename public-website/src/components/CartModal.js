@@ -68,8 +68,12 @@ const CartModal = () => {
     mensaje += `_Enviado desde: ${window.location.origin}/pagina-web_`;
 
     // Enviar por WhatsApp
-    const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '');
+    const whatsappNumber = process.env.REACT_APP_WHATSAPP_NUMBER.replace(/[\+\s\-\(\)]/g, '');
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensaje)}`;
+    
+    console.log('WhatsApp URL:', whatsappUrl);
+    console.log('Número:', whatsappNumber);
+    console.log('Mensaje:', mensaje);
     
     window.open(whatsappUrl, '_blank');
 
