@@ -141,7 +141,7 @@ const CartModal = () => {
 
         <div style={{ padding: '30px' }}>
           <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '20px' }}>
-            🏠 Mis Villas de Interés ({cartItems.length})
+            🛒 Mis Villas de Interés ({cartItems.length})
           </h2>
 
           {/* Lista de villas */}
