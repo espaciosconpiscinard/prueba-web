@@ -114,16 +114,94 @@ const Villas = () => {
                 </h2>
                 
                 <div className="cards-grid">
-                  {villasByZone[zone].map(villa => (
-                    <div key={villa.id} className="card">
-                      {/* Imagen de la villa o placeholder */}
-                      {villa.images && villa.images.length > 0 ? (
-                        <img 
-                          src={villa.images[0]} 
-                          alt={villa.code}
-                          className="card-image"
-                          style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                        />
+                  {villasByZone[zone].map(villa => {
+                    const currentIdx = currentImageIndex[villa.id] || 0;
+                    const hasImages = villa.images && villa.images.length > 0;
+                    const currentImage = hasImages ? villa.images[currentIdx % villa.images.length] : null;
+                    
+                    return (
+                    <div key={villa.id} className="card" onClick={() => openVillaDetails(villa)} style={{ cursor: 'pointer' }}>
+                      {/* Carrusel de imágenes */}
+                      {hasImages ? (
+                        <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
+                          {currentImage.startsWith('data:video') ? (
+                            <video 
+                              src={currentImage}
+                              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                            />
+                          ) : (
+                            <img 
+                              src={currentImage} 
+                              alt={villa.code}
+                              className="card-image"
+                              style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                            />
+                          )}
+                          
+                          {/* Controles del carrusel */}
+                          {villa.images.length > 1 && (
+                            <>
+                              <button
+                                onClick={(e) => prevImage(villa.id, e)}
+                                style={{
+                                  position: 'absolute',
+                                  left: '10px',
+                                  top: '50%',
+                                  transform: 'translateY(-50%)',
+                                  background: 'rgba(0,0,0,0.6)',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '50%',
+                                  width: '35px',
+                                  height: '35px',
+                                  fontSize: '18px',
+                                  cursor: 'pointer',
+                                  display: currentIdx > 0 ? 'flex' : 'none',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}
+                              >
+                                ‹
+                              </button>
+                              <button
+                                onClick={(e) => nextImage(villa.id, e)}
+                                style={{
+                                  position: 'absolute',
+                                  right: '10px',
+                                  top: '50%',
+                                  transform: 'translateY(-50%)',
+                                  background: 'rgba(0,0,0,0.6)',
+                                  color: 'white',
+                                  border: 'none',
+                                  borderRadius: '50%',
+                                  width: '35px',
+                                  height: '35px',
+                                  fontSize: '18px',
+                                  cursor: 'pointer',
+                                  display: currentIdx < villa.images.length - 1 ? 'flex' : 'none',
+                                  alignItems: 'center',
+                                  justifyContent: 'center'
+                                }}
+                              >
+                                ›
+                              </button>
+                              {/* Indicador de posición */}
+                              <div style={{
+                                position: 'absolute',
+                                bottom: '10px',
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                background: 'rgba(0,0,0,0.6)',
+                                color: 'white',
+                                padding: '3px 10px',
+                                borderRadius: '12px',
+                                fontSize: '0.85rem'
+                              }}>
+                                {currentIdx + 1} / {villa.images.length}
+                              </div>
+                            </>
+                          )}
+                        </div>
                       ) : (
                         <div 
                           className="card-image" 
