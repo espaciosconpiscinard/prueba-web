@@ -2,6 +2,7 @@
   "name": "espacios-con-piscina-public",
   "version": "1.0.0",
   "private": true,
+  "homepage": "/web",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
