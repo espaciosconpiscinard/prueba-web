@@ -3839,6 +3839,68 @@ async def get_public_villas(zone: Optional[str] = None):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al obtener villas públicas: {str(e)}")
 
+# AI endpoint to generate description from Airbnb link
+@api_router.post("/ai/generate-description")
+async def generate_description_from_airbnb(
+    data: dict,
+    current_user: dict = Depends(require_admin)
+):
+    """Generate villa description using AI from Airbnb link"""
+    try:
+        from emergentintegrations.llm.chat import LlmChat, UserMessage
+        from dotenv import load_dotenv
+        import os
+        
+        load_dotenv()
+        
+        url = data.get("url", "")
+        if not url:
+            raise HTTPException(status_code=400, detail="URL es requerida")
+        
+        # Initialize AI chat
+        api_key = os.getenv("EMERGENT_LLM_KEY")
+        chat = LlmChat(
+            api_key=api_key,
+            session_id=f"airbnb-{current_user['id']}",
+            system_message="Eres un experto en marketing inmobiliario. Tu trabajo es analizar listings de Airbnb y crear descripciones atractivas en español para páginas web de alquiler de villas."
+        ).with_model("openai", "gpt-4o-mini")
+        
+        # Create prompt
+        prompt = f"""Analiza este link de Airbnb: {url}
+
+Genera una respuesta en formato JSON con esta estructura:
+{{
+  "description": "Descripción atractiva en español de 2-3 párrafos destacando lo mejor de la villa",
+  "amenities": ["Amenidad 1", "Amenidad 2", "Amenidad 3", ...],
+  "features": ["Característica 1", "Característica 2", ...]
+}}
+
+Enfócate en lo que hace especial esta villa. Sé persuasivo pero honesto."""
+
+        user_message = UserMessage(text=prompt)
+        response = await chat.send_message(user_message)
+        
+        # Parse response
+        import json
+        import re
+        
+        # Extract JSON from response
+        json_match = re.search(r'\{.*\}', response, re.DOTALL)
+        if json_match:
+            result = json.loads(json_match.group())
+            return result
+        else:
+            # Fallback if not JSON
+            return {
+                "description": response,
+                "amenities": [],
+                "features": []
+            }
+            
+    except Exception as e:
+        print(f"AI Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al generar descripción: {str(e)}")
+
 # Update villa public info (images, description, etc)
 @api_router.put("/villas/{villa_id}/public-info")
 async def update_villa_public_info(
