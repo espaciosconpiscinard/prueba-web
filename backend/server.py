@@ -3853,8 +3853,14 @@ async def get_public_villas(zone: Optional[str] = None):
                 
                 # Multimedia y características
                 "images": villa.get("public_images", []),  # Imágenes y videos públicos
+                "default_public_image_index": villa.get("default_public_image_index", 0),  # Índice de imagen predeterminada
                 "amenities": villa.get("public_amenities", []),  # Amenidades públicas
-                "features": villa.get("public_features", [])  # Características públicas
+                "features": villa.get("public_features", []),  # Características públicas
+                
+                # Precios flexibles por modalidad
+                "pasadia_prices": villa.get("pasadia_prices", []),
+                "amanecida_prices": villa.get("amanecida_prices", []),
+                "evento_prices": villa.get("evento_prices", [])
                 # NO incluir: name, prices, owner_price, category_id, etc.
             }
             categorized_villas[zone_name].append(public_villa)
