@@ -242,23 +242,23 @@ const Villas = () => {
                         <div style={{ marginTop: '15px', textAlign: 'center' }}>
                           {/* Modalidades */}
                           {(villa.has_pasadia || villa.has_amanecida) && (
-                            <div style={{ marginBottom: '10px', fontSize: '0.9rem' }}>
+                            <div style={{ marginBottom: '8px', fontSize: '0.8rem' }}>
                               {villa.has_pasadia && villa.public_max_guests_pasadia && (
-                                <span style={{ marginRight: '10px' }}>
-                                  ☀️ Pasadía: {villa.public_max_guests_pasadia} personas
-                                </span>
+                                <div style={{ marginBottom: '3px' }}>
+                                  ☀️ Pasadía: {villa.public_max_guests_pasadia}p
+                                </div>
                               )}
                               {villa.has_amanecida && villa.public_max_guests_amanecida && (
-                                <span>
-                                  🌙 Amanecida: {villa.public_max_guests_amanecida} personas
-                                </span>
+                                <div>
+                                  🌙 Amanecida: {villa.public_max_guests_amanecida}p
+                                </div>
                               )}
                             </div>
                           )}
                           
                           {/* Amenidades - solo 2 */}
                           {villa.amenities && villa.amenities.length > 0 && (
-                            <div style={{ marginTop: '10px' }}>
+                            <div style={{ marginTop: '8px' }}>
                               {villa.amenities.slice(0, 2).map((amenity, idx) => (
                                 <span 
                                   key={idx}
@@ -266,9 +266,9 @@ const Villas = () => {
                                     display: 'inline-block',
                                     background: '#080644',
                                     color: 'white',
-                                    fontSize: '0.75rem',
-                                    padding: '3px 8px',
-                                    borderRadius: '12px',
+                                    fontSize: '0.65rem',
+                                    padding: '2px 6px',
+                                    borderRadius: '10px',
                                     margin: '2px'
                                   }}
                                 >
@@ -276,7 +276,7 @@ const Villas = () => {
                                 </span>
                               ))}
                               {villa.amenities.length > 2 && (
-                                <span style={{ fontSize: '0.8rem', color: '#666' }}> +{villa.amenities.length - 2} más</span>
+                                <span style={{ fontSize: '0.7rem', color: '#666' }}> +{villa.amenities.length - 2}</span>
                               )}
                             </div>
                           )}
@@ -285,9 +285,9 @@ const Villas = () => {
                         <button 
                           onClick={(e) => { e.stopPropagation(); openVillaDetails(villa); }}
                           className="btn-primary" 
-                          style={{ marginTop: '20px', width: '100%', textAlign: 'center' }}
+                          style={{ marginTop: '15px', width: '100%', textAlign: 'center', padding: '8px', fontSize: '0.9rem' }}
                         >
-                          Ver Detalles Completos
+                          Ver Detalles
                         </button>
                       </div>
                     </div>
