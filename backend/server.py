@@ -3857,11 +3857,19 @@ async def update_villa_public_info(
         if "public_description" in public_data:
             update_fields["public_description"] = public_data["public_description"]
         if "public_images" in public_data:
-            update_fields["public_images"] = public_data["public_images"]
+            update_fields["public_images"] = public_data["public_images"][:20]  # Limitar a 20
         if "public_amenities" in public_data:
             update_fields["public_amenities"] = public_data["public_amenities"]
         if "public_features" in public_data:
             update_fields["public_features"] = public_data["public_features"]
+        if "public_max_guests_pasadia" in public_data:
+            update_fields["public_max_guests_pasadia"] = public_data["public_max_guests_pasadia"]
+        if "public_max_guests_amanecida" in public_data:
+            update_fields["public_max_guests_amanecida"] = public_data["public_max_guests_amanecida"]
+        if "public_has_pasadia" in public_data:
+            update_fields["public_has_pasadia"] = public_data["public_has_pasadia"]
+        if "public_has_amanecida" in public_data:
+            update_fields["public_has_amanecida"] = public_data["public_has_amanecida"]
         
         await db.villas.update_one(
             {"id": villa_id},
