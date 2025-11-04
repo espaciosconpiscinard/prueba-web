@@ -32,7 +32,7 @@ const Navbar = () => {
               }}
               title="Mis villas de interés"
             >
-              🏠
+              🛒
               {count > 0 && (
                 <span style={{
                   position: 'absolute',
