@@ -25,17 +25,29 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
+    // Verificar límite de 20
+    if (publicData.public_images.length + files.length > 20) {
+      alert('Solo puedes subir un máximo de 20 fotos/videos');
+      return;
+    }
+
     setUploading(true);
     const newImages = [];
 
     for (let file of files) {
+      // Verificar que sea imagen o video
+      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+        alert(`${file.name} no es una imagen o video válido`);
+        continue;
+      }
+
       const reader = new FileReader();
       reader.onload = (event) => {
         newImages.push(event.target.result);
-        if (newImages.length === files.length) {
+        if (newImages.length === files.length || newImages.length + publicData.public_images.length >= 20) {
           setPublicData({
             ...publicData,
-            public_images: [...publicData.public_images, ...newImages]
+            public_images: [...publicData.public_images, ...newImages].slice(0, 20)
           });
           setUploading(false);
         }
