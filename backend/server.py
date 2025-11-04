@@ -3821,9 +3821,12 @@ async def get_public_villas(zone: Optional[str] = None):
             public_villa = {
                 "id": villa["id"],
                 "code": villa["code"],  # SOLO CÓDIGO
-                "description": villa.get("description", ""),  # Descripción pública
+                "description": villa.get("public_description") or villa.get("description", ""),  # Descripción pública
                 "max_guests": villa.get("max_guests", 0),  # Capacidad
-                "zone": zone_name
+                "zone": zone_name,
+                "images": villa.get("public_images", []),  # Imágenes públicas
+                "amenities": villa.get("public_amenities", []),  # Amenidades públicas
+                "features": villa.get("public_features", [])  # Características públicas
                 # NO incluir: name, prices, owner_price, category_id, etc.
             }
             categorized_villas[zone_name].append(public_villa)
