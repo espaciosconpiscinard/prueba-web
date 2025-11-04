@@ -23,7 +23,7 @@ const CartModal = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     // Validar que haya villas en el carrito
