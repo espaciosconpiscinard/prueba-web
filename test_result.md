@@ -1138,11 +1138,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Reservations.js - Villa modality price loading and selection"
+    - "Villa Catalog - Separate Pasadía/Amanecida Pricing and Descriptions"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  latest_test: "Completado - Backend villa modality pricing structure verificado exitosamente. API retorna campos correctos (pasadia_prices, amanecida_prices, evento_prices) con estructura esperada."
+  latest_test: "Implementado - Sistema de precios y descripciones separadas para Pasadía y Amanecida en catálogo público y modal de detalles."
 
   - task: "Expenses Module - Supplier Payments and Extra Services"
     implemented: true
