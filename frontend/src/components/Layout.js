@@ -95,36 +95,31 @@ const Layout = ({ children, currentView, setCurrentView }) => {
           </div>
           <div className="flex items-center space-x-4">
             {/* Botón Ver Página Web */}
-            <a
-              href={process.env.REACT_APP_BACKEND_URL.replace(':8001', ':3001')}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
+              onClick={() => window.open('/public-web', '_blank')}
               title="Ver página web pública"
             >
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="16" 
+                height="16" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+                className="mr-2"
               >
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  width="16" 
-                  height="16" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                  className="mr-2"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                </svg>
-                Ver Página Web
-              </Button>
-            </a>
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              Ver Página Web
+            </Button>
             <div className="text-sm text-right" data-testid="user-info">
               <p className="font-medium">{user?.full_name}</p>
               <p className="text-gray-500 text-xs capitalize">{user?.role === 'admin' ? 'Administrador' : 'Empleado'}</p>
