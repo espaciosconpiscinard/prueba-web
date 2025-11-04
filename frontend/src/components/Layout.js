@@ -99,7 +99,7 @@ const Layout = ({ children, currentView, setCurrentView }) => {
               variant="outline" 
               size="sm"
               className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600"
-              onClick={() => window.open('/public-web', '_blank')}
+              onClick={() => setCurrentView('public-web')}
               title="Ver página web pública"
             >
               <svg 
