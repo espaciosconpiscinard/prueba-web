@@ -637,6 +637,24 @@ class CommissionUpdate(BaseModel):
     invoice_deleted_date: Optional[str] = None
 
 # ============ DASHBOARD MODELS ============
+# ============ QUOTE REQUEST MODELS ============
+class QuoteRequestBase(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    nombre: str
+    telefono: str
+    fecha_interes: str
+    modalidad_general: Optional[str] = ""
+    tipo_actividad: Optional[str] = ""
+    villas: List[dict] = []  # Lista de villas con code, zone, modality, price, currency
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    status: str = "Pendiente"  # Pendiente, Contactado, Cerrado, etc.
+
+class QuoteRequestCreate(QuoteRequestBase):
+    pass
+
+class QuoteRequest(QuoteRequestBase):
+    model_config = ConfigDict(from_attributes=True)
+
 class DashboardStats(BaseModel):
     total_reservations: int
     pending_reservations: int
