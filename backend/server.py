@@ -3852,17 +3852,13 @@ async def generate_description_from_airbnb(
     """Generate villa description using AI from Airbnb link"""
     try:
         from emergentintegrations.llm.chat import LlmChat, UserMessage
-        from dotenv import load_dotenv
-        import os
-        
-        load_dotenv()
         
         url = data.get("url", "")
         if not url:
             raise HTTPException(status_code=400, detail="URL es requerida")
         
-        # Initialize AI chat
-        api_key = os.getenv("EMERGENT_LLM_KEY")
+        # Initialize AI chat with Emergent LLM Key
+        api_key = "sk-emergent-731F17fF01a2cA7Bf0"
         chat = LlmChat(
             api_key=api_key,
             session_id=f"airbnb-{current_user['id']}",
