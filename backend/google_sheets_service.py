@@ -92,7 +92,8 @@ class GoogleSheetsService:
         """
         try:
             if not self.sheet:
-                self.connect()
+                if not self.connect():
+                    return False
             
             # Preparar detalles de villas
             villas_details = []
