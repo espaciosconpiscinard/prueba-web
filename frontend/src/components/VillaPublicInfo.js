@@ -13,13 +13,18 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     public_max_guests_pasadia: villa.public_max_guests_pasadia || villa.max_guests || 0,
     public_max_guests_amanecida: villa.public_max_guests_amanecida || villa.max_guests || 0,
     public_has_pasadia: villa.public_has_pasadia !== undefined ? villa.public_has_pasadia : villa.has_pasadia || false,
-    public_has_amanecida: villa.public_has_amanecida !== undefined ? villa.public_has_amanecida : villa.has_amanecida || false
+    public_has_amanecida: villa.public_has_amanecida !== undefined ? villa.public_has_amanecida : villa.has_amanecida || false,
+    // Datos de catálogo
+    catalog_description: villa.catalog_description || '',
+    catalog_show_price: villa.catalog_show_price || false,
+    catalog_price: villa.catalog_price || '',
+    catalog_show_pasadia: villa.catalog_show_pasadia || false,
+    catalog_show_amanecida: villa.catalog_show_amanecida || false
   });
   const [newAmenity, setNewAmenity] = useState('');
   const [newFeature, setNewFeature] = useState('');
   const [uploading, setUploading] = useState(false);
-  const [airbnbLink, setAirbnbLink] = useState('');
-  const [generatingAI, setGeneratingAI] = useState(false);
+  const [generatingCatalogAI, setGeneratingCatalogAI] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = e.target.files;
