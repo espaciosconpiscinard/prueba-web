@@ -570,9 +570,14 @@ const VillasManagementNew = () => {
                       className="w-full p-2 border rounded-md"
                     >
                       <option value="">Sin categoría</option>
-                      {categories.map(c => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
+                      {categories.map(c => {
+                        const villaCount = villas.filter(v => v.category_id === c.id).length;
+                        return (
+                          <option key={c.id} value={c.id}>
+                            {c.name} ({villaCount} villas)
+                          </option>
+                        );
+                      })}
                     </select>
                   </div>
 
