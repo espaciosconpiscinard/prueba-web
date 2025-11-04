@@ -10,7 +10,7 @@ import sys
 from typing import Dict, Any, Optional
 
 # Backend URL from environment
-BACKEND_URL = "https://piscinapp-1.preview.emergentagent.com/api"
+BACKEND_URL = "https://villa-cms.preview.emergentagent.com/api"
 
 class FocusedTester:
     def __init__(self):
