@@ -483,20 +483,22 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
-              {/* Sección PASADÍA */}
-              {selectedVilla.has_pasadia && selectedVilla.max_guests_pasadia && (
+              {/* Sección PASADÍA - Show if has_pasadia OR if any pasadia data exists */}
+              {(selectedVilla.has_pasadia || selectedVilla.max_guests_pasadia || selectedVilla.public_description_pasadia || selectedVilla.catalog_price_pasadia) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
                     ☀️ Pasadía
                   </h3>
                   
                   {/* Capacidad */}
-                  <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
-                    <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
-                  </p>
+                  {selectedVilla.max_guests_pasadia && (
+                    <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
+                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
+                    </p>
+                  )}
                   
                   {/* Precio Pasadía */}
-                  {selectedVilla.catalog_show_price && selectedVilla.catalog_price_pasadia && (
+                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_pasadia && (
                     <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
                       <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_pasadia || 'RD$'} {parseFloat(selectedVilla.catalog_price_pasadia).toLocaleString()}
                     </p>
@@ -518,20 +520,22 @@ const Villas = () => {
                 </div>
               )}
 
-              {/* Sección AMANECIDA */}
-              {selectedVilla.has_amanecida && selectedVilla.max_guests_amanecida && (
+              {/* Sección AMANECIDA - Show if has_amanecida OR if any amanecida data exists */}
+              {(selectedVilla.has_amanecida || selectedVilla.max_guests_amanecida || selectedVilla.public_description_amanecida || selectedVilla.catalog_price_amanecida) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eef2ff', borderRadius: '10px', border: '2px solid #6366f1' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#4338ca', marginBottom: '10px', fontWeight: 'bold' }}>
                     🌙 Amanecida
                   </h3>
                   
                   {/* Capacidad */}
-                  <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
-                    <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
-                  </p>
+                  {selectedVilla.max_guests_amanecida && (
+                    <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
+                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
+                    </p>
+                  )}
                   
                   {/* Precio Amanecida */}
-                  {selectedVilla.catalog_show_price && selectedVilla.catalog_price_amanecida && (
+                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_amanecida && (
                     <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
                       <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_amanecida || 'RD$'} {parseFloat(selectedVilla.catalog_price_amanecida).toLocaleString()}
                     </p>
