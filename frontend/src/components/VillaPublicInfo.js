@@ -283,24 +283,37 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           />
         </div>
 
-        {/* Images */}
+        {/* Images and Videos */}
         <div style={{ marginBottom: '20px' }}>
-          <label style={{ fontWeight: 'bold', display: 'block', marginBottom: '10px' }}>
-            Fotos de la Villa
-          </label>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
+            <label style={{ fontWeight: 'bold' }}>
+              📸 Fotos y Videos de la Villa
+            </label>
+            <span style={{ fontSize: '0.9rem', color: '#666', fontWeight: 'bold' }}>
+              {publicData.public_images.length}/20
+            </span>
+          </div>
           <input
             type="file"
-            accept="image/*"
+            accept="image/*,video/*"
             multiple
             onChange={handleImageUpload}
+            disabled={publicData.public_images.length >= 20}
             style={{ marginBottom: '10px' }}
           />
-          {uploading && <p style={{ color: '#666' }}>Subiendo imágenes...</p>}
+          {uploading && <p style={{ color: '#666' }}>Subiendo archivos...</p>}
+          {publicData.public_images.length >= 20 && (
+            <p style={{ color: '#ef4444', fontSize: '0.9rem' }}>Límite de 20 archivos alcanzado</p>
+          )}
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '10px', marginTop: '10px' }}>
-            {publicData.public_images.map((img, idx) => (
+            {publicData.public_images.map((media, idx) => (
               <div key={idx} style={{ position: 'relative' }}>
-                <img src={img} alt={`Villa ${idx + 1}`} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '5px' }} />
+                {media.startsWith('data:video') ? (
+                  <video src={media} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '5px' }} controls />
+                ) : (
+                  <img src={media} alt={`Villa ${idx + 1}`} style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '5px' }} />
+                )}
                 <button
                   onClick={() => removeImage(idx)}
                   style={{
@@ -313,11 +326,24 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
                     borderRadius: '50%',
                     width: '25px',
                     height: '25px',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
                   }}
                 >
                   ×
                 </button>
+                <span style={{
+                  position: 'absolute',
+                  bottom: '5px',
+                  left: '5px',
+                  background: 'rgba(0,0,0,0.7)',
+                  color: 'white',
+                  padding: '2px 6px',
+                  borderRadius: '3px',
+                  fontSize: '0.75rem'
+                }}>
+                  {idx + 1}
+                </span>
               </div>
             ))}
           </div>
