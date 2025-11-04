@@ -3821,7 +3821,12 @@ async def get_public_villas(zone: Optional[str] = None):
             public_villa = {
                 "id": villa["id"],
                 "code": villa["code"],  # SOLO CÓDIGO
-                "description": villa.get("public_description") or villa.get("description", ""),  # Descripción pública
+                "description": villa.get("public_description") or villa.get("description", ""),  # Descripción completa
+                "catalog_description": villa.get("catalog_description", ""),  # Descripción corta para catálogo
+                "catalog_show_price": villa.get("catalog_show_price", False),
+                "catalog_price": villa.get("catalog_price"),
+                "catalog_show_pasadia": villa.get("catalog_show_pasadia", False),
+                "catalog_show_amanecida": villa.get("catalog_show_amanecida", False),
                 "max_guests": villa.get("max_guests", 0),  # Capacidad (fallback)
                 "max_guests_pasadia": villa.get("public_max_guests_pasadia"),
                 "max_guests_amanecida": villa.get("public_max_guests_amanecida"),
