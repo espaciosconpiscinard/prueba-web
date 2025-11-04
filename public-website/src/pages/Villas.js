@@ -66,38 +66,33 @@ const Villas = () => {
       {/* Zone Filter */}
       <section style={{ padding: '20px 0', background: '#f5f5f5' }}>
         <div className="container">
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <button
-              onClick={() => setSelectedZone('all')}
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+            <label style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#080644' }}>
+              Filtrar por zona:
+            </label>
+            <select
+              value={selectedZone}
+              onChange={(e) => setSelectedZone(e.target.value)}
               style={{
-                padding: '10px 20px',
-                border: 'none',
-                borderRadius: '20px',
-                background: selectedZone === 'all' ? '#080644' : 'white',
-                color: selectedZone === 'all' ? 'white' : '#080644',
+                padding: '12px 40px 12px 20px',
+                fontSize: '1rem',
+                border: '2px solid #080644',
+                borderRadius: '10px',
+                background: 'white',
+                color: '#080644',
                 cursor: 'pointer',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                outline: 'none',
+                minWidth: '250px'
               }}
             >
-              Todas las Zonas
-            </button>
-            {zones.map(zone => (
-              <button
-                key={zone}
-                onClick={() => setSelectedZone(zone)}
-                style={{
-                  padding: '10px 20px',
-                  border: 'none',
-                  borderRadius: '20px',
-                  background: selectedZone === zone ? '#080644' : 'white',
-                  color: selectedZone === zone ? 'white' : '#080644',
-                  cursor: 'pointer',
-                  fontWeight: 'bold'
-                }}
-              >
-                {zone}
-              </button>
-            ))}
+              <option value="all">📍 Todas las Zonas</option>
+              {zones.map(zone => (
+                <option key={zone} value={zone}>
+                  📍 {zone}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </section>
