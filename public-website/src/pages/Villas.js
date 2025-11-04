@@ -86,10 +86,10 @@ const Villas = () => {
                 minWidth: '250px'
               }}
             >
-              <option value="all">📍 Todas las Zonas</option>
+              <option value="all">📍 Todas las Zonas ({Object.values(villasByZone).reduce((sum, villas) => sum + villas.length, 0)} villas)</option>
               {zones.map(zone => (
                 <option key={zone} value={zone}>
-                  📍 {zone}
+                  📍 {zone} ({villasByZone[zone]?.length || 0} villas)
                 </option>
               ))}
             </select>
