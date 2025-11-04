@@ -463,14 +463,14 @@ const Villas = () => {
                   <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
                     👥 Capacidad
                   </h3>
-                  {selectedVilla.has_pasadia && selectedVilla.public_max_guests_pasadia && (
-                    <p style={{ fontSize: '1rem', marginBottom: '5px' }}>
-                      ☀️ <strong>Pasadía:</strong> Hasta {selectedVilla.public_max_guests_pasadia} personas
+                  {selectedVilla.has_pasadia && selectedVilla.max_guests_pasadia && (
+                    <p style={{ fontSize: '0.9rem', marginBottom: '4px' }}>
+                      ☀️ <strong>Pasadía:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
                     </p>
                   )}
-                  {selectedVilla.has_amanecida && selectedVilla.public_max_guests_amanecida && (
-                    <p style={{ fontSize: '1rem' }}>
-                      🌙 <strong>Amanecida:</strong> Hasta {selectedVilla.public_max_guests_amanecida} personas
+                  {selectedVilla.has_amanecida && selectedVilla.max_guests_amanecida && (
+                    <p style={{ fontSize: '0.9rem' }}>
+                      🌙 <strong>Amanecida:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
                     </p>
                   )}
                 </div>
@@ -478,13 +478,13 @@ const Villas = () => {
 
               {/* Descripción con formato preservado */}
               {selectedVilla.description && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                <div style={{ marginBottom: '15px' }}>
+                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
                     📝 Descripción
                   </h3>
                   <p style={{ 
-                    fontSize: '1rem', 
-                    lineHeight: '1.6', 
+                    fontSize: '0.9rem', 
+                    lineHeight: '1.5', 
                     color: '#333',
                     whiteSpace: 'pre-line'
                   }}>
@@ -495,20 +495,20 @@ const Villas = () => {
 
               {/* Amenidades */}
               {selectedVilla.amenities && selectedVilla.amenities.length > 0 && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                <div style={{ marginBottom: '15px' }}>
+                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
                     ✨ Amenidades
                   </h3>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                     {selectedVilla.amenities.map((amenity, idx) => (
                       <span 
                         key={idx}
                         style={{
                           background: '#080644',
                           color: 'white',
-                          fontSize: '0.9rem',
-                          padding: '8px 15px',
-                          borderRadius: '20px'
+                          fontSize: '0.8rem',
+                          padding: '5px 10px',
+                          borderRadius: '15px'
                         }}
                       >
                         ✓ {amenity}
@@ -520,13 +520,13 @@ const Villas = () => {
 
               {/* Características */}
               {selectedVilla.features && selectedVilla.features.length > 0 && (
-                <div style={{ marginBottom: '20px' }}>
-                  <h3 style={{ fontSize: '1.2rem', color: '#080644', marginBottom: '10px' }}>
+                <div style={{ marginBottom: '15px' }}>
+                  <h3 style={{ fontSize: '1rem', color: '#080644', marginBottom: '8px', fontWeight: 'bold' }}>
                     ⭐ Características Destacadas
                   </h3>
                   <ul style={{ listStyle: 'none', padding: 0 }}>
                     {selectedVilla.features.map((feature, idx) => (
-                      <li key={idx} style={{ fontSize: '1rem', color: '#CFA57D', marginBottom: '8px' }}>
+                      <li key={idx} style={{ fontSize: '0.85rem', color: '#CFA57D', marginBottom: '5px' }}>
                         ★ {feature}
                       </li>
                     ))}
