@@ -96,7 +96,7 @@ const Layout = ({ children, currentView, setCurrentView }) => {
           <div className="flex items-center space-x-4">
             {/* Botón Ver Página Web */}
             <a
-              href={process.env.REACT_APP_BACKEND_URL.replace(':8001', '')}
+              href={process.env.REACT_APP_BACKEND_URL.replace(':8001', ':3001')}
               target="_blank"
               rel="noopener noreferrer"
               title="Ver página web pública"
