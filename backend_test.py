@@ -2423,6 +2423,357 @@ class BackendTester:
         else:
             self.log_test("Create Test Villa with Modality Pricing", False, "Failed to create test villa with modality pricing", create_villa_result)
     
+    def test_villa_catalog_separate_pricing(self):
+        """Test Villa Catalog - Separate Pasadía/Amanecida Pricing and Descriptions"""
+        print("\n🏠 Testing Villa Catalog - Separate Pasadía/Amanecida Pricing")
+        
+        # Test data as specified in the review request
+        test_villa_data = {
+            "code": "TEST_CATALOG",
+            "name": "Villa Test Catalog",
+            "description": "Villa para testing de catálogo",
+            "location": "Zona Test",
+            "bedrooms": 3,
+            "bathrooms": 2,
+            "max_guests": 20,
+            "price_per_night": 0.0,  # Legacy field
+            "currency": "DOP",
+            
+            # Catalog visibility controls
+            "catalog_show_pasadia": True,
+            "catalog_show_amanecida": True,
+            "catalog_show_price": True,
+            
+            # NEW FIELDS - Catalog descriptions (short)
+            "catalog_description_pasadia": "Disfruta de un día increíble en nuestra villa",
+            "catalog_description_amanecida": "Pasa la noche en un ambiente único",
+            
+            # NEW FIELDS - Catalog prices with currency
+            "catalog_price_pasadia": 5000.0,
+            "catalog_currency_pasadia": "RD$",
+            "catalog_price_amanecida": 8000.0,
+            "catalog_currency_amanecida": "USD$",
+            
+            # NEW FIELDS - Public descriptions (detailed for modal)
+            "public_description_pasadia": "Descripción completa de pasadía con todos los detalles...",
+            "public_description_amanecida": "Descripción completa de amanecida con horarios y servicios incluidos...",
+            
+            # Guest limits by modality
+            "max_guests_pasadia": 20,
+            "max_guests_amanecida": 15,
+            
+            # Public visibility
+            "public_has_pasadia": True,
+            "public_has_amanecida": True,
+            "public_max_guests_pasadia": 20,
+            "public_max_guests_amanecida": 15
+        }
+        
+        # TEST 1: Create villa with new catalog fields
+        print("\n   📝 Test 1: Create villa with new catalog fields")
+        
+        create_result = self.make_request("POST", "/villas", test_villa_data, self.admin_token)
+        
+        if create_result.get("success"):
+            created_villa = create_result["data"]
+            villa_id = created_villa["id"]
+            
+            # Verify all new fields are saved correctly
+            checks = []
+            
+            # Check catalog descriptions
+            if created_villa.get("catalog_description_pasadia") == "Disfruta de un día increíble en nuestra villa":
+                checks.append("✓ catalog_description_pasadia saved correctly")
+            else:
+                checks.append(f"✗ catalog_description_pasadia: {created_villa.get('catalog_description_pasadia')}")
+            
+            if created_villa.get("catalog_description_amanecida") == "Pasa la noche en un ambiente único":
+                checks.append("✓ catalog_description_amanecida saved correctly")
+            else:
+                checks.append(f"✗ catalog_description_amanecida: {created_villa.get('catalog_description_amanecida')}")
+            
+            # Check catalog prices
+            if created_villa.get("catalog_price_pasadia") == 5000.0:
+                checks.append("✓ catalog_price_pasadia: 5000.0")
+            else:
+                checks.append(f"✗ catalog_price_pasadia: {created_villa.get('catalog_price_pasadia')}")
+            
+            if created_villa.get("catalog_price_amanecida") == 8000.0:
+                checks.append("✓ catalog_price_amanecida: 8000.0")
+            else:
+                checks.append(f"✗ catalog_price_amanecida: {created_villa.get('catalog_price_amanecida')}")
+            
+            # Check currencies
+            if created_villa.get("catalog_currency_pasadia") == "RD$":
+                checks.append("✓ catalog_currency_pasadia: RD$")
+            else:
+                checks.append(f"✗ catalog_currency_pasadia: {created_villa.get('catalog_currency_pasadia')}")
+            
+            if created_villa.get("catalog_currency_amanecida") == "USD$":
+                checks.append("✓ catalog_currency_amanecida: USD$")
+            else:
+                checks.append(f"✗ catalog_currency_amanecida: {created_villa.get('catalog_currency_amanecida')}")
+            
+            # Check public descriptions
+            if created_villa.get("public_description_pasadia") == "Descripción completa de pasadía con todos los detalles...":
+                checks.append("✓ public_description_pasadia saved correctly")
+            else:
+                checks.append(f"✗ public_description_pasadia: {created_villa.get('public_description_pasadia')}")
+            
+            if created_villa.get("public_description_amanecida") == "Descripción completa de amanecida con horarios y servicios incluidos...":
+                checks.append("✓ public_description_amanecida saved correctly")
+            else:
+                checks.append(f"✗ public_description_amanecida: {created_villa.get('public_description_amanecida')}")
+            
+            all_checks_passed = all("✓" in check for check in checks)
+            
+            if all_checks_passed:
+                self.log_test("Create Villa with Catalog Fields", True, f"All new catalog fields saved correctly:\n   " + "\n   ".join(checks))
+            else:
+                self.log_test("Create Villa with Catalog Fields", False, f"Some catalog fields incorrect:\n   " + "\n   ".join(checks))
+            
+        else:
+            self.log_test("Create Villa with Catalog Fields", False, "Failed to create villa with catalog fields", create_result)
+            return
+        
+        # TEST 2: GET /api/villas/{id} returns all new fields
+        print("\n   📋 Test 2: GET /api/villas/{id} returns all new fields")
+        
+        get_result = self.make_request("GET", f"/villas/{villa_id}", token=self.admin_token)
+        
+        if get_result.get("success"):
+            retrieved_villa = get_result["data"]
+            
+            # Verify all fields are present in GET response
+            required_fields = [
+                "catalog_description_pasadia", "catalog_description_amanecida",
+                "catalog_price_pasadia", "catalog_price_amanecida", 
+                "catalog_currency_pasadia", "catalog_currency_amanecida",
+                "public_description_pasadia", "public_description_amanecida"
+            ]
+            
+            missing_fields = []
+            present_fields = []
+            
+            for field in required_fields:
+                if field in retrieved_villa and retrieved_villa[field] is not None:
+                    present_fields.append(field)
+                else:
+                    missing_fields.append(field)
+            
+            if not missing_fields:
+                self.log_test("GET Villa Returns New Fields", True, f"All {len(required_fields)} new catalog fields present in GET response")
+            else:
+                self.log_test("GET Villa Returns New Fields", False, f"Missing fields: {missing_fields}")
+            
+            # Verify numeric fields are handled correctly
+            numeric_checks = []
+            
+            if isinstance(retrieved_villa.get("catalog_price_pasadia"), (int, float)):
+                numeric_checks.append("✓ catalog_price_pasadia is numeric")
+            else:
+                numeric_checks.append(f"✗ catalog_price_pasadia type: {type(retrieved_villa.get('catalog_price_pasadia'))}")
+            
+            if isinstance(retrieved_villa.get("catalog_price_amanecida"), (int, float)):
+                numeric_checks.append("✓ catalog_price_amanecida is numeric")
+            else:
+                numeric_checks.append(f"✗ catalog_price_amanecida type: {type(retrieved_villa.get('catalog_price_amanecida'))}")
+            
+            # Verify currency strings
+            if isinstance(retrieved_villa.get("catalog_currency_pasadia"), str):
+                numeric_checks.append("✓ catalog_currency_pasadia is string")
+            else:
+                numeric_checks.append(f"✗ catalog_currency_pasadia type: {type(retrieved_villa.get('catalog_currency_pasadia'))}")
+            
+            if isinstance(retrieved_villa.get("catalog_currency_amanecida"), str):
+                numeric_checks.append("✓ catalog_currency_amanecida is string")
+            else:
+                numeric_checks.append(f"✗ catalog_currency_amanecida type: {type(retrieved_villa.get('catalog_currency_amanecida'))}")
+            
+            all_numeric_checks_passed = all("✓" in check for check in numeric_checks)
+            
+            if all_numeric_checks_passed:
+                self.log_test("Numeric and String Field Types", True, f"All field types correct:\n   " + "\n   ".join(numeric_checks))
+            else:
+                self.log_test("Numeric and String Field Types", False, f"Type issues found:\n   " + "\n   ".join(numeric_checks))
+        else:
+            self.log_test("GET Villa Returns New Fields", False, "Failed to retrieve villa", get_result)
+        
+        # TEST 3: GET /api/public/villas returns correct public fields
+        print("\n   🌐 Test 3: GET /api/public/villas returns correct public fields")
+        
+        public_result = self.make_request("GET", "/public/villas")
+        
+        if public_result.get("success"):
+            public_data = public_result["data"]
+            
+            # Find our test villa in the public response
+            test_villa_found = None
+            for zone_name, villas in public_data.items():
+                for villa in villas:
+                    if villa.get("code") == "TEST_CATALOG":
+                        test_villa_found = villa
+                        break
+                if test_villa_found:
+                    break
+            
+            if test_villa_found:
+                # Verify public endpoint structure
+                public_checks = []
+                
+                # Should have catalog fields for public display
+                expected_public_fields = [
+                    "id", "code", "description", "max_guests", "zone", 
+                    "has_pasadia", "has_amanecida", "images", "amenities", "features"
+                ]
+                
+                # Check if new catalog fields are included (they should be for the public catalog)
+                catalog_fields_in_public = [
+                    "catalog_description_pasadia", "catalog_description_amanecida",
+                    "catalog_price_pasadia", "catalog_price_amanecida",
+                    "catalog_currency_pasadia", "catalog_currency_amanecida",
+                    "public_description_pasadia", "public_description_amanecida"
+                ]
+                
+                present_public_fields = list(test_villa_found.keys())
+                
+                # Check basic public fields
+                missing_basic = [f for f in expected_public_fields if f not in present_public_fields]
+                if not missing_basic:
+                    public_checks.append("✓ All basic public fields present")
+                else:
+                    public_checks.append(f"✗ Missing basic fields: {missing_basic}")
+                
+                # Check if catalog fields are available (they should be for the new implementation)
+                present_catalog_fields = [f for f in catalog_fields_in_public if f in present_public_fields]
+                if len(present_catalog_fields) > 0:
+                    public_checks.append(f"✓ Catalog fields available: {len(present_catalog_fields)}/{len(catalog_fields_in_public)}")
+                else:
+                    public_checks.append("⚠️ No catalog fields in public endpoint (may need update)")
+                
+                # Verify no sensitive data is exposed
+                sensitive_fields = ["name", "owner_price", "category_id", "created_by"]
+                exposed_sensitive = [f for f in sensitive_fields if f in present_public_fields]
+                if not exposed_sensitive:
+                    public_checks.append("✓ No sensitive fields exposed")
+                else:
+                    public_checks.append(f"✗ Sensitive fields exposed: {exposed_sensitive}")
+                
+                all_public_checks_passed = all("✓" in check or "⚠️" in check for check in public_checks)
+                
+                if all_public_checks_passed:
+                    self.log_test("Public Villas Endpoint Structure", True, f"Public endpoint structure correct:\n   " + "\n   ".join(public_checks))
+                else:
+                    self.log_test("Public Villas Endpoint Structure", False, f"Public endpoint issues:\n   " + "\n   ".join(public_checks))
+                
+                # Log the actual public villa structure for debugging
+                print(f"   📋 Public villa fields: {list(test_villa_found.keys())}")
+                
+            else:
+                self.log_test("Find Test Villa in Public Endpoint", False, "Test villa not found in public villas response")
+        else:
+            self.log_test("GET Public Villas", False, "Failed to get public villas", public_result)
+        
+        # TEST 4: Update villa with new catalog fields
+        print("\n   🔄 Test 4: Update villa with new catalog fields")
+        
+        update_data = {
+            "catalog_description_pasadia": "UPDATED: Día perfecto en villa actualizada",
+            "catalog_price_pasadia": 6000.0,
+            "catalog_currency_pasadia": "USD$",
+            "public_description_amanecida": "UPDATED: Noche completa con servicios premium actualizados"
+        }
+        
+        update_result = self.make_request("PUT", f"/villas/{villa_id}", {**test_villa_data, **update_data}, self.admin_token)
+        
+        if update_result.get("success"):
+            updated_villa = update_result["data"]
+            
+            # Verify updates were applied
+            update_checks = []
+            
+            if updated_villa.get("catalog_description_pasadia") == "UPDATED: Día perfecto en villa actualizada":
+                update_checks.append("✓ catalog_description_pasadia updated")
+            else:
+                update_checks.append(f"✗ catalog_description_pasadia: {updated_villa.get('catalog_description_pasadia')}")
+            
+            if updated_villa.get("catalog_price_pasadia") == 6000.0:
+                update_checks.append("✓ catalog_price_pasadia updated to 6000.0")
+            else:
+                update_checks.append(f"✗ catalog_price_pasadia: {updated_villa.get('catalog_price_pasadia')}")
+            
+            if updated_villa.get("catalog_currency_pasadia") == "USD$":
+                update_checks.append("✓ catalog_currency_pasadia updated to USD$")
+            else:
+                update_checks.append(f"✗ catalog_currency_pasadia: {updated_villa.get('catalog_currency_pasadia')}")
+            
+            if updated_villa.get("public_description_amanecida") == "UPDATED: Noche completa con servicios premium actualizados":
+                update_checks.append("✓ public_description_amanecida updated")
+            else:
+                update_checks.append(f"✗ public_description_amanecida: {updated_villa.get('public_description_amanecida')}")
+            
+            all_update_checks_passed = all("✓" in check for check in update_checks)
+            
+            if all_update_checks_passed:
+                self.log_test("Update Villa Catalog Fields", True, f"All catalog field updates successful:\n   " + "\n   ".join(update_checks))
+            else:
+                self.log_test("Update Villa Catalog Fields", False, f"Some updates failed:\n   " + "\n   ".join(update_checks))
+        else:
+            self.log_test("Update Villa Catalog Fields", False, "Failed to update villa", update_result)
+        
+        # TEST 5: Verify field serialization (no errors)
+        print("\n   🔍 Test 5: Verify field serialization and data integrity")
+        
+        # Get the villa again to ensure all data persists correctly
+        final_get_result = self.make_request("GET", f"/villas/{villa_id}", token=self.admin_token)
+        
+        if final_get_result.get("success"):
+            final_villa = final_get_result["data"]
+            
+            # Check for any serialization issues
+            serialization_checks = []
+            
+            # Verify all catalog fields are still present and correct type
+            catalog_fields_to_check = {
+                "catalog_description_pasadia": str,
+                "catalog_description_amanecida": str,
+                "catalog_price_pasadia": (int, float),
+                "catalog_price_amanecida": (int, float),
+                "catalog_currency_pasadia": str,
+                "catalog_currency_amanecida": str,
+                "public_description_pasadia": str,
+                "public_description_amanecida": str
+            }
+            
+            for field_name, expected_type in catalog_fields_to_check.items():
+                field_value = final_villa.get(field_name)
+                if field_value is not None:
+                    if isinstance(field_value, expected_type):
+                        serialization_checks.append(f"✓ {field_name}: correct type ({type(field_value).__name__})")
+                    else:
+                        serialization_checks.append(f"✗ {field_name}: wrong type {type(field_value).__name__}, expected {expected_type}")
+                else:
+                    serialization_checks.append(f"⚠️ {field_name}: None/missing")
+            
+            # Check that no fields were corrupted
+            if final_villa.get("code") == "TEST_CATALOG":
+                serialization_checks.append("✓ Villa code preserved")
+            else:
+                serialization_checks.append(f"✗ Villa code corrupted: {final_villa.get('code')}")
+            
+            all_serialization_passed = all("✓" in check or "⚠️" in check for check in serialization_checks)
+            
+            if all_serialization_passed:
+                self.log_test("Field Serialization and Data Integrity", True, f"All serialization checks passed:\n   " + "\n   ".join(serialization_checks))
+            else:
+                self.log_test("Field Serialization and Data Integrity", False, f"Serialization issues found:\n   " + "\n   ".join(serialization_checks))
+        else:
+            self.log_test("Final Villa Verification", False, "Failed to retrieve villa for final verification", final_get_result)
+        
+        print(f"\n   🎯 VILLA CATALOG TEST SUMMARY: {'✅ ALL TESTS PASSED' if all_checks_passed and all_numeric_checks_passed and all_update_checks_passed else '❌ SOME TESTS FAILED'}")
+        
+        return villa_id
+    
     def run_all_tests(self):
         """Run all backend tests"""
         print("🚀 Starting Backend Testing Suite - Villa Modality Pricing")
