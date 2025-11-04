@@ -1156,6 +1156,44 @@ test_plan:
         agent: "testing"
         comment: "✅ COMPREHENSIVE TESTING COMPLETADO - TODOS LOS TESTS PASARON (32/32). Verificado: 1) Auto-creación de gastos de suplidores con servicios extras (category='pago_suplidor'), 2) Sistema de abonos parciales con balance_due y payment_status ('pending'→'partial'→'paid'), 3) Eliminación de abonos con recálculo correcto, 4) Facturas Solo Servicios con gasto contenedor (category='pago_servicios'), 5) Sincronización de payment_status entre owner y suplidores. BUGS CORREGIDOS: balance_due calculation en GET /expenses/{id}, payment_status 'partial' agregado al modelo, lógica de sincronización owner/suppliers. Sistema completamente funcional para pagos a suplidores y servicios extras."
 
+  - task: "Villa Catalog - Separate Pasadía and Amanecida Pricing and Descriptions"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/models.py, /app/frontend/src/components/VillaPublicInfo.js, /app/public-website/src/pages/Villas.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          ✅ IMPLEMENTADO: Sistema completo de precios y descripciones separadas para Pasadía y Amanecida.
+          
+          BACKEND (models.py):
+          - Agregados campos catalog_description_pasadia y catalog_description_amanecida (descripciones cortas para catálogo)
+          - Agregados catalog_price_pasadia, catalog_currency_pasadia (con selector RD$/USD$)
+          - Agregados catalog_price_amanecida, catalog_currency_amanecida (con selector RD$/USD$)
+          - Agregados public_description_pasadia y public_description_amanecida (descripciones detalladas para modal)
+          - Mantenidos controles de visibilidad: catalog_show_price, catalog_show_pasadia, catalog_show_amanecida
+          
+          ADMIN FRONTEND (VillaPublicInfo.js):
+          - State actualizado con todos los nuevos campos
+          - Sección de catálogo completamente rediseñada con dos subsecciones separadas:
+            * ☀️ PASADÍA: descripción corta, precio con selector de moneda, checkbox de visibilidad
+            * 🌙 AMANECIDA: descripción corta, precio con selector de moneda, checkbox de visibilidad
+          - Nueva sección de descripciones detalladas (para modal) con dos textareas separadas
+          - Checkbox global "Mostrar Precios en Catálogo" controla la visibilidad de ambas secciones de precio
+          
+          PUBLIC WEBSITE (Villas.js):
+          - Cards del catálogo actualizadas para mostrar secciones separadas de Pasadía y Amanecida
+          - Cada sección muestra: título, descripción corta, precio con moneda, capacidad
+          - Colores diferenciados: azul para Pasadía, índigo para Amanecida
+          - Modal de detalles actualizado con secciones separadas y completas:
+            * Capacidad, precio con moneda y descripción detallada para Pasadía
+            * Capacidad, precio con moneda y descripción detallada para Amanecida
+          
+          SIGUIENTE PASO: Testing backend y frontend para verificar funcionamiento completo
+
 agent_communication:
   - agent: "testing"
     message: |
