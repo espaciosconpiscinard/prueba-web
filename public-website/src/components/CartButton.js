@@ -33,7 +33,7 @@ const CartButton = () => {
       onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
       title="Ver villas de interés"
     >
-      🏠
+      🛒
       {count > 0 && (
         <span style={{
           position: 'absolute',
