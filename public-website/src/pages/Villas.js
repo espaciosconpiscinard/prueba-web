@@ -212,7 +212,7 @@ const Villas = () => {
                             justifyContent: 'center', 
                             color: 'white', 
                             fontSize: '3rem',
-                            height: '200px'
+                            height: '160px'
                           }}
                         >
                           🏠
@@ -220,7 +220,7 @@ const Villas = () => {
                       )}
                       
                       <div className="card-content">
-                        <h3 className="card-title" style={{ fontSize: '1.8rem', textAlign: 'center', color: '#080644' }}>
+                        <h3 className="card-title" style={{ fontSize: '1.3rem', textAlign: 'center', color: '#080644' }}>
                           {villa.code}
                         </h3>
                         
