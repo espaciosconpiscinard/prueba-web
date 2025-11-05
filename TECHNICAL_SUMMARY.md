@@ -229,7 +229,7 @@ CORS_ORIGINS=*
 JWT_SECRET_KEY=<secret-key>
 
 # Frontend (.env)
-REACT_APP_BACKEND_URL=https://villa-display-fix.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://villa-info-fix.preview.emergentagent.com
 ```
 
 ## 🚀 Deployment

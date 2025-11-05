@@ -4,7 +4,7 @@ const PublicWebView = () => {
   return (
     <div style={{ width: '100%', height: '100vh', overflow: 'hidden' }}>
       <iframe
-        src="https://villa-display-fix.preview.emergentagent.com:3001"
+        src="https://villa-info-fix.preview.emergentagent.com:3001"
         style={{
           width: '100%',
           height: '100%',
