@@ -177,9 +177,8 @@ const VillasManagementNew = () => {
       max_guests: villa.max_guests || 0,
       amenities: villa.amenities || [],
       is_active: villa.is_active !== false,
-      show_in_web: villa.show_in_web || false,
-      show_pasadia_in_web: villa.show_pasadia_in_web || false,
-      show_amanecida_in_web: villa.show_amanecida_in_web || false
+      catalog_show_pasadia: villa.catalog_show_pasadia || false,
+      catalog_show_amanecida: villa.catalog_show_amanecida || false
     });
     setPasadiaPrices(villa.pasadia_prices || []);
     setAmanecidaPrices(villa.amanecida_prices || []);
