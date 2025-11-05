@@ -139,6 +139,7 @@ class GoogleSheetsService:
             
             # Preparar fila
             row = [
+                data.get('request_number', ''),  # Número de solicitud
                 datetime.now().strftime('%Y-%m-%d %H:%M:%S'),  # Fecha solicitud
                 data.get('nombre', ''),
                 data.get('telefono', ''),
