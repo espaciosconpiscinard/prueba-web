@@ -707,8 +707,8 @@ const VillasManagementNew = () => {
                           <div className="flex items-center">
                             <input
                               type="checkbox"
-                              checked={formData.show_pasadia_in_web}
-                              onChange={(e) => setFormData({ ...formData, show_pasadia_in_web: e.target.checked })}
+                              checked={formData.catalog_show_pasadia}
+                              onChange={(e) => setFormData({ ...formData, catalog_show_pasadia: e.target.checked })}
                               className="mr-2 w-4 h-4"
                             />
                             <Label className="text-sm font-bold">🌐 Mostrar Pasadía en Web</Label>
