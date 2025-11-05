@@ -888,57 +888,71 @@ const VillasManagementNew = () => {
 
                     {/* EVENTO */}
                     {formData.has_evento && (
-                      <div className="mb-4 p-3 bg-white rounded border-2 border-blue-300">
-                        <h4 className="font-semibold text-blue-800 mb-2">🎉 Evento</h4>
+                      <div className="mb-4 p-3 bg-white rounded border-2 border-purple-300">
+                        <h4 className="font-semibold text-purple-800 mb-3">🎉 Evento</h4>
                         
-                        {/* Moneda Evento */}
+                        {/* Descripción Detallada */}
                         <div className="mb-3">
-                          <Label className="text-xs">Moneda</Label>
-                          <select
-                            value={formData.currency_evento}
-                            onChange={(e) => setFormData({ ...formData, currency_evento: e.target.value })}
-                            className="w-full p-2 border rounded-md text-xs"
-                          >
-                            <option value="DOP">Pesos (DOP)</option>
-                            <option value="USD">Dólares (USD)</option>
-                          </select>
-                        </div>
-                        
-                        <div className="mb-3">
-                          <Label className="text-xs">Descripción</Label>
+                          <Label className="text-xs">Descripción Detallada (Aparece en el Modal)</Label>
                           <textarea
-                            value={formData.description_evento}
+                            value={formData.description_evento || ''}
                             onChange={(e) => setFormData({ ...formData, description_evento: e.target.value })}
-                            placeholder="Detalles específicos para Eventos..."
+                            placeholder="Incluye detalles, amenidades, políticas y reglas que verán los clientes cuando hagan clic en la villa..."
                             className="w-full p-2 border rounded text-sm"
-                            rows="2"
+                            rows="4"
                           />
                         </div>
                         
-                        {/* Precios Evento */}
+                        {/* Precios */}
                         <div className="space-y-2">
                           <div className="flex justify-between items-center">
-                            <Label className="text-xs font-semibold">Precios</Label>
-                            <Button type="button" size="sm" onClick={() => addPrice('evento')} className="h-6 px-2 text-xs">
+                            <Label className="text-xs font-semibold">💰 Precios por Cantidad de Personas</Label>
+                            <Button type="button" size="sm" onClick={() => addPrice('evento')} className="h-6 px-2 text-xs bg-purple-600">
                               + Agregar Precio
                             </Button>
                           </div>
                           {eventoPrices.map((price, idx) => (
                             <div key={idx} className="bg-gray-50 p-3 rounded border">
                               <div className="flex justify-between items-center mb-2">
-                                <Input type="text" value={price.label} onChange={(e) => updatePrice('evento', idx, 'label', e.target.value)} placeholder="Ej: Regular, Oferta, Temporada Alta" className="text-xs flex-1 mr-2" />
-                                <Button type="button" size="sm" variant="destructive" onClick={() => removePrice('evento', idx)} className="h-6 px-2">
+                                <Input 
+                                  type="text" 
+                                  value={price.label} 
+                                  onChange={(e) => updatePrice('evento', idx, 'label', e.target.value)} 
+                                  placeholder="Ej: 1-10 personas, 11-20 personas" 
+                                  className="text-xs flex-1 mr-2" 
+                                />
+                                <Button 
+                                  type="button" 
+                                  size="sm" 
+                                  variant="destructive" 
+                                  onClick={() => removePrice('evento', idx)} 
+                                  className="h-6 px-2"
+                                >
                                   <X size={12} />
                                 </Button>
                               </div>
                               <div className="grid grid-cols-2 gap-2 mb-2">
                                 <div>
-                                  <Label className="text-xs text-blue-700">Precio Cliente</Label>
-                                  <Input type="number" step="0.01" value={price.client_price} onChange={(e) => updatePrice('evento', idx, 'client_price', e.target.value)} placeholder="5000" className="text-xs" />
+                                  <Label className="text-xs text-blue-700">Precio Cliente (RD$)</Label>
+                                  <Input 
+                                    type="number" 
+                                    step="0.01" 
+                                    value={price.client_price} 
+                                    onChange={(e) => updatePrice('evento', idx, 'client_price', e.target.value)} 
+                                    placeholder="5000" 
+                                    className="text-xs" 
+                                  />
                                 </div>
                                 <div>
-                                  <Label className="text-xs text-green-700">Precio Propietario</Label>
-                                  <Input type="number" step="0.01" value={price.owner_price} onChange={(e) => updatePrice('evento', idx, 'owner_price', e.target.value)} placeholder="4000" className="text-xs" />
+                                  <Label className="text-xs text-green-700">Pago Propietario (RD$)</Label>
+                                  <Input 
+                                    type="number" 
+                                    step="0.01" 
+                                    value={price.owner_price} 
+                                    onChange={(e) => updatePrice('evento', idx, 'owner_price', e.target.value)} 
+                                    placeholder="4000" 
+                                    className="text-xs" 
+                                  />
                                 </div>
                               </div>
                               <div className="flex items-center p-2 bg-white border border-green-400 rounded">
@@ -946,9 +960,9 @@ const VillasManagementNew = () => {
                                   type="checkbox"
                                   checked={price.show_in_web || false}
                                   onChange={(e) => updatePrice('evento', idx, 'show_in_web', e.target.checked)}
-                                  className="mr-2"
+                                  className="mr-2 w-4 h-4"
                                 />
-                                <Label className="text-xs font-bold">🌐 Mostrar este precio en la web</Label>
+                                <Label className="text-xs font-bold">🌐 Mostrar en la Web</Label>
                               </div>
                             </div>
                           ))}
