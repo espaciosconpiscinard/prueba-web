@@ -4066,8 +4066,10 @@ class QuoteRequestCreate(BaseModel):
     nombre: str
     telefono: str
     fecha_interes: str
+    cantidad_personas: str
     modalidad_general: Optional[str] = ''
     tipo_actividad: Optional[str] = ''
+    nota_adicional: Optional[str] = ''
     villas: List[VillaQuoteItem]
 
 @api_router.post("/quote-requests")
