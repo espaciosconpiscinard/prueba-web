@@ -615,19 +615,14 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
-              {/* DEBUG MODAL */}
-              <div style={{ background: 'red', color: 'white', padding: '15px', marginBottom: '15px', fontSize: '0.8rem' }}>
-                <strong>🔍 DEBUG MODAL:</strong><br/>
-                catalog_show_pasadia: {String(selectedVilla.catalog_show_pasadia)}<br/>
-                pasadia_prices: {JSON.stringify(selectedVilla.pasadia_prices)}<br/>
-                Condición 1: {String(!!selectedVilla.catalog_show_pasadia)}<br/>
-                Condición 2: {String(!!selectedVilla.pasadia_prices)}<br/>
-                Condición 3: {String(selectedVilla.pasadia_prices?.some(p => p.show_in_web))}<br/>
-                Resultado AND: {String(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web))}
+              <div style={{ background: 'yellow', padding: '20px', marginBottom: '20px', fontSize: '1rem', border: '3px solid red' }}>
+                <strong>TEST BÁSICO</strong><br/>
+                Si ves esto, el modal funciona.<br/>
+                Villa: {selectedVilla.name || 'Sin nombre'}
               </div>
               
-              {/* Sección PASADÍA - Show if enabled */}
-              {(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
+              {/* Sección PASADÍA - SIMPLIFICADA */}
+              {(selectedVilla.catalog_show_pasadia) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
                     ☀️ Pasadía
