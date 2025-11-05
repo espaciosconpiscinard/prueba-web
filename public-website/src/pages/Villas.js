@@ -376,7 +376,7 @@ const Villas = () => {
                               <div style={{ fontSize: '0.8rem', fontWeight: 'bold', marginBottom: '8px', color: '#080644' }}>
                                 Selecciona modalidad:
                               </div>
-                              {villa.catalog_show_pasadia && (
+                              {villa.has_pasadia && (
                                 <button
                                   onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'pasadia'); }}
                                   style={{
