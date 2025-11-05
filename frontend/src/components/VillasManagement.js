@@ -67,7 +67,19 @@ const VillasManagementNew = () => {
     extra_people_price_owner: 0,
     max_guests: 0,
     amenities: [],
-    is_active: true
+    is_active: true,
+    // NUEVOS CAMPOS PARA WEB PÚBLICA
+    catalog_description_pasadia: '',
+    catalog_description_amanecida: '',
+    catalog_price_pasadia: 0,
+    catalog_price_amanecida: 0,
+    catalog_currency_pasadia: 'RD$',
+    catalog_currency_amanecida: 'RD$',
+    catalog_show_price: false,
+    catalog_show_pasadia: false,
+    catalog_show_amanecida: false,
+    public_description_pasadia: '',
+    public_description_amanecida: ''
   });
 
   // Estados para precios de cada modalidad
