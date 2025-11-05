@@ -734,12 +734,12 @@ const VillasManagementNew = () => {
                           {pasadiaPrices.map((price, idx) => (
                             <div key={idx} className="bg-gray-50 p-3 rounded border">
                               <div className="flex justify-between items-center mb-2">
-                                <Input type="text" value={price.label} onChange={(e) => updatePrice('pasadia', idx, 'label', e.target.value)} placeholder="Ej: Regular, Oferta, Temporada Alta" className="text-xs flex-1 mr-2" />
+                                <Input type="text" value={price.label} onChange={(e) => updatePrice('pasadia', idx, 'label', e.target.value)} placeholder="Ej: 1-10 personas, 11-20 personas" className="text-xs flex-1 mr-2" />
                                 <Button type="button" size="sm" variant="destructive" onClick={() => removePrice('pasadia', idx)} className="h-6 px-2">
                                   <X size={12} />
                                 </Button>
                               </div>
-                              <div className="grid grid-cols-2 gap-2">
+                              <div className="grid grid-cols-2 gap-2 mb-2">
                                 <div>
                                   <Label className="text-xs text-blue-700">Precio Cliente</Label>
                                   <Input type="number" step="0.01" value={price.client_price} onChange={(e) => updatePrice('pasadia', idx, 'client_price', e.target.value)} placeholder="5000" className="text-xs" />
@@ -748,6 +748,15 @@ const VillasManagementNew = () => {
                                   <Label className="text-xs text-green-700">Precio Propietario</Label>
                                   <Input type="number" step="0.01" value={price.owner_price} onChange={(e) => updatePrice('pasadia', idx, 'owner_price', e.target.value)} placeholder="4000" className="text-xs" />
                                 </div>
+                              </div>
+                              <div className="flex items-center p-2 bg-white border border-green-400 rounded">
+                                <input
+                                  type="checkbox"
+                                  checked={price.show_in_web || false}
+                                  onChange={(e) => updatePrice('pasadia', idx, 'show_in_web', e.target.checked)}
+                                  className="mr-2"
+                                />
+                                <Label className="text-xs font-bold">🌐 Mostrar este precio en la web</Label>
                               </div>
                             </div>
                           ))}
