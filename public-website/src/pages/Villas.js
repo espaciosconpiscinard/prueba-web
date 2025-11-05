@@ -615,6 +615,17 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
+              {/* DEBUG MODAL */}
+              <div style={{ background: 'red', color: 'white', padding: '15px', marginBottom: '15px', fontSize: '0.8rem' }}>
+                <strong>🔍 DEBUG MODAL:</strong><br/>
+                catalog_show_pasadia: {String(selectedVilla.catalog_show_pasadia)}<br/>
+                pasadia_prices: {JSON.stringify(selectedVilla.pasadia_prices)}<br/>
+                Condición 1: {String(!!selectedVilla.catalog_show_pasadia)}<br/>
+                Condición 2: {String(!!selectedVilla.pasadia_prices)}<br/>
+                Condición 3: {String(selectedVilla.pasadia_prices?.some(p => p.show_in_web))}<br/>
+                Resultado AND: {String(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web))}
+              </div>
+              
               {/* Sección PASADÍA - Show if enabled */}
               {(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
