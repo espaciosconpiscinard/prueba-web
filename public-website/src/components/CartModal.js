@@ -7,8 +7,10 @@ const CartModal = () => {
     nombre: '',
     telefono: '',
     fechaInteres: '',
+    cantidadPersonas: '',
     modalidadGeneral: '',
-    tipoActividad: ''
+    tipoActividad: '',
+    notaAdicional: ''
   });
 
   if (!isCartOpen) return null;
