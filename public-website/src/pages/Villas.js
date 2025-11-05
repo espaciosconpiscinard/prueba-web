@@ -493,11 +493,6 @@ const Villas = () => {
             overflow: 'auto'
           }}
         >
-          {console.log('🔴 MODAL ABIERTO - Villa:', selectedVilla.code)}
-          {console.log('🔴 catalog_show_pasadia:', selectedVilla.catalog_show_pasadia)}
-          {console.log('🔴 pasadia_prices:', selectedVilla.pasadia_prices)}
-          {console.log('🔴 catalog_show_amanecida:', selectedVilla.catalog_show_amanecida)}
-          {console.log('🔴 amanecida_prices:', selectedVilla.amanecida_prices)}
           <div 
             onClick={(e) => e.stopPropagation()}
             style={{
