@@ -69,10 +69,9 @@ const VillasManagementNew = () => {
     max_guests: 0,
     amenities: [],
     is_active: true,
-    // CAMPOS SIMPLIFICADOS PARA WEB
-    show_in_web: false,  // Checkbox general para mostrar la villa en web
-    show_pasadia_in_web: false,  // Checkbox para mostrar Pasadía en web
-    show_amanecida_in_web: false  // Checkbox para mostrar Amanecida en web
+    // CAMPOS PARA CONTROL DE VISIBILIDAD EN WEB
+    catalog_show_pasadia: false,  // Checkbox para mostrar Pasadía en web
+    catalog_show_amanecida: false  // Checkbox para mostrar Amanecida en web
   });
 
   // Estados para precios de cada modalidad
