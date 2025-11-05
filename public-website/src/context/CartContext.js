@@ -38,13 +38,6 @@ export const CartProvider = ({ children }) => {
       code: villa.code,
       zone: villa.zone,
       modality: modality, // 'pasadia', 'amanecida', 'ambas', 'evento'
-      price: modality === 'pasadia' ? villa.catalog_price_pasadia :
-             modality === 'amanecida' ? villa.catalog_price_amanecida :
-             modality === 'ambas' ? (villa.catalog_price_pasadia || 0) + (villa.catalog_price_amanecida || 0) :
-             0, // evento no tiene precio predefinido
-      currency: modality === 'pasadia' ? villa.catalog_currency_pasadia :
-                modality === 'amanecida' ? villa.catalog_currency_amanecida :
-                villa.catalog_currency_pasadia || 'RD$',
       addedAt: new Date().toISOString()
     };
 
