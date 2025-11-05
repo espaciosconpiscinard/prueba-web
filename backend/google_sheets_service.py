@@ -148,6 +148,7 @@ class GoogleSheetsService:
                 len(data.get('villas', [])),  # Cantidad de Villas
                 data.get('nota_adicional', ''),  # Nota Adicional
                 datetime.now().strftime('%d/%m/%y %H:%M'),  # Fecha Solicitud (DD/MM/AA)
+                'Sin asignar',  # Asignado a
                 'Pendiente'  # Estado
             ]
             
