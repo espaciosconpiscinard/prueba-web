@@ -656,8 +656,8 @@ const Villas = () => {
                 </div>
               )}
 
-              {/* Sección AMANECIDA - Show if has_amanecida OR if any amanecida data exists */}
-              {(selectedVilla.has_amanecida || selectedVilla.max_guests_amanecida || selectedVilla.public_description_amanecida || selectedVilla.catalog_price_amanecida) && (
+              {/* Sección AMANECIDA - Show if enabled */}
+              {(selectedVilla.catalog_show_amanecida && selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.some(p => p.show_in_web)) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eef2ff', borderRadius: '10px', border: '2px solid #6366f1' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#4338ca', marginBottom: '10px', fontWeight: 'bold' }}>
                     🌙 Amanecida
@@ -670,12 +670,18 @@ const Villas = () => {
                     </p>
                   )}
                   
-                  {/* Precio Amanecida */}
-                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_amanecida && selectedVilla.catalog_price_amanecida > 0 && (
-                    <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
-                      <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_amanecida || 'RD$'} {parseFloat(selectedVilla.catalog_price_amanecida).toLocaleString()}
-                    </p>
-                  )}
+                  {/* Precios Flexibles */}
+                  <div style={{ marginBottom: '10px' }}>
+                    <strong style={{ fontSize: '0.95rem', color: '#4338ca' }}>💰 Precios:</strong>
+                    {selectedVilla.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
+                      <div key={idx} style={{ marginLeft: '10px', marginTop: '5px', fontSize: '0.9rem' }}>
+                        <span style={{ color: '#666' }}>{price.label}:</span>{' '}
+                        <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
+                          RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                   
                   {/* Descripción Detallada Amanecida */}
                   {selectedVilla.public_description_amanecida && (
