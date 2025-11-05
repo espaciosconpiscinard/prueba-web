@@ -2806,8 +2806,14 @@ class BackendTester:
         villas = villas_result["data"]
         target_villa = None
         
+        # Debug: print first villa to see structure
+        if villas:
+            print(f"   🔍 Debug: First villa structure: {type(villas[0])}")
+            if isinstance(villas[0], dict):
+                print(f"   🔍 Debug: First villa keys: {list(villas[0].keys())}")
+        
         for villa in villas:
-            if villa.get("code") == "ECPVCVPNYLC":
+            if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
                 target_villa = villa
                 break
         
