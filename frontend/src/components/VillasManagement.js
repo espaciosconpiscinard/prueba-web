@@ -260,15 +260,16 @@ const VillasManagementNew = () => {
   const updatePrice = (modality, index, field, value) => {
     if (modality === 'pasadia') {
       const updated = [...pasadiaPrices];
-      updated[index][field] = field === 'label' ? value : (parseFloat(value) || 0);
+      // Handle different field types: string (label), boolean (show_in_web), or number (prices)
+      updated[index][field] = field === 'label' ? value : (field === 'show_in_web' ? value : (parseFloat(value) || 0));
       setPasadiaPrices(updated);
     } else if (modality === 'amanecida') {
       const updated = [...amanecidaPrices];
-      updated[index][field] = field === 'label' ? value : (parseFloat(value) || 0);
+      updated[index][field] = field === 'label' ? value : (field === 'show_in_web' ? value : (parseFloat(value) || 0));
       setAmanecidaPrices(updated);
     } else if (modality === 'evento') {
       const updated = [...eventoPrices];
-      updated[index][field] = field === 'label' ? value : (parseFloat(value) || 0);
+      updated[index][field] = field === 'label' ? value : (field === 'show_in_web' ? value : (parseFloat(value) || 0));
       setEventoPrices(updated);
     }
   };
