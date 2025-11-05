@@ -183,7 +183,19 @@ const VillasManagementNew = () => {
       extra_people_price_owner: villa.extra_people_price_owner || 0,
       max_guests: villa.max_guests || 0,
       amenities: villa.amenities || [],
-      is_active: villa.is_active !== false
+      is_active: villa.is_active !== false,
+      // CARGAR CAMPOS DE WEB PÚBLICA
+      catalog_description_pasadia: villa.catalog_description_pasadia || '',
+      catalog_description_amanecida: villa.catalog_description_amanecida || '',
+      catalog_price_pasadia: villa.catalog_price_pasadia || 0,
+      catalog_price_amanecida: villa.catalog_price_amanecida || 0,
+      catalog_currency_pasadia: villa.catalog_currency_pasadia || 'RD$',
+      catalog_currency_amanecida: villa.catalog_currency_amanecida || 'RD$',
+      catalog_show_price: villa.catalog_show_price || false,
+      catalog_show_pasadia: villa.catalog_show_pasadia || false,
+      catalog_show_amanecida: villa.catalog_show_amanecida || false,
+      public_description_pasadia: villa.public_description_pasadia || '',
+      public_description_amanecida: villa.public_description_amanecida || ''
     });
     setPasadiaPrices(villa.pasadia_prices || []);
     setAmanecidaPrices(villa.amanecida_prices || []);
