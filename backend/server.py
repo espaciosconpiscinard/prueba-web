@@ -4101,6 +4101,7 @@ async def create_quote_request(request: QuoteRequestCreate):
         # 2. Intentar guardar en Google Sheets (opcional)
         try:
             data = {
+                'request_number': request_number,
                 'nombre': request.nombre,
                 'telefono': request.telefono,
                 'fecha_interes': request.fecha_interes,
