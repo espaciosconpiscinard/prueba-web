@@ -237,8 +237,16 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
+                          {/* DEBUG VISIBLE */}
+                          {villa.code === 'KLKL' && (
+                            <div style={{ background: 'red', color: 'white', padding: '10px', fontSize: '0.7rem', marginBottom: '5px' }}>
+                              DEBUG KLKL:<br/>
+                              catalog_show_pasadia: {String(villa.catalog_show_pasadia)}<br/>
+                              pasadia_prices: {JSON.stringify(villa.pasadia_prices)}<br/>
+                              tiene show_in_web: {String(villa.pasadia_prices?.some(p => p.show_in_web))}
+                            </div>
+                          )}
                           {/* PASADÍA - Show if enabled */}
-                          {villa.code === 'KLKL' && console.log('KLKL DATA:', villa.pasadia_prices)}
                           {(villa.catalog_show_pasadia && villa.pasadia_prices && villa.pasadia_prices.some(p => p.show_in_web)) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
                               <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
