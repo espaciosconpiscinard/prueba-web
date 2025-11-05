@@ -4118,9 +4118,10 @@ async def create_quote_request(request: QuoteRequestCreate):
             logger.warning(f"⚠️ Error al guardar en Google Sheets: {str(sheets_error)}, pero está en MongoDB")
         
         return {
-            "message": "Solicitud enviada exitosamente",
+            "message": f"¡Gracias {request.nombre}! Tu solicitud ha sido enviada exitosamente. Nos comunicaremos contigo lo más pronto posible.",
             "success": True,
-            "id": quote_doc['id']
+            "request_number": request_number,
+            "nombre": request.nombre
         }
         
     except Exception as e:
