@@ -125,7 +125,9 @@ const Villas = () => {
                 </h2>
                 
                 <div className="cards-grid">
+                  {console.log('🏘️ ZONA:', zone, 'Villas:', villasByZone[zone])}
                   {villasByZone[zone].map(villa => {
+                    console.log('🏠 Renderizando villa:', villa.code, 'pasadia_prices:', villa.pasadia_prices);
                     const currentIdx = currentImageIndex[villa.id] || 0;
                     const hasImages = villa.images && villa.images.length > 0;
                     const currentImage = hasImages ? villa.images[currentIdx % villa.images.length] : null;
