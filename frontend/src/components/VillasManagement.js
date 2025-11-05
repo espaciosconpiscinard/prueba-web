@@ -712,15 +712,15 @@ const VillasManagementNew = () => {
                         </div>
 
                         <div className="mb-3">
-                          <Label className="text-xs">Descripción Detallada (Para Modal Web)</Label>
+                          <Label className="text-xs">Descripción Pública Detallada (Aparece en el Modal del Sitio Web)</Label>
                           <textarea
-                            value={formData.description_pasadia}
-                            onChange={(e) => setFormData({ ...formData, description_pasadia: e.target.value })}
-                            placeholder="Detalles específicos que se mostrarán cuando el cliente haga clic en la villa..."
+                            value={formData.public_description_pasadia}
+                            onChange={(e) => setFormData({ ...formData, public_description_pasadia: e.target.value })}
+                            placeholder="Descripción detallada que verán los clientes en el sitio público cuando hagan clic en la villa. Incluye detalles de amenidades, reglas, etc."
                             className="w-full p-2 border rounded text-sm"
-                            rows="3"
+                            rows="4"
                           />
-                          <small className="text-gray-500">Esta descripción se muestra en el modal detallado.</small>
+                          <small className="text-gray-500">💡 Esta descripción aparece en el modal del sitio público.</small>
                         </div>
                         
                         {/* Precios Pasadía */}
