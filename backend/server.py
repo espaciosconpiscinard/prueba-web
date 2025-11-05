@@ -786,16 +786,22 @@ async def create_villa(villa_data: VillaCreate, current_user: dict = Depends(get
     await db.villas.insert_one(doc)
     return villa
 
+def clean_villa_data(villa):
+    """Convert empty strings to None for numeric fields"""
+    numeric_fields = ['catalog_price_pasadia', 'catalog_price_amanecida', 'catalog_price_evento']
+    for field in numeric_fields:
+        if field in villa and villa[field] == '':
+            villa[field] = None
+    return villa
+
 @api_router.get("/villas", response_model=List[Villa])
 async def get_villas(
-    search: Optional[str] = None,
     category_id: Optional[str] = None,
+    search: Optional[str] = None,
     current_user: dict = Depends(get_current_user)
 ):
-    """Get all villas with optional search and category filter"""
+    """Get all villas with optional filters"""
     query = {}
-    
-    # Filtro por categoría
     if category_id:
         query["category_id"] = category_id
     
@@ -807,7 +813,7 @@ async def get_villas(
         ]
     
     villas = await db.villas.find(query, {"_id": 0}).to_list(1000)
-    return [restore_datetimes(v, ["created_at"]) for v in villas]
+    return [restore_datetimes(clean_villa_data(v), ["created_at"]) for v in villas]
 
 @api_router.get("/villas/{villa_id}", response_model=Villa)
 async def get_villa(villa_id: str, current_user: dict = Depends(get_current_user)):
