@@ -6,34 +6,8 @@ const API_URL = process.env.REACT_APP_BACKEND_URL || '';
 
 const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
   const [publicData, setPublicData] = useState({
-    public_description: villa.public_description || '',
     public_images: villa.public_images || [],
-    default_public_image_index: villa.default_public_image_index !== undefined ? villa.default_public_image_index : 0,
-    public_amenities: villa.public_amenities || [],
-    public_features: villa.public_features || [],
-    public_max_guests_pasadia: villa.public_max_guests_pasadia || villa.max_guests || 0,
-    public_max_guests_amanecida: villa.public_max_guests_amanecida || villa.max_guests || 0,
-    public_has_pasadia: villa.public_has_pasadia !== undefined ? villa.public_has_pasadia : villa.has_pasadia || false,
-    public_has_amanecida: villa.public_has_amanecida !== undefined ? villa.public_has_amanecida : villa.has_amanecida || false,
-    
-    // Datos de catálogo - Pasadía
-    catalog_description_pasadia: villa.catalog_description_pasadia || '',
-    catalog_price_pasadia: villa.catalog_price_pasadia || '',
-    catalog_currency_pasadia: villa.catalog_currency_pasadia || 'RD$',
-    
-    // Datos de catálogo - Amanecida
-    catalog_description_amanecida: villa.catalog_description_amanecida || '',
-    catalog_price_amanecida: villa.catalog_price_amanecida || '',
-    catalog_currency_amanecida: villa.catalog_currency_amanecida || 'RD$',
-    
-    // Descripciones detalladas (modal)
-    public_description_pasadia: villa.public_description_pasadia || '',
-    public_description_amanecida: villa.public_description_amanecida || '',
-    
-    // Controles de visibilidad
-    catalog_show_price: villa.catalog_show_price || false,
-    catalog_show_pasadia: villa.catalog_show_pasadia || false,
-    catalog_show_amanecida: villa.catalog_show_amanecida || false
+    default_public_image_index: villa.default_public_image_index !== undefined ? villa.default_public_image_index : 0
   });
   const [newAmenity, setNewAmenity] = useState('');
   const [newFeature, setNewFeature] = useState('');
