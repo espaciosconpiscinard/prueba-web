@@ -4076,9 +4076,14 @@ async def create_quote_request(request: QuoteRequestCreate):
     Recibir solicitud de cotización y guardarla en MongoDB + Google Sheets
     """
     try:
+        # Generar número de solicitud secuencial (0101, 0102, etc.)
+        count = await db.quote_requests.count_documents({})
+        request_number = f"{count + 101:04d}"  # Empieza en 0101
+        
         # Crear documento para MongoDB
         quote_doc = {
             'id': str(uuid.uuid4()),
+            'request_number': request_number,
             'nombre': request.nombre,
             'telefono': request.telefono,
             'fecha_interes': request.fecha_interes,
