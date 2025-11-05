@@ -615,14 +615,14 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
-              {/* Sección PASADÍA - SIMPLIFICADA */}
-              {(selectedVilla.catalog_show_pasadia) && (
+              {/* Sección PASADÍA */}
+              {(selectedVilla.has_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
                     ☀️ Pasadía
                   </h3>
                   
-                  {/* Descripción Detallada Pasadía - MOVIDA AL PRINCIPIO */}
+                  {/* Descripción Detallada Pasadía */}
                   {selectedVilla.public_description_pasadia && (
                     <div style={{ marginBottom: '12px', padding: '10px', background: 'white', borderRadius: '6px', border: '1px solid #bfdbfe' }}>
                       <p style={{ 
@@ -637,10 +637,17 @@ const Villas = () => {
                     </div>
                   )}
                   
-                  {/* Capacidad */}
-                  {selectedVilla.max_guests_pasadia && (
+                  {/* Horarios */}
+                  {selectedVilla.check_in_time_pasadia && selectedVilla.check_out_time_pasadia && (
                     <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
-                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_pasadia} personas
+                      <strong>🕐 Horario:</strong> {selectedVilla.check_in_time_pasadia} - {selectedVilla.check_out_time_pasadia}
+                    </p>
+                  )}
+                  
+                  {/* Capacidad */}
+                  {selectedVilla.max_guests && (
+                    <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
+                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests} personas
                     </p>
                   )}
                   
