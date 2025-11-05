@@ -622,7 +622,7 @@ const Villas = () => {
               )}
 
               {/* Sección AMANECIDA */}
-              {(selectedVilla.has_amanecida && selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.some(p => p.show_in_web)) && (
+              {(selectedVilla.has_amanecida && selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.length > 0) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eef2ff', borderRadius: '10px', border: '2px solid #6366f1' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#4338ca', marginBottom: '10px', fontWeight: 'bold' }}>
                     🌙 Amanecida
