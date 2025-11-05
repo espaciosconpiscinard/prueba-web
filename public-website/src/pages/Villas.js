@@ -668,6 +668,21 @@ const Villas = () => {
                     🌙 Amanecida
                   </h3>
                   
+                  {/* Descripción Detallada Amanecida - MOVIDA AL PRINCIPIO */}
+                  {selectedVilla.public_description_amanecida && (
+                    <div style={{ marginBottom: '12px', padding: '10px', background: 'white', borderRadius: '6px', border: '1px solid #c7d2fe' }}>
+                      <p style={{ 
+                        fontSize: '0.9rem', 
+                        lineHeight: '1.6', 
+                        color: '#4338ca',
+                        margin: 0,
+                        whiteSpace: 'pre-line'
+                      }}>
+                        {selectedVilla.public_description_amanecida}
+                      </p>
+                    </div>
+                  )}
+                  
                   {/* Capacidad */}
                   {selectedVilla.max_guests_amanecida && (
                     <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
@@ -687,20 +702,6 @@ const Villas = () => {
                           </span>
                         </div>
                       ))}
-                    </div>
-                  )}
-                  
-                  {/* Descripción Detallada Amanecida */}
-                  {selectedVilla.public_description_amanecida && (
-                    <div style={{ marginTop: '10px' }}>
-                      <p style={{ 
-                        fontSize: '0.85rem', 
-                        lineHeight: '1.5', 
-                        color: '#333',
-                        whiteSpace: 'pre-line'
-                      }}>
-                        {selectedVilla.public_description_amanecida}
-                      </p>
                     </div>
                   )}
                 </div>
