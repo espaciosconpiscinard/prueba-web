@@ -54,9 +54,14 @@ class BackendTester:
             else:
                 return {"error": f"Unsupported method: {method}"}
             
+            try:
+                data = response.json() if response.content else {}
+            except Exception as json_error:
+                data = {"json_error": str(json_error), "raw_content": response.text}
+            
             return {
                 "status_code": response.status_code,
-                "data": response.json() if response.content else {},
+                "data": data,
                 "success": 200 <= response.status_code < 300
             }
         except Exception as e:
