@@ -713,21 +713,133 @@ const Villas = () => {
                 </div>
               )}
 
-              {/* Botón de WhatsApp */}
-              <a 
-                href={`https://wa.me/${process.env.REACT_APP_WHATSAPP_NUMBER.replace(/\+/g, '')}?text=${encodeURIComponent(`Hola! Me interesa la villa ${selectedVilla.code} en ${selectedVilla.zone}. ¿Podrían darme más información sobre disponibilidad y precios?`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-primary" 
-                style={{ 
-                  width: '100%', 
-                  textAlign: 'center',
-                  fontSize: '1.1rem',
-                  padding: '15px'
-                }}
-              >
-                Consultar Disponibilidad y Precios por WhatsApp
-              </a>
+              {/* Botón Agregar al Carrito */}
+              <div style={{ position: 'relative' }}>
+                <button 
+                  onClick={(e) => { 
+                    e.stopPropagation(); 
+                    setShowModalitySelector(showModalitySelector === selectedVilla.id ? null : selectedVilla.id);
+                  }}
+                  style={{ 
+                    width: '100%',
+                    padding: '15px',
+                    background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontSize: '1.1rem',
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  🛒 Agregar a mi Lista de Interés
+                </button>
+
+                {/* Selector de modalidad para el modal */}
+                {showModalitySelector === selectedVilla.id && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '70px',
+                    left: '0',
+                    right: '0',
+                    background: 'white',
+                    border: '2px solid #080644',
+                    borderRadius: '8px',
+                    padding: '15px',
+                    zIndex: 100,
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
+                  }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '10px', color: '#080644' }}>
+                      Selecciona modalidad:
+                    </div>
+                    {selectedVilla.catalog_show_pasadia && (
+                      <button
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          handleAddToCart(selectedVilla, 'pasadia');
+                          closeModal();
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '10px',
+                          marginBottom: '8px',
+                          background: '#eff6ff',
+                          border: '1px solid #3b82f6',
+                          borderRadius: '5px',
+                          fontSize: '0.9rem',
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                      >
+                        ☀️ Pasadía
+                      </button>
+                    )}
+                    {selectedVilla.catalog_show_amanecida && (
+                      <button
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          handleAddToCart(selectedVilla, 'amanecida');
+                          closeModal();
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '10px',
+                          marginBottom: '8px',
+                          background: '#eef2ff',
+                          border: '1px solid #6366f1',
+                          borderRadius: '5px',
+                          fontSize: '0.9rem',
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                      >
+                        🌙 Amanecida
+                      </button>
+                    )}
+                    {selectedVilla.catalog_show_pasadia && selectedVilla.catalog_show_amanecida && (
+                      <button
+                        onClick={(e) => { 
+                          e.stopPropagation(); 
+                          handleAddToCart(selectedVilla, 'ambas');
+                          closeModal();
+                        }}
+                        style={{
+                          width: '100%',
+                          padding: '10px',
+                          marginBottom: '8px',
+                          background: '#f0fdf4',
+                          border: '1px solid #22c55e',
+                          borderRadius: '5px',
+                          fontSize: '0.9rem',
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                      >
+                        ☀️🌙 Ambas
+                      </button>
+                    )}
+                    <button
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        handleAddToCart(selectedVilla, 'evento');
+                        closeModal();
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '10px',
+                        background: '#fef3c7',
+                        border: '1px solid #f59e0b',
+                        borderRadius: '5px',
+                        fontSize: '0.9rem',
+                        cursor: 'pointer',
+                        textAlign: 'left'
+                      }}
+                    >
+                      🎉 Evento
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
