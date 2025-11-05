@@ -1264,13 +1264,86 @@ const VillasManagementNew = () => {
                             <p className="text-xs text-gray-500">{villa.name}</p>
                           </div>
                           <div>
-                            <p className="text-sm font-medium">Precio Cliente</p>
-                            <p className="text-sm text-gray-700">{formatCurrency(villa.price_pasadia_regular_client || 0)}</p>
+                            <p className="text-sm font-medium mb-1">Precios al Cliente</p>
+                            {/* Pasadía Prices */}
+                            {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
+                              <div className="mb-2">
+                                <p className="text-xs text-blue-600 font-semibold">☀️ Pasadía:</p>
+                                {villa.pasadia_prices.map((price, idx) => (
+                                  <p key={idx} className="text-xs text-gray-700">
+                                    {price.label}: {formatCurrency(price.client_price || 0)}
+                                    {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                  </p>
+                                ))}
+                              </div>
+                            )}
+                            {/* Amanecida Prices */}
+                            {villa.amanecida_prices && villa.amanecida_prices.length > 0 && (
+                              <div className="mb-2">
+                                <p className="text-xs text-indigo-600 font-semibold">🌙 Amanecida:</p>
+                                {villa.amanecida_prices.map((price, idx) => (
+                                  <p key={idx} className="text-xs text-gray-700">
+                                    {price.label}: {formatCurrency(price.client_price || 0)}
+                                    {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                  </p>
+                                ))}
+                              </div>
+                            )}
+                            {/* Evento Prices */}
+                            {villa.evento_prices && villa.evento_prices.length > 0 && (
+                              <div>
+                                <p className="text-xs text-purple-600 font-semibold">🎉 Evento:</p>
+                                {villa.evento_prices.map((price, idx) => (
+                                  <p key={idx} className="text-xs text-gray-700">
+                                    {price.label}: {formatCurrency(price.client_price || 0)}
+                                    {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                  </p>
+                                ))}
+                              </div>
+                            )}
+                            {!villa.pasadia_prices?.length && !villa.amanecida_prices?.length && !villa.evento_prices?.length && (
+                              <p className="text-xs text-gray-400">Sin precios configurados</p>
+                            )}
                           </div>
                           {isAdmin && (
                             <div>
-                              <p className="text-sm font-medium">Pago Propietario</p>
-                              <p className="text-sm text-green-600 font-semibold">{formatCurrency(villa.price_pasadia_regular_owner || 0)}</p>
+                              <p className="text-sm font-medium mb-1">Pago al Propietario</p>
+                              {/* Pasadía Prices */}
+                              {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
+                                <div className="mb-2">
+                                  <p className="text-xs text-blue-600 font-semibold">☀️ Pasadía:</p>
+                                  {villa.pasadia_prices.map((price, idx) => (
+                                    <p key={idx} className="text-xs text-gray-700">
+                                      {price.label}: {formatCurrency(price.owner_price || 0)}
+                                    </p>
+                                  ))}
+                                </div>
+                              )}
+                              {/* Amanecida Prices */}
+                              {villa.amanecida_prices && villa.amanecida_prices.length > 0 && (
+                                <div className="mb-2">
+                                  <p className="text-xs text-indigo-600 font-semibold">🌙 Amanecida:</p>
+                                  {villa.amanecida_prices.map((price, idx) => (
+                                    <p key={idx} className="text-xs text-gray-700">
+                                      {price.label}: {formatCurrency(price.owner_price || 0)}
+                                    </p>
+                                  ))}
+                                </div>
+                              )}
+                              {/* Evento Prices */}
+                              {villa.evento_prices && villa.evento_prices.length > 0 && (
+                                <div>
+                                  <p className="text-xs text-purple-600 font-semibold">🎉 Evento:</p>
+                                  {villa.evento_prices.map((price, idx) => (
+                                    <p key={idx} className="text-xs text-gray-700">
+                                      {price.label}: {formatCurrency(price.owner_price || 0)}
+                                    </p>
+                                  ))}
+                                </div>
+                              )}
+                              {!villa.pasadia_prices?.length && !villa.amanecida_prices?.length && !villa.evento_prices?.length && (
+                                <p className="text-xs text-gray-400">Sin precios configurados</p>
+                              )}
                             </div>
                           )}
                           <div className="flex items-center justify-end space-x-2">
