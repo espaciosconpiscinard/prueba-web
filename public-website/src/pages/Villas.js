@@ -611,11 +611,7 @@ const Villas = () => {
 
             {/* Contenido del modal */}
             <div style={{ padding: '20px' }}>
-              <div style={{ background: 'yellow', padding: '20px', marginBottom: '20px', fontSize: '1.5rem', border: '5px solid red' }}>
-                <strong>¡TEST! SI VES ESTO, EL MODAL FUNCIONA</strong>
-              </div>
-              
-              <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '10px', marginTop: '20px' }}>
+              <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '10px', marginTop: '0' }}>
                 {selectedVilla.code}
               </h2>
               
