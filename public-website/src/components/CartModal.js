@@ -409,7 +409,7 @@ const CartModal = () => {
               </select>
             </div>
 
-            <div style={{ marginBottom: '20px' }}>
+            <div style={{ marginBottom: '15px' }}>
               <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', fontSize: '0.9rem' }}>
                 Tipo de actividad
               </label>
@@ -425,6 +425,26 @@ const CartModal = () => {
                   fontSize: '1rem'
                 }}
                 placeholder="Ej: Cumpleaños, Reunión familiar, etc."
+              />
+            </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', fontSize: '0.9rem' }}>
+                Nota o requerimiento adicional
+              </label>
+              <textarea
+                value={formData.notaAdicional}
+                onChange={(e) => setFormData({...formData, notaAdicional: e.target.value})}
+                rows="3"
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '1rem',
+                  resize: 'vertical'
+                }}
+                placeholder="Ej: Necesito decoración especial, música, etc."
               />
             </div>
 
