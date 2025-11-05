@@ -592,6 +592,31 @@ const VillasManagementNew = () => {
                     </select>
                   </div>
 
+                  {/* CHECKBOX GLOBAL PARA WEB */}
+                  <div className="col-span-2 p-3 bg-green-50 border-2 border-green-500 rounded">
+                    <div className="flex items-center">
+                      <input
+                        type="checkbox"
+                        checked={formData.show_in_web}
+                        onChange={(e) => setFormData({ ...formData, show_in_web: e.target.checked })}
+                        className="mr-3 w-5 h-5"
+                      />
+                      <Label className="font-bold text-lg">🌐 Mostrar esta villa en el sitio web público</Label>
+                    </div>
+                  </div>
+
+                  <div className="col-span-2">
+                    <Label>Descripción Principal (Para Card del Catálogo Web)</Label>
+                    <textarea
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Descripción corta y atractiva que aparecerá en la tarjeta del catálogo..."
+                      className="w-full p-2 border rounded"
+                      rows="2"
+                    />
+                    <small className="text-gray-500">Esta descripción aparecerá en las tarjetas del catálogo web.</small>
+                  </div>
+
                   <div className="col-span-2">
                     <Label>Ubicación/Dirección</Label>
                     <Input
