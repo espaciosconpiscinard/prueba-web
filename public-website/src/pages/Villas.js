@@ -243,20 +243,6 @@ const Villas = () => {
                               <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 ☀️ Pasadía
                               </div>
-                              {villa.catalog_description_pasadia && (
-                                <p style={{ 
-                                  fontSize: '0.7rem',
-                                  lineHeight: '1.2',
-                                  marginBottom: '6px',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  display: '-webkit-box',
-                                  WebkitLineClamp: 2,
-                                  WebkitBoxOrient: 'vertical'
-                                }}>
-                                  {villa.catalog_description_pasadia}
-                                </p>
-                              )}
                               {/* Precios Flexibles */}
                               {villa.pasadia_prices && villa.pasadia_prices.filter(p => p.show_in_web).map((price, idx) => (
                                 <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
@@ -266,11 +252,6 @@ const Villas = () => {
                                   </span>
                                 </div>
                               ))}
-                              {villa.max_guests_pasadia && (
-                                <div style={{ fontSize: '0.7rem', color: '#666', marginTop: '4px' }}>
-                                  👥 Hasta {villa.max_guests_pasadia} personas
-                                </div>
-                              )}
                             </div>
                           )}
 
