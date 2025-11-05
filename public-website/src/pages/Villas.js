@@ -261,20 +261,6 @@ const Villas = () => {
                               <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 🌙 Amanecida
                               </div>
-                              {villa.catalog_description_amanecida && (
-                                <p style={{ 
-                                  fontSize: '0.7rem',
-                                  lineHeight: '1.2',
-                                  marginBottom: '6px',
-                                  overflow: 'hidden',
-                                  textOverflow: 'ellipsis',
-                                  display: '-webkit-box',
-                                  WebkitLineClamp: 2,
-                                  WebkitBoxOrient: 'vertical'
-                                }}>
-                                  {villa.catalog_description_amanecida}
-                                </p>
-                              )}
                               {/* Precios Flexibles */}
                               {villa.amanecida_prices && villa.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
                                 <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
@@ -284,11 +270,6 @@ const Villas = () => {
                                   </span>
                                 </div>
                               ))}
-                              {villa.max_guests_amanecida && (
-                                <div style={{ fontSize: '0.7rem', color: '#666', marginTop: '4px' }}>
-                                  👥 Hasta {villa.max_guests_amanecida} personas
-                                </div>
-                              )}
                             </div>
                           )}
                           
