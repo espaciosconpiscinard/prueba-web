@@ -142,9 +142,9 @@ class VillaBase(BaseModel):
     check_out_time_amanecida: str = "8:00 AM"
     
     # Arrays de precios múltiples por modalidad
-    pasadia_prices: List[dict] = []  # [{ label: 'Regular', client_price: 0, owner_price: 0 }]
-    amanecida_prices: List[dict] = []
-    evento_prices: List[dict] = []
+    pasadia_prices: List[ModalityPrice] = []  # [{ label: 'Regular', client_price: 0, owner_price: 0, show_in_web: false }]
+    amanecida_prices: List[ModalityPrice] = []
+    evento_prices: List[ModalityPrice] = []
     
     # Precios por extras (aplican a cualquier tipo de renta) - separados cliente/propietario
     extra_hours_price_client: float = 0.0  # Precio al cliente por hora extra
