@@ -214,7 +214,6 @@ const VillasManagementNew = () => {
     setEditingVilla(null);
     setFormData({
       code: '',
-      name: '',
       description: '',
       location: '',
       phone: '',
@@ -222,17 +221,9 @@ const VillasManagementNew = () => {
       has_pasadia: false,
       has_amanecida: false,
       has_evento: false,
-      description_pasadia: '',
-      description_amanecida: '',
-      description_evento: '',
       public_description_pasadia: '',
       public_description_amanecida: '',
-      catalog_description_pasadia: '',
-      catalog_description_amanecida: '',
-      villa_currency: 'DOP',
-      currency_pasadia: 'DOP',
-      currency_amanecida: 'DOP',
-      currency_evento: 'DOP',
+      description_evento: '',
       check_in_time_pasadia: '9:00 AM',
       check_out_time_pasadia: '8:00 PM',
       check_in_time_amanecida: '9:00 AM',
@@ -246,9 +237,7 @@ const VillasManagementNew = () => {
       extra_people_price_owner: 0,
       max_guests: 0,
       amenities: [],
-      is_active: true,
-      catalog_show_pasadia: false,
-      catalog_show_amanecida: false
+      is_active: true
     });
     setPasadiaPrices([]);
     setAmanecidaPrices([]);
