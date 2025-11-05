@@ -822,6 +822,18 @@ const VillasManagementNew = () => {
                         </div>
 
                         <div className="mb-3">
+                          <Label className="text-xs">Descripción Corta del Catálogo (Aparece en la Card del Sitio Web)</Label>
+                          <textarea
+                            value={formData.catalog_description_amanecida || ''}
+                            onChange={(e) => setFormData({ ...formData, catalog_description_amanecida: e.target.value })}
+                            placeholder="Descripción breve que aparecerá en la card de la villa en el catálogo del sitio web. Ej: Estadía nocturna con piscina iluminada, áreas de descanso"
+                            className="w-full p-2 border rounded text-sm"
+                            rows="2"
+                          />
+                          <small className="text-gray-500">💡 Esta descripción corta aparece en la card del catálogo.</small>
+                        </div>
+
+                        <div className="mb-3">
                           <Label className="text-xs">Descripción Pública Detallada (Aparece en el Modal del Sitio Web)</Label>
                           <textarea
                             value={formData.public_description_amanecida}
