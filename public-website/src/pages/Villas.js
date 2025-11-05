@@ -814,7 +814,7 @@ const Villas = () => {
                         ☀️ Pasadía
                       </button>
                     )}
-                    {selectedVilla.catalog_show_amanecida && (
+                    {selectedVilla.has_amanecida && (
                       <button
                         onClick={(e) => { 
                           e.stopPropagation(); 
@@ -836,7 +836,7 @@ const Villas = () => {
                         🌙 Amanecida
                       </button>
                     )}
-                    {selectedVilla.catalog_show_pasadia && selectedVilla.catalog_show_amanecida && (
+                    {selectedVilla.has_pasadia && selectedVilla.has_amanecida && (
                       <button
                         onClick={(e) => { 
                           e.stopPropagation(); 
