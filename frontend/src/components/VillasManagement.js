@@ -237,7 +237,7 @@ const VillasManagementNew = () => {
 
   // ============ FUNCIONES PARA PRECIOS MÚLTIPLES ============
   const addPrice = (modality) => {
-    const newPrice = { label: '', client_price: 0, owner_price: 0 };
+    const newPrice = { label: '', client_price: 0, owner_price: 0, show_in_web: false };
     if (modality === 'pasadia') {
       setPasadiaPrices([...pasadiaPrices, newPrice]);
     } else if (modality === 'amanecida') {
