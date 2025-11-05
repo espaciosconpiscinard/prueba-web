@@ -184,7 +184,7 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
           📝 <strong>Nota:</strong> Los precios, descripciones y demás configuraciones se editan directamente en el formulario principal de la villa. Este modal es SOLO para gestionar fotos.
         </p>
 
-        {/* SECCIÓN DE CATÁLOGO */}
+        {/* SECCIÓN DE FOTOS */}
         <div style={{ marginBottom: '25px', padding: '20px', background: '#fef3c7', borderRadius: '10px', border: '3px solid #f59e0b' }}>
           <h3 style={{ fontSize: '1.3rem', color: '#92400e', marginBottom: '15px', fontWeight: 'bold' }}>
             📋 INFORMACIÓN DEL CATÁLOGO (Vista Previa)
