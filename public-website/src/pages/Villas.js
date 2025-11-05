@@ -661,7 +661,7 @@ const Villas = () => {
                   {selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.length > 0 && (
                     <div style={{ marginBottom: '10px' }}>
                       <strong style={{ fontSize: '0.95rem', color: '#4338ca' }}>💰 Precios:</strong>
-                      {selectedVilla.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
+                      {selectedVilla.amanecida_prices.map((price, idx) => (
                         <div key={idx} style={{ marginLeft: '10px', marginTop: '5px', fontSize: '0.9rem' }}>
                           <span style={{ color: '#666' }}>{price.label}:</span>{' '}
                           <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
