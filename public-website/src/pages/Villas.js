@@ -274,8 +274,8 @@ const Villas = () => {
                             </div>
                           )}
 
-                          {/* AMANECIDA - Show if explicitly enabled OR if data exists (backwards compatibility) */}
-                          {(villa.catalog_show_amanecida || villa.catalog_description_amanecida || villa.catalog_price_amanecida) && (
+                          {/* AMANECIDA - Show if enabled */}
+                          {(villa.catalog_show_amanecida && villa.amanecida_prices && villa.amanecida_prices.some(p => p.show_in_web)) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eef2ff', borderRadius: '6px', border: '1px solid #6366f1' }}>
                               <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 🌙 Amanecida
@@ -284,7 +284,7 @@ const Villas = () => {
                                 <p style={{ 
                                   fontSize: '0.7rem',
                                   lineHeight: '1.2',
-                                  marginBottom: '4px',
+                                  marginBottom: '6px',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   display: '-webkit-box',
@@ -294,13 +294,17 @@ const Villas = () => {
                                   {villa.catalog_description_amanecida}
                                 </p>
                               )}
-                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_amanecida && villa.catalog_price_amanecida > 0 && (
-                                <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
-                                  💰 {villa.catalog_currency_amanecida || 'RD$'} {parseFloat(villa.catalog_price_amanecida).toLocaleString()}
+                              {/* Precios Flexibles */}
+                              {villa.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
+                                <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
+                                  <span style={{ color: '#666' }}>{price.label}:</span>{' '}
+                                  <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
+                                    RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
+                                  </span>
                                 </div>
-                              )}
+                              ))}
                               {villa.max_guests_amanecida && (
-                                <div style={{ fontSize: '0.7rem', color: '#666' }}>
+                                <div style={{ fontSize: '0.7rem', color: '#666', marginTop: '4px' }}>
                                   👥 Hasta {villa.max_guests_amanecida} personas
                                 </div>
                               )}
