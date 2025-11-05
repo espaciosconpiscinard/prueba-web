@@ -1143,6 +1143,34 @@ agent_communication:
         comment: |
           ✅ IMPLEMENTADO: Sistema de precios flexibles con visibilidad en web pública
           
+      - working: "NA"
+        agent: "main"
+        comment: |
+          🐛 BUGS CORREGIDOS:
+          
+          PROBLEMA 1: Campos Nombre y Descripción intercambiados
+          - En líneas 612-613 de VillasManagement.js, el campo "Descripción Principal" usaba formData.name en lugar de formData.description
+          - Corregido: Ahora usa formData.description correctamente
+          - Agregado campo description a formData inicial, resetForm y handleEdit
+          
+          PROBLEMA 2: Checkbox show_in_web se marca pero precios no aparecen en web
+          - Causa raíz: Mismatch de nombres de campos entre frontend y backend
+          - Frontend usaba: show_pasadia_in_web y show_amanecida_in_web
+          - Backend esperaba: catalog_show_pasadia y catalog_show_amanecida
+          - Solución: Actualizado frontend para usar nombres correctos del backend
+          - Eliminado checkbox global "show_in_web" que no se usaba
+          
+          PROBLEMA 3: Función updatePrice no manejaba valores boolean
+          - El checkbox show_in_web se convertía a 0 porque parseFloat(boolean) = 0
+          - Corregido: Agregada condición para manejar field === 'show_in_web' como boolean
+          
+          CAMBIOS EN VISTA DE LISTA DE ADMIN:
+          - Vista compacta ahora muestra todos los precios flexibles por modalidad
+          - Vista expandida muestra precios organizados por Pasadía/Amanecida/Evento
+          - Icono 🌐 indica qué precios se muestran en la web pública
+          
+          SIGUIENTE PASO: Usuario debe probar editando una villa, agregando precios, marcando checkboxes
+          
           BACKEND (models.py):
           - Creado nuevo modelo ModalityPrice con campos: label, client_price, owner_price, show_in_web
           - Actualizado pasadia_prices, amanecida_prices, evento_prices: ahora usan List[ModalityPrice] en lugar de List[dict]
