@@ -621,7 +621,7 @@ const Villas = () => {
                   )}
                   
                   {/* Precio Pasadía */}
-                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_pasadia && (
+                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_pasadia && selectedVilla.catalog_price_pasadia > 0 && (
                     <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
                       <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_pasadia || 'RD$'} {parseFloat(selectedVilla.catalog_price_pasadia).toLocaleString()}
                     </p>
