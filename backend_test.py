@@ -3044,8 +3044,15 @@ class BackendTester:
         return failed == 0
 
 if __name__ == "__main__":
+    import sys
+    
     tester = BackendTester()
-    success = tester.run_all_tests()
+    
+    # Check if user wants to run only the specific test
+    if len(sys.argv) > 1 and sys.argv[1] == "--user-request":
+        success = tester.run_user_request_only()
+    else:
+        success = tester.run_all_tests()
     
     if success:
         print("\n🎉 All tests passed!")
