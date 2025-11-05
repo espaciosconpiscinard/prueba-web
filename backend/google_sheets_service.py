@@ -143,10 +143,12 @@ class GoogleSheetsService:
                 data.get('nombre', ''),  # Nombre Cliente
                 data.get('telefono', ''),  # Teléfono
                 data.get('fecha_interes', ''),  # Fecha de Interés
+                data.get('cantidad_personas', ''),  # Cantidad Personas
                 data.get('modalidad_general', ''),  # Modalidad Preferida
                 data.get('tipo_actividad', ''),  # Tipo de Actividad
                 '\n'.join(villas_details),  # Detalles de Villas
                 len(data.get('villas', [])),  # Cantidad de Villas
+                data.get('nota_adicional', ''),  # Nota Adicional
                 datetime.now().strftime('%d/%m/%y %H:%M'),  # Fecha Solicitud (DD/MM/AA)
                 'Pendiente'  # Estado
             ]
