@@ -636,17 +636,19 @@ const Villas = () => {
                   )}
                   
                   {/* Precios Flexibles */}
-                  <div style={{ marginBottom: '10px' }}>
-                    <strong style={{ fontSize: '0.95rem', color: '#1e40af' }}>💰 Precios:</strong>
-                    {selectedVilla.pasadia_prices.filter(p => p.show_in_web).map((price, idx) => (
-                      <div key={idx} style={{ marginLeft: '10px', marginTop: '5px', fontSize: '0.9rem' }}>
-                        <span style={{ color: '#666' }}>{price.label}:</span>{' '}
-                        <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
-                          RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                  {selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.length > 0 && (
+                    <div style={{ marginBottom: '10px' }}>
+                      <strong style={{ fontSize: '0.95rem', color: '#1e40af' }}>💰 Precios:</strong>
+                      {selectedVilla.pasadia_prices.filter(p => p.show_in_web).map((price, idx) => (
+                        <div key={idx} style={{ marginLeft: '10px', marginTop: '5px', fontSize: '0.9rem' }}>
+                          <span style={{ color: '#666' }}>{price.label}:</span>{' '}
+                          <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
+                            RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   
                   {/* Descripción Detallada Pasadía */}
                   {selectedVilla.public_description_pasadia && (
