@@ -2807,10 +2807,16 @@ class BackendTester:
         target_villa = None
         
         # Debug: print response to see structure
-        print(f"   🔍 Debug: Villas result: {villas_result}")
+        print(f"   🔍 Debug: Villas result status: {villas_result.get('status_code')}")
+        print(f"   🔍 Debug: Villas result success: {villas_result.get('success')}")
+        print(f"   🔍 Debug: Villas data type: {type(villas)}")
+        
+        if isinstance(villas, list):
+            print(f"   🔍 Debug: Number of villas: {len(villas)}")
+            if villas:
+                print(f"   🔍 Debug: First villa: {villas[0]}")
         
         for villa in villas:
-            print(f"   🔍 Debug: Villa type: {type(villa)}, Value: {villa}")
             if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
                 target_villa = villa
                 break
