@@ -161,8 +161,10 @@ const CartModal = () => {
           nombre: '',
           telefono: '',
           fechaInteres: '',
+          cantidadPersonas: '',
           modalidadGeneral: '',
-          tipoActividad: ''
+          tipoActividad: '',
+          notaAdicional: ''
         });
         closeCart();
       } else {
