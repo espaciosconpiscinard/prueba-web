@@ -104,6 +104,14 @@ class FlexiblePrices(BaseModel):
     amanecida: List[FlexiblePrice] = []
     evento: List[FlexiblePrice] = []
 
+# ============ MODALITY PRICE MODEL (para pasadia_prices, amanecida_prices, evento_prices) ============
+class ModalityPrice(BaseModel):
+    """Modelo para precios por modalidad con visibilidad en web pública"""
+    label: str  # Ej: "Regular", "Oferta", "Temporada Alta"
+    client_price: float = 0.0
+    owner_price: float = 0.0
+    show_in_web: bool = False  # Si este precio se muestra en la web pública
+
 # ============ VILLA MODELS ============
 class VillaBase(BaseModel):
     code: str  # ECPVSH, ECPVWLSL, etc.
