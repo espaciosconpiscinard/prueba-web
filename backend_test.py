@@ -2895,13 +2895,24 @@ class BackendTester:
         public_villas = public_result["data"]
         target_public_villa = None
         
-        if isinstance(public_villas, list):
+        # The public endpoint returns villas grouped by zones
+        if isinstance(public_villas, dict):
+            # Search through all zones for the target villa
+            for zone_name, zone_villas in public_villas.items():
+                if isinstance(zone_villas, list):
+                    for villa in zone_villas:
+                        if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
+                            target_public_villa = villa
+                            break
+                if target_public_villa:
+                    break
+        elif isinstance(public_villas, list):
             for villa in public_villas:
                 if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
                     target_public_villa = villa
                     break
         else:
-            print(f"   ❌ Error: Expected list of public villas, got {type(public_villas)}: {public_villas}")
+            print(f"   ❌ Error: Unexpected public villas structure: {type(public_villas)}")
         
         if not target_public_villa:
             self.log_test("Find Villa in Public Endpoint", False, "Villa ECPVCVPNYLC not found in public endpoint")
