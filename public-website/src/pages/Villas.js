@@ -237,6 +237,7 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
+                          {console.log('🔍 Villa:', villa.code, 'pasadia_prices:', villa.pasadia_prices)}
                           {/* PASADÍA - Precios */}
                           {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
