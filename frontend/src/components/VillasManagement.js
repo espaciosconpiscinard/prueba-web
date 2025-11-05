@@ -49,6 +49,9 @@ const VillasManagementNew = () => {
     description_pasadia: '',
     description_amanecida: '',
     description_evento: '',
+    // Descripciones públicas para el sitio web
+    public_description_pasadia: '',
+    public_description_amanecida: '',
     villa_currency: 'DOP',  // Deprecado, usar currency_pasadia, etc.
     currency_pasadia: 'DOP',
     currency_amanecida: 'DOP',
