@@ -971,7 +971,7 @@ const VillasManagementNew = () => {
                     )}
 
                     <p className="text-xs text-gray-600 mt-3 bg-white p-2 rounded border">
-                      💡 <strong>Nota:</strong> Agrega todos los precios que necesites con el botón "+". Ejemplo: Regular, Oferta, Temporada Alta, etc.
+                      💡 <strong>Nota:</strong> Marca los precios que quieres mostrar en la web con el checkbox "Mostrar en la Web". Los clientes elegirán según la cantidad de personas.
                     </p>
                   </div>
 
