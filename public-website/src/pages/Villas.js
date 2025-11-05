@@ -622,6 +622,21 @@ const Villas = () => {
                     ☀️ Pasadía
                   </h3>
                   
+                  {/* Descripción Detallada Pasadía - MOVIDA AL PRINCIPIO */}
+                  {selectedVilla.public_description_pasadia && (
+                    <div style={{ marginBottom: '12px', padding: '10px', background: 'white', borderRadius: '6px', border: '1px solid #bfdbfe' }}>
+                      <p style={{ 
+                        fontSize: '0.9rem', 
+                        lineHeight: '1.6', 
+                        color: '#1e40af',
+                        margin: 0,
+                        whiteSpace: 'pre-line'
+                      }}>
+                        {selectedVilla.public_description_pasadia}
+                      </p>
+                    </div>
+                  )}
+                  
                   {/* Capacidad */}
                   {selectedVilla.max_guests_pasadia && (
                     <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#1e3a8a' }}>
@@ -641,20 +656,6 @@ const Villas = () => {
                           </span>
                         </div>
                       ))}
-                    </div>
-                  )}
-                  
-                  {/* Descripción Detallada Pasadía */}
-                  {selectedVilla.public_description_pasadia && (
-                    <div style={{ marginTop: '10px' }}>
-                      <p style={{ 
-                        fontSize: '0.85rem', 
-                        lineHeight: '1.5', 
-                        color: '#333',
-                        whiteSpace: 'pre-line'
-                      }}>
-                        {selectedVilla.public_description_pasadia}
-                      </p>
                     </div>
                   )}
                 </div>
