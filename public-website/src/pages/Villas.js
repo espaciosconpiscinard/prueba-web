@@ -668,14 +668,14 @@ const Villas = () => {
                 </div>
               )}
 
-              {/* Sección AMANECIDA - Show if enabled */}
-              {(selectedVilla.catalog_show_amanecida && selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.some(p => p.show_in_web)) && (
+              {/* Sección AMANECIDA */}
+              {(selectedVilla.has_amanecida && selectedVilla.amanecida_prices && selectedVilla.amanecida_prices.some(p => p.show_in_web)) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eef2ff', borderRadius: '10px', border: '2px solid #6366f1' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#4338ca', marginBottom: '10px', fontWeight: 'bold' }}>
                     🌙 Amanecida
                   </h3>
                   
-                  {/* Descripción Detallada Amanecida - MOVIDA AL PRINCIPIO */}
+                  {/* Descripción Detallada Amanecida */}
                   {selectedVilla.public_description_amanecida && (
                     <div style={{ marginBottom: '12px', padding: '10px', background: 'white', borderRadius: '6px', border: '1px solid #c7d2fe' }}>
                       <p style={{ 
@@ -690,10 +690,17 @@ const Villas = () => {
                     </div>
                   )}
                   
-                  {/* Capacidad */}
-                  {selectedVilla.max_guests_amanecida && (
+                  {/* Horarios */}
+                  {selectedVilla.check_in_time_amanecida && selectedVilla.check_out_time_amanecida && (
                     <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
-                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests_amanecida} personas
+                      <strong>🕐 Horario:</strong> {selectedVilla.check_in_time_amanecida} - {selectedVilla.check_out_time_amanecida}
+                    </p>
+                  )}
+                  
+                  {/* Capacidad */}
+                  {selectedVilla.max_guests && (
+                    <p style={{ fontSize: '0.9rem', marginBottom: '8px', color: '#312e81' }}>
+                      <strong>👥 Capacidad:</strong> Hasta {selectedVilla.max_guests} personas
                     </p>
                   )}
                   
