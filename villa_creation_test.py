@@ -107,6 +107,18 @@ class VillaCreationTester:
             test_category = categories_result["data"][0]
             self.log_test("Get Existing Category for Villa", True, f"Using category: {test_category['name']}")
         
+        # First, check if TEST01 already exists and delete it
+        existing_villas_result = self.make_request("GET", "/villas", token=self.admin_token)
+        if existing_villas_result.get("success"):
+            existing_villas = existing_villas_result["data"]
+            test01_villa = next((v for v in existing_villas if v.get("code") == "TEST01"), None)
+            if test01_villa:
+                delete_result = self.make_request("DELETE", f"/villas/{test01_villa['id']}", token=self.admin_token)
+                if delete_result.get("success"):
+                    self.log_test("Delete Existing TEST01 Villa", True, "Existing TEST01 villa deleted successfully")
+                else:
+                    self.log_test("Delete Existing TEST01 Villa", False, "Failed to delete existing TEST01 villa", delete_result)
+        
         # Test data as specified by user
         villa_test_data = {
             "code": "TEST01",
