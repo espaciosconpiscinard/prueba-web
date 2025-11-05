@@ -792,7 +792,7 @@ const Villas = () => {
                     <div style={{ fontSize: '0.9rem', fontWeight: 'bold', marginBottom: '10px', color: '#080644' }}>
                       Selecciona modalidad:
                     </div>
-                    {selectedVilla.catalog_show_pasadia && (
+                    {selectedVilla.has_pasadia && (
                       <button
                         onClick={(e) => { 
                           e.stopPropagation(); 
