@@ -154,6 +154,23 @@ class GoogleSheetsService:
             
             # Agregar fila
             self.sheet.append_row(row)
+            
+            # Obtener el índice de la última fila agregada
+            last_row = len(self.sheet.get_all_values())
+            
+            # Formatear la fila agregada (fondo blanco, texto negro, sin negrita)
+            self.sheet.format(f'A{last_row}:M{last_row}', {
+                'textFormat': {
+                    'bold': False,
+                    'foregroundColor': {'red': 0, 'green': 0, 'blue': 0}
+                },
+                'backgroundColor': {
+                    'red': 1,
+                    'green': 1,
+                    'blue': 1
+                }
+            })
+            
             logger.info(f"✅ Solicitud agregada a Google Sheets: {data.get('nombre')}")
             return True
             
