@@ -237,8 +237,8 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
-                          {/* PASADÍA - Show if explicitly enabled OR if data exists (backwards compatibility) */}
-                          {(villa.catalog_show_pasadia || villa.catalog_description_pasadia || villa.catalog_price_pasadia) && (
+                          {/* PASADÍA - Show if enabled */}
+                          {(villa.catalog_show_pasadia && villa.pasadia_prices && villa.pasadia_prices.some(p => p.show_in_web)) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
                               <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 ☀️ Pasadía
@@ -247,7 +247,7 @@ const Villas = () => {
                                 <p style={{ 
                                   fontSize: '0.7rem',
                                   lineHeight: '1.2',
-                                  marginBottom: '4px',
+                                  marginBottom: '6px',
                                   overflow: 'hidden',
                                   textOverflow: 'ellipsis',
                                   display: '-webkit-box',
@@ -257,13 +257,17 @@ const Villas = () => {
                                   {villa.catalog_description_pasadia}
                                 </p>
                               )}
-                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_pasadia && villa.catalog_price_pasadia > 0 && (
-                                <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
-                                  💰 {villa.catalog_currency_pasadia || 'RD$'} {parseFloat(villa.catalog_price_pasadia).toLocaleString()}
+                              {/* Precios Flexibles */}
+                              {villa.pasadia_prices.filter(p => p.show_in_web).map((price, idx) => (
+                                <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
+                                  <span style={{ color: '#666' }}>{price.label}:</span>{' '}
+                                  <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
+                                    RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
+                                  </span>
                                 </div>
-                              )}
+                              ))}
                               {villa.max_guests_pasadia && (
-                                <div style={{ fontSize: '0.7rem', color: '#666' }}>
+                                <div style={{ fontSize: '0.7rem', color: '#666', marginTop: '4px' }}>
                                   👥 Hasta {villa.max_guests_pasadia} personas
                                 </div>
                               )}
