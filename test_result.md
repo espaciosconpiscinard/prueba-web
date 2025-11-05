@@ -287,6 +287,18 @@ backend:
         agent: "main"
         comment: "Sistema de importación ya existía. Endpoint POST /api/import/excel procesa archivo Excel con múltiples hojas (Clientes, Villas, Reservaciones, Gastos). Al importar reservaciones con owner_price > 0, auto-genera gastos en estado 'pending' (NO PAGADO) según OPCION A del usuario. Validación de duplicados de invoice_number activa."
 
+  - task: "Villa Creation with Specific Test Data"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py, /app/backend/models.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: true
+        agent: "testing"
+        comment: "✅ TESTED: Villa creation with specific test data completamente funcional. Verificado: 1) Villa TEST01 creada exitosamente con código, nombre 'Villa de Prueba', ubicación 'Santo Domingo Este', teléfono '809-555-1234', 2) Modalidad Pasadía configurada correctamente (9:00 AM - 6:00 PM), 3) Descripción detallada guardada: 'Disfruta de un día completo con acceso a todas las áreas. Incluye piscina, BBQ y áreas verdes.', 4) Precio flexible configurado: '10-20 personas' - Cliente: RD$ 15,000, Propietario: RD$ 12,000, 5) Campo 'show_in_web' marcado como true, 6) Máximo 20 huéspedes configurado, 7) Villa asignada a categoría correctamente, 8) Villa aparece en lista de villas, 9) Villa encontrada en búsqueda por código, 10) Villa filtrada correctamente por categoría. Todos los endpoints relevantes funcionando: POST /api/villas, GET /api/villas, GET /api/villas/{id}, GET /api/public/villas. No errores 422 detectados."
+
 
 frontend:
   - task: "Reservations.js - Villa modality price loading and selection"
