@@ -562,6 +562,16 @@ const VillasManagementNew = () => {
                     />
                   </div>
 
+                  <div>
+                    <Label>Nombre de la Villa *</Label>
+                    <Input
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Villa Paraíso"
+                      required
+                    />
+                  </div>
+
                   <div className="col-span-2">
                     <Label>Descripción Corta (Aparece en la Card del Catálogo)</Label>
                     <textarea
