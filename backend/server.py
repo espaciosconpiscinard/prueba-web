@@ -3854,8 +3854,12 @@ async def get_public_villas(zone: Optional[str] = None):
                 "max_guests": villa.get("max_guests", 0),  # Capacidad (fallback)
                 "max_guests_pasadia": villa.get("public_max_guests_pasadia"),
                 "max_guests_amanecida": villa.get("public_max_guests_amanecida"),
-                "has_pasadia": villa.get("public_has_pasadia", False),
-                "has_amanecida": villa.get("public_has_amanecida", False),
+                "has_pasadia": villa.get("has_pasadia", False),
+                "has_amanecida": villa.get("has_amanecida", False),
+                "check_in_time_pasadia": villa.get("check_in_time_pasadia"),
+                "check_out_time_pasadia": villa.get("check_out_time_pasadia"),
+                "check_in_time_amanecida": villa.get("check_in_time_amanecida"),
+                "check_out_time_amanecida": villa.get("check_out_time_amanecida"),
                 
                 # Multimedia y características
                 "images": villa.get("public_images", []),  # Imágenes y videos públicos
