@@ -124,8 +124,8 @@ const VillasManagementNew = () => {
       console.log('📤 Guardando villa con datos:', dataToSave);
       console.log('📝 Descripción Pasadía:', dataToSave.description_pasadia);
       console.log('🕐 Horarios Pasadía:', dataToSave.check_in_time_pasadia, '-', dataToSave.check_out_time_pasadia);
-      console.log('💰 PRECIOS PASADÍA:', dataToSave.pasadia_prices);
-      console.log('💰 PRECIOS AMANECIDA:', dataToSave.amanecida_prices);
+      console.log('💰 PRECIOS PASADÍA:', JSON.stringify(dataToSave.pasadia_prices, null, 2));
+      console.log('💰 PRECIOS AMANECIDA:', JSON.stringify(dataToSave.amanecida_prices, null, 2));
       console.log('🌐 CHECKBOXES WEB:', { 
         catalog_show_pasadia: dataToSave.catalog_show_pasadia, 
         catalog_show_amanecida: dataToSave.catalog_show_amanecida 
