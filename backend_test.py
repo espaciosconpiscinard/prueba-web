@@ -2774,6 +2774,178 @@ class BackendTester:
         
         return villa_id
     
+    def test_villa_public_descriptions_update(self):
+        """Test updating villa with public descriptions for pasadia and amanecida"""
+        print("\n🏠 Testing Villa Public Descriptions Update")
+        
+        # Step 1: Get authentication token
+        print("   🔐 Step 1: Getting authentication token...")
+        login_data = {
+            "username": "admin",
+            "password": "admin123"
+        }
+        
+        login_result = self.make_request("POST", "/auth/login", login_data)
+        
+        if not login_result.get("success"):
+            self.log_test("Login for Villa Update", False, "Failed to login", login_result)
+            return False
+        
+        token = login_result["data"]["access_token"]
+        self.log_test("Login for Villa Update", True, "Successfully obtained authentication token")
+        
+        # Step 2: List villas to find the one with code "ECPVCVPNYLC"
+        print("   📋 Step 2: Listing villas to find ECPVCVPNYLC...")
+        
+        villas_result = self.make_request("GET", "/villas", token=token)
+        
+        if not villas_result.get("success"):
+            self.log_test("Get Villas List", False, "Failed to get villas", villas_result)
+            return False
+        
+        villas = villas_result["data"]
+        target_villa = None
+        
+        for villa in villas:
+            if villa.get("code") == "ECPVCVPNYLC":
+                target_villa = villa
+                break
+        
+        if not target_villa:
+            self.log_test("Find Villa ECPVCVPNYLC", False, "Villa with code ECPVCVPNYLC not found")
+            print(f"   Available villa codes: {[v.get('code') for v in villas[:5]]}")  # Show first 5 codes
+            return False
+        
+        villa_id = target_villa["id"]
+        self.log_test("Find Villa ECPVCVPNYLC", True, f"Found villa ECPVCVPNYLC with ID: {villa_id}")
+        
+        # Step 3: Update the villa with public descriptions
+        print("   ✏️ Step 3: Updating villa with public descriptions...")
+        
+        # Prepare update data - keep all existing fields and add the new descriptions
+        update_data = target_villa.copy()  # Start with existing data
+        
+        # Add the new public descriptions
+        update_data["public_description_pasadia"] = "Esta hermosa villa cuenta con una amplia piscina, área de BBQ, y capacidad para grupos grandes. Perfecta para pasadías familiares y celebraciones especiales."
+        update_data["public_description_amanecida"] = "Disfruta de una noche inolvidable en esta villa con todas las comodidades. Incluye acceso a piscina iluminada, áreas de descanso y entretenimiento."
+        
+        # Remove fields that shouldn't be in the update request
+        fields_to_remove = ["id", "created_at", "updated_at", "created_by"]
+        for field in fields_to_remove:
+            update_data.pop(field, None)
+        
+        update_result = self.make_request("PUT", f"/villas/{villa_id}", update_data, token)
+        
+        if not update_result.get("success"):
+            self.log_test("Update Villa with Public Descriptions", False, "Failed to update villa", update_result)
+            return False
+        
+        updated_villa = update_result["data"]
+        
+        # Verify the descriptions were saved
+        pasadia_desc = updated_villa.get("public_description_pasadia")
+        amanecida_desc = updated_villa.get("public_description_amanecida")
+        
+        checks = []
+        
+        if pasadia_desc and "amplia piscina" in pasadia_desc:
+            checks.append("✓ public_description_pasadia saved correctly")
+        else:
+            checks.append(f"✗ public_description_pasadia: {pasadia_desc}")
+        
+        if amanecida_desc and "noche inolvidable" in amanecida_desc:
+            checks.append("✓ public_description_amanecida saved correctly")
+        else:
+            checks.append(f"✗ public_description_amanecida: {amanecida_desc}")
+        
+        all_checks_passed = all("✓" in check for check in checks)
+        
+        if all_checks_passed:
+            self.log_test("Update Villa with Public Descriptions", True, f"Villa updated successfully:\n   " + "\n   ".join(checks))
+        else:
+            self.log_test("Update Villa with Public Descriptions", False, f"Villa update issues:\n   " + "\n   ".join(checks))
+        
+        # Step 4: Verify via public endpoint
+        print("   🌐 Step 4: Verifying via public endpoint...")
+        
+        public_result = self.make_request("GET", "/public/villas")
+        
+        if not public_result.get("success"):
+            self.log_test("Get Public Villas", False, "Failed to get public villas", public_result)
+            return False
+        
+        public_villas = public_result["data"]
+        target_public_villa = None
+        
+        for villa in public_villas:
+            if villa.get("code") == "ECPVCVPNYLC":
+                target_public_villa = villa
+                break
+        
+        if not target_public_villa:
+            self.log_test("Find Villa in Public Endpoint", False, "Villa ECPVCVPNYLC not found in public endpoint")
+            return False
+        
+        # Verify public descriptions are not null
+        public_pasadia = target_public_villa.get("public_description_pasadia")
+        public_amanecida = target_public_villa.get("public_description_amanecida")
+        
+        verification_checks = []
+        
+        if public_pasadia is not None and public_pasadia != "":
+            verification_checks.append("✓ public_description_pasadia is NOT null in public endpoint")
+        else:
+            verification_checks.append(f"✗ public_description_pasadia is null/empty: {public_pasadia}")
+        
+        if public_amanecida is not None and public_amanecida != "":
+            verification_checks.append("✓ public_description_amanecida is NOT null in public endpoint")
+        else:
+            verification_checks.append(f"✗ public_description_amanecida is null/empty: {public_amanecida}")
+        
+        all_verifications_passed = all("✓" in check for check in verification_checks)
+        
+        if all_verifications_passed:
+            self.log_test("Verify Public Descriptions Not Null", True, f"Public descriptions verified:\n   " + "\n   ".join(verification_checks))
+        else:
+            self.log_test("Verify Public Descriptions Not Null", False, f"Public descriptions verification failed:\n   " + "\n   ".join(verification_checks))
+        
+        # Print complete results
+        print("\n   📊 COMPLETE TEST RESULTS:")
+        print(f"      Villa ID: {villa_id}")
+        print(f"      Villa Code: ECPVCVPNYLC")
+        print(f"      Pasadía Description: {public_pasadia}")
+        print(f"      Amanecida Description: {public_amanecida}")
+        
+        return all_checks_passed and all_verifications_passed
+
+    def run_user_request_only(self):
+        """Run only the user-requested villa update test"""
+        print("🎯 Running User-Requested Villa Update Test")
+        print("=" * 60)
+        
+        # Just run the specific test requested by user
+        result = self.test_villa_public_descriptions_update()
+        
+        # Print focused summary
+        print("\n" + "=" * 60)
+        print("🎯 USER REQUEST TEST RESULTS")
+        print("=" * 60)
+        
+        if result:
+            print("✅ SUCCESS: Villa ECPVCVPNYLC updated successfully with public descriptions")
+            print("✅ SUCCESS: Public descriptions verified as NOT null in public endpoint")
+        else:
+            print("❌ FAILED: Villa update or verification failed")
+        
+        # Show detailed results for this specific test
+        villa_tests = [t for t in self.test_results if "Villa" in t["test"] or "Public" in t["test"] or "Login" in t["test"]]
+        
+        for test in villa_tests:
+            status = "✅" if test["success"] else "❌"
+            print(f"{status} {test['test']}: {test['message']}")
+        
+        return result
+    
     def run_all_tests(self):
         """Run all backend tests"""
         print("🚀 Starting Backend Testing Suite - Villa Modality Pricing")
