@@ -237,6 +237,13 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
+                          {/* DEBUG */}
+                          {villa.code === 'ECPVCVPNYLC' && console.log('🔍 DEBUG Villa ECPVCVPNYLC:', {
+                            catalog_show_pasadia: villa.catalog_show_pasadia,
+                            pasadia_prices: villa.pasadia_prices,
+                            has_prices: villa.pasadia_prices?.length,
+                            has_show_in_web: villa.pasadia_prices?.some(p => p.show_in_web)
+                          })}
                           {/* PASADÍA - Show if enabled */}
                           {(villa.catalog_show_pasadia && villa.pasadia_prices && villa.pasadia_prices.some(p => p.show_in_web)) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
