@@ -2821,10 +2821,13 @@ class BackendTester:
             if villas:
                 print(f"   🔍 Debug: First villa: {villas[0]}")
         
-        for villa in villas:
-            if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
-                target_villa = villa
-                break
+        if isinstance(villas, list):
+            for villa in villas:
+                if isinstance(villa, dict) and villa.get("code") == "ECPVCVPNYLC":
+                    target_villa = villa
+                    break
+        else:
+            print(f"   ❌ Error: Expected list of villas, got {type(villas)}: {villas}")
         
         if not target_villa:
             self.log_test("Find Villa ECPVCVPNYLC", False, "Villa with code ECPVCVPNYLC not found")
