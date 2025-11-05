@@ -1130,18 +1130,58 @@ agent_communication:
         agent: "testing"
         comment: "✅ TESTED: Solo Servicios Expense Display completamente funcional. Verificado: 1) Facturas Solo Servicios (sin villa) crean gasto contenedor con category='pago_servicios', 2) Gasto visible en lista principal de gastos, 3) Amount correcto (suma de supplier_cost), 4) Description contiene 'Servicios - Factura #XXX', 5) services_details presente con array de servicios, 6) payment_status='pending', 7) related_reservation_id vinculado correctamente. Fix requirió agregar 'pago_servicios' a modelo Expense y campo services_details. Ahora gastos de Solo Servicios aparecen correctamente en vista principal."
 
+  - task: "Flexible Pricing with show_in_web for Public Catalog"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/models.py, /app/frontend/src/components/VillasManagement.js, /app/public-website/src/pages/Villas.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          ✅ IMPLEMENTADO: Sistema de precios flexibles con visibilidad en web pública
+          
+          BACKEND (models.py):
+          - Creado nuevo modelo ModalityPrice con campos: label, client_price, owner_price, show_in_web
+          - Actualizado pasadia_prices, amanecida_prices, evento_prices: ahora usan List[ModalityPrice] en lugar de List[dict]
+          - Cada precio puede tener show_in_web: bool para controlar si se muestra en el catálogo público
+          
+          FRONTEND ADMIN (VillasManagement.js):
+          - Agregado checkbox "🌐 Mostrar este precio en la web" en cada precio de las 3 modalidades (Pasadía, Amanecida, Evento)
+          - Función addPrice() actualizada para incluir show_in_web: false por defecto
+          - Usuarios admin pueden marcar qué precios se muestran públicamente
+          
+          PUBLIC WEBSITE (Villas.js):
+          - Tarjetas del catálogo ahora muestran TODOS los precios flexibles con show_in_web: true
+          - Formato de precio: "label: RD$ client_price" (ej: "1-10 personas: RD$ 5,000")
+          - Si hay múltiples precios marcados, se muestran todos en la tarjeta
+          - Eliminado el concepto de "precio único/predeterminado" - ahora se usan precios flexibles
+          
+          CAMBIOS TÉCNICOS:
+          - Backend endpoint /api/public/villas ya devolvía pasadia_prices y amanecida_prices
+          - Solo fue necesario actualizar el frontend para filtrar por show_in_web y renderizar
+          - Compatibilidad: Si no hay precios con show_in_web, no se muestra la sección
+          
+          SIGUIENTE PASO:
+          - Testing backend: Crear villas con precios flexibles y verificar serialización
+          - Testing frontend admin: Verificar que checkboxes funcionen correctamente
+          - Testing public website: Verificar que solo se muestren precios con show_in_web: true
+
 metadata:
   created_by: "main_agent"
-  version: "2.1"
-  test_sequence: 13
+  version: "2.2"
+  test_sequence: 14
   run_ui: true
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Flexible Pricing with show_in_web for Public Catalog"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
-  latest_test: "COMPLETADO - Villa Catalog Separate Pricing: Todos los nuevos campos (catalog_description_pasadia/amanecida, catalog_price_pasadia/amanecida, catalog_currency_pasadia/amanecida, public_description_pasadia/amanecida) funcionando correctamente. Backend 100% funcional."
+  latest_test: "PENDIENTE - Flexible Pricing con show_in_web implementado. Requiere testing para verificar: 1) Modelo ModalityPrice en backend, 2) Checkboxes en admin panel, 3) Visualización de precios flexibles en catálogo público."
 
   - task: "Expenses Module - Supplier Payments and Extra Services"
     implemented: true
