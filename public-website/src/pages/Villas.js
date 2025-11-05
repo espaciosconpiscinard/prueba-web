@@ -237,13 +237,12 @@ const Villas = () => {
                         
                         {/* Información de catálogo dividida por modalidad */}
                         <div style={{ marginTop: '10px', fontSize: '0.75rem' }}>
-                          {/* PASADÍA */}
-                          {(villa.has_pasadia && villa.pasadia_prices && villa.pasadia_prices.length > 0) && (
+                          {/* PASADÍA - Precios */}
+                          {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eff6ff', borderRadius: '6px', border: '1px solid #3b82f6' }}>
                               <div style={{ fontWeight: 'bold', color: '#1e40af', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 ☀️ Pasadía
                               </div>
-                              {/* Precios Flexibles */}
                               {villa.pasadia_prices.map((price, idx) => (
                                 <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
                                   <span style={{ color: '#666' }}>{price.label}:</span>{' '}
