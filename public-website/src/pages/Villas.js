@@ -528,8 +528,8 @@ const Villas = () => {
               ×
             </button>
 
-            {/* Carrusel de imágenes grande - DESHABILITADO TEMPORALMENTE */}
-            {false && selectedVilla.images && selectedVilla.images.length > 0 && (
+            {/* Carrusel de imágenes grande */}
+            {selectedVilla.images && selectedVilla.images.length > 0 && (
               <div style={{ position: 'relative', height: '400px', background: '#000' }}>
                 {selectedVilla.images[currentImageIndex[selectedVilla.id] || 0].startsWith('data:video') ? (
                   <video 
