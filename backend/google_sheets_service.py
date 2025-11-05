@@ -137,18 +137,18 @@ class GoogleSheetsService:
                     detail += f" - {villa['currency']} {villa['price']:,.0f}"
                 villas_details.append(detail)
             
-            # Preparar fila
+            # Preparar fila con nuevo orden
             row = [
-                data.get('request_number', ''),  # Número de solicitud
-                datetime.now().strftime('%Y-%m-%d %H:%M:%S'),  # Fecha solicitud
-                data.get('nombre', ''),
-                data.get('telefono', ''),
-                data.get('fecha_interes', ''),
-                data.get('modalidad_general', ''),
-                data.get('tipo_actividad', ''),
-                len(data.get('villas', [])),
-                '\n'.join(villas_details),
-                'Pendiente'
+                data.get('request_number', ''),  # N° Solicitud
+                data.get('nombre', ''),  # Nombre Cliente
+                data.get('telefono', ''),  # Teléfono
+                data.get('fecha_interes', ''),  # Fecha de Interés
+                data.get('modalidad_general', ''),  # Modalidad Preferida
+                data.get('tipo_actividad', ''),  # Tipo de Actividad
+                '\n'.join(villas_details),  # Detalles de Villas
+                len(data.get('villas', [])),  # Cantidad de Villas
+                datetime.now().strftime('%d/%m/%y %H:%M'),  # Fecha Solicitud (DD/MM/AA)
+                'Pendiente'  # Estado
             ]
             
             # Agregar fila
