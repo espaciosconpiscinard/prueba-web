@@ -609,8 +609,8 @@ const VillasManagementNew = () => {
                   <div className="col-span-2">
                     <Label>Descripción Principal (Para Card del Catálogo Web)</Label>
                     <textarea
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Descripción corta y atractiva que aparecerá en la tarjeta del catálogo..."
                       className="w-full p-2 border rounded"
                       rows="2"
