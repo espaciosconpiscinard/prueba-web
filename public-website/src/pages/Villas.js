@@ -257,7 +257,7 @@ const Villas = () => {
                                   {villa.catalog_description_pasadia}
                                 </p>
                               )}
-                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_pasadia && (
+                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_pasadia && villa.catalog_price_pasadia > 0 && (
                                 <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
                                   💰 {villa.catalog_currency_pasadia || 'RD$'} {parseFloat(villa.catalog_price_pasadia).toLocaleString()}
                                 </div>
