@@ -328,17 +328,9 @@ const Villas = () => {
                             </div>
                           )}
                         </div>
-                        
-                        <button 
-                          onClick={(e) => { e.stopPropagation(); openVillaDetails(villa); }}
-                          className="btn-primary" 
-                          style={{ marginTop: '15px', width: '100%', textAlign: 'center', padding: '8px', fontSize: '0.9rem' }}
-                        >
-                          Ver Detalles
-                        </button>
 
                         {/* Botón Agregar a Lista de Interés */}
-                        <div style={{ position: 'relative', marginTop: '10px' }}>
+                        <div style={{ position: 'relative', marginTop: '15px' }}>
                           <button 
                             onClick={(e) => { 
                               e.stopPropagation(); 
