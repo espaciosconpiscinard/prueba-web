@@ -153,6 +153,7 @@ const VillasManagementNew = () => {
     setFormData({
       code: villa.code,
       name: villa.name,
+      description: villa.description || '',
       location: villa.location || '',
       phone: villa.phone || '',
       category_id: villa.category_id || '',
