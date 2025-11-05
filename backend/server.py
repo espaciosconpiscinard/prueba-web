@@ -4109,8 +4109,10 @@ async def create_quote_request(request: QuoteRequestCreate):
                 'nombre': request.nombre,
                 'telefono': request.telefono,
                 'fecha_interes': request.fecha_interes,
+                'cantidad_personas': request.cantidad_personas,
                 'modalidad_general': request.modalidad_general,
                 'tipo_actividad': request.tipo_actividad,
+                'nota_adicional': request.nota_adicional,
                 'villas': [villa.dict() for villa in request.villas]
             }
             sheets_success = sheets_service.add_quote_request(data)
