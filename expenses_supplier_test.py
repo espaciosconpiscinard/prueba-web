@@ -11,7 +11,7 @@ from typing import Dict, Any, Optional
 import uuid
 
 # Backend URL from environment
-BACKEND_URL = "https://pool-space-manager.preview.emergentagent.com/api"
+BACKEND_URL = "https://villa-display-fix.preview.emergentagent.com/api"
 
 class ExpensesSupplierTester:
     def __init__(self):
