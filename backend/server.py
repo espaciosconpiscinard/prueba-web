@@ -781,7 +781,16 @@ async def create_villa(villa_data: VillaCreate, current_user: dict = Depends(get
     if existing:
         raise HTTPException(status_code=400, detail="Villa code already exists")
     
-    villa = Villa(**villa_data.model_dump(), created_by=current_user["id"])
+    # Auto-set show_in_web = true for all prices
+    villa_dict = villa_data.model_dump()
+    for price in villa_dict.get("pasadia_prices", []):
+        price["show_in_web"] = True
+    for price in villa_dict.get("amanecida_prices", []):
+        price["show_in_web"] = True
+    for price in villa_dict.get("evento_prices", []):
+        price["show_in_web"] = True
+    
+    villa = Villa(**villa_dict, created_by=current_user["id"])
     doc = prepare_doc_for_insert(villa.model_dump())
     await db.villas.insert_one(doc)
     return villa
