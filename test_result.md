@@ -1226,6 +1226,45 @@ agent_communication:
           
           ESTADO: Sistema de precios flexibles en sitio público completamente funcional
 
+      - working: true
+        agent: "main"
+        comment: |
+          🔧 AGREGADOS CAMPOS DE DESCRIPCIÓN PÚBLICA AL FORMULARIO ADMIN:
+          
+          PROBLEMA REAL IDENTIFICADO:
+          Usuario reportó que descripciones y precios no se muestran en sitio público.
+          El modal funcionaba pero mostraba valores null porque los campos de descripción pública
+          NO existían en el formulario admin.
+          
+          ANÁLISIS:
+          - El formulario tenía campo "description_pasadia" (descripción interna admin)
+          - El sitio público esperaba "public_description_pasadia" (descripción para clientes)
+          - Estos son campos DIFERENTES con propósitos distintos
+          
+          CAMBIOS IMPLEMENTADOS EN /app/frontend/src/components/VillasManagement.js:
+          
+          1. ✅ Agregado campo `public_description_pasadia` al formData inicial
+          2. ✅ Agregado campo `public_description_amanecida` al formData inicial
+          3. ✅ Modificado textarea de Pasadía para usar `public_description_pasadia`
+             - Cambio de label a "Descripción Pública Detallada (Aparece en el Modal del Sitio Web)"
+             - Placeholder mejorado para indicar uso en sitio público
+             - Aumentado rows de 3 a 4 para más espacio
+          4. ✅ Modificado textarea de Amanecida para usar `public_description_amanecida`
+             - Mismos cambios que Pasadía
+          5. ✅ Actualizado resetForm() para incluir los nuevos campos
+          6. ✅ Actualizado handleEdit() para cargar los campos al editar villa
+          
+          BACKEND:
+          - ✅ Modelo VillaBase ya tiene los campos (líneas 187-188 en models.py):
+            - public_description_pasadia: Optional[str]
+            - public_description_amanecida: Optional[str]
+          
+          PRÓXIMO PASO:
+          - Testing completo del flujo:
+            1. Agregar/editar villa con descripciones públicas
+            2. Verificar guardado en backend
+            3. Verificar visualización en sitio público
+
 metadata:
   created_by: "main_agent"
   version: "2.2"
