@@ -290,7 +290,7 @@ const Villas = () => {
                                   {villa.catalog_description_amanecida}
                                 </p>
                               )}
-                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_amanecida && (
+                              {(villa.catalog_show_price || villa.catalog_show_price === undefined) && villa.catalog_price_amanecida && villa.catalog_price_amanecida > 0 && (
                                 <div style={{ fontWeight: 'bold', color: '#CFA57D', fontSize: '0.75rem' }}>
                                   💰 {villa.catalog_currency_amanecida || 'RD$'} {parseFloat(villa.catalog_price_amanecida).toLocaleString()}
                                 </div>
