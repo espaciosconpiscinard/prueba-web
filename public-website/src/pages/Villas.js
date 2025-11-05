@@ -611,15 +611,13 @@ const Villas = () => {
 
             {/* Contenido del modal */}
             <div style={{ padding: '20px' }}>
+              <div style={{ background: 'yellow', padding: '20px', marginBottom: '20px', fontSize: '1.5rem', border: '5px solid red' }}>
+                <strong>¡TEST! SI VES ESTO, EL MODAL FUNCIONA</strong>
+              </div>
+              
               <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '10px', marginTop: '20px' }}>
                 {selectedVilla.code}
               </h2>
-              
-              <div style={{ background: 'yellow', padding: '20px', marginBottom: '20px', fontSize: '1rem', border: '3px solid red' }}>
-                <strong>TEST BÁSICO</strong><br/>
-                Si ves esto, el modal funciona.<br/>
-                Villa: {selectedVilla.name || 'Sin nombre'}
-              </div>
               
               {/* Sección PASADÍA - SIMPLIFICADA */}
               {(selectedVilla.catalog_show_pasadia) && (
