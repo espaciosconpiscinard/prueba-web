@@ -613,8 +613,8 @@ const Villas = () => {
                 {selectedVilla.code}
               </h2>
               
-              {/* Sección PASADÍA - Show if has_pasadia OR if any pasadia data exists */}
-              {(selectedVilla.has_pasadia || selectedVilla.max_guests_pasadia || selectedVilla.public_description_pasadia || selectedVilla.catalog_price_pasadia) && (
+              {/* Sección PASADÍA - Show if enabled */}
+              {(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
                     ☀️ Pasadía
@@ -627,12 +627,18 @@ const Villas = () => {
                     </p>
                   )}
                   
-                  {/* Precio Pasadía */}
-                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_pasadia && selectedVilla.catalog_price_pasadia > 0 && (
-                    <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
-                      <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_pasadia || 'RD$'} {parseFloat(selectedVilla.catalog_price_pasadia).toLocaleString()}
-                    </p>
-                  )}
+                  {/* Precios Flexibles */}
+                  <div style={{ marginBottom: '10px' }}>
+                    <strong style={{ fontSize: '0.95rem', color: '#1e40af' }}>💰 Precios:</strong>
+                    {selectedVilla.pasadia_prices.filter(p => p.show_in_web).map((price, idx) => (
+                      <div key={idx} style={{ marginLeft: '10px', marginTop: '5px', fontSize: '0.9rem' }}>
+                        <span style={{ color: '#666' }}>{price.label}:</span>{' '}
+                        <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
+                          RD$ {parseFloat(price.client_price || 0).toLocaleString('es-DO', {minimumFractionDigits: 0})}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                   
                   {/* Descripción Detallada Pasadía */}
                   {selectedVilla.public_description_pasadia && (
