@@ -295,7 +295,7 @@ const Villas = () => {
                                 </p>
                               )}
                               {/* Precios Flexibles */}
-                              {villa.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
+                              {villa.amanecida_prices && villa.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
                                 <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
                                   <span style={{ color: '#666' }}>{price.label}:</span>{' '}
                                   <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
