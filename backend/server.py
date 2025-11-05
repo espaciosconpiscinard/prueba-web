@@ -4059,8 +4059,6 @@ class VillaQuoteItem(BaseModel):
     code: str
     zone: str
     modality: str
-    price: float = 0
-    currency: str = 'RD$'
 
 class QuoteRequestCreate(BaseModel):
     nombre: str
