@@ -614,20 +614,9 @@ const Villas = () => {
 
             {/* Contenido del modal */}
             <div style={{ padding: '20px' }}>
-              <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '8px' }}>
+              <h2 style={{ fontSize: '1.8rem', color: '#080644', marginBottom: '10px', marginTop: '20px' }}>
                 {selectedVilla.code}
               </h2>
-              
-              {/* DEBUG VISUAL */}
-              <div style={{ background: '#ffcccc', padding: '10px', margin: '10px 0', fontSize: '0.75rem', border: '2px solid red' }}>
-                <strong>🔍 DEBUG:</strong><br/>
-                catalog_show_pasadia: {String(selectedVilla.catalog_show_pasadia)}<br/>
-                pasadia_prices length: {selectedVilla.pasadia_prices?.length || 0}<br/>
-                has show_in_web: {String(selectedVilla.pasadia_prices?.some(p => p.show_in_web))}<br/>
-                catalog_show_amanecida: {String(selectedVilla.catalog_show_amanecida)}<br/>
-                amanecida_prices length: {selectedVilla.amanecida_prices?.length || 0}<br/>
-                Precios Pasadía: {JSON.stringify(selectedVilla.pasadia_prices)}
-              </div>
               
               {/* Sección PASADÍA - Show if enabled */}
               {(selectedVilla.catalog_show_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
