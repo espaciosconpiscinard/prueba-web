@@ -569,7 +569,7 @@ const Villas = () => {
               </h2>
               
               {/* Sección PASADÍA */}
-              {(selectedVilla.has_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.some(p => p.show_in_web)) && (
+              {(selectedVilla.has_pasadia && selectedVilla.pasadia_prices && selectedVilla.pasadia_prices.length > 0) && (
                 <div style={{ marginBottom: '15px', padding: '15px', background: '#eff6ff', borderRadius: '10px', border: '2px solid #3b82f6' }}>
                   <h3 style={{ fontSize: '1.1rem', color: '#1e40af', marginBottom: '10px', fontWeight: 'bold' }}>
                     ☀️ Pasadía
