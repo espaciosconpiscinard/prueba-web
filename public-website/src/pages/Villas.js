@@ -658,7 +658,7 @@ const Villas = () => {
                   )}
                   
                   {/* Precio Amanecida */}
-                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_amanecida && (
+                  {(selectedVilla.catalog_show_price || selectedVilla.catalog_show_price === undefined) && selectedVilla.catalog_price_amanecida && selectedVilla.catalog_price_amanecida > 0 && (
                     <p style={{ fontSize: '0.95rem', marginBottom: '8px', color: '#CFA57D', fontWeight: 'bold' }}>
                       <strong>💰 Precio:</strong> {selectedVilla.catalog_currency_amanecida || 'RD$'} {parseFloat(selectedVilla.catalog_price_amanecida).toLocaleString()}
                     </p>
