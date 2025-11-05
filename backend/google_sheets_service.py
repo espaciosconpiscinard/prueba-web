@@ -135,8 +135,9 @@ class GoogleSheetsService:
                 detail = f"{villa['code']} ({villa['zone']}) - {modality_label}"
                 villas_details.append(detail)
             
-            # Preparar fila con nuevo orden
+            # Preparar fila con nuevo orden (Asignado a primero)
             row = [
+                'Sin asignar',  # Asignado a
                 data.get('request_number', ''),  # N° Solicitud
                 data.get('nombre', ''),  # Nombre Cliente
                 data.get('telefono', ''),  # Teléfono
@@ -148,7 +149,6 @@ class GoogleSheetsService:
                 len(data.get('villas', [])),  # Cantidad de Villas
                 data.get('nota_adicional', ''),  # Nota Adicional
                 datetime.now().strftime('%d/%m/%y %H:%M'),  # Fecha Solicitud (DD/MM/AA)
-                'Sin asignar',  # Asignado a
                 'Pendiente'  # Estado
             ]
             
