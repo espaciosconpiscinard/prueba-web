@@ -88,9 +88,7 @@ const CartModal = () => {
           villas: cartItems.map(item => ({
             code: item.code,
             zone: item.zone,
-            modality: item.modality,
-            price: item.price,
-            currency: item.currency
+            modality: item.modality
           }))
         })
       });
