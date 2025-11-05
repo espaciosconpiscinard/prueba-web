@@ -173,12 +173,16 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
         {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#080644' }}>
-            Información Pública - {villa.code}
+            📸 Fotos de la Villa - {villa.code}
           </h2>
           <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
             <X size={24} />
           </button>
         </div>
+
+        <p style={{ fontSize: '0.95rem', color: '#666', marginBottom: '20px' }}>
+          📝 <strong>Nota:</strong> Los precios, descripciones y demás configuraciones se editan directamente en el formulario principal de la villa. Este modal es SOLO para gestionar fotos.
+        </p>
 
         {/* SECCIÓN DE CATÁLOGO */}
         <div style={{ marginBottom: '25px', padding: '20px', background: '#fef3c7', borderRadius: '10px', border: '3px solid #f59e0b' }}>
