@@ -821,7 +821,7 @@ async def get_villa(villa_id: str, current_user: dict = Depends(get_current_user
     villa = await db.villas.find_one({"id": villa_id}, {"_id": 0})
     if not villa:
         raise HTTPException(status_code=404, detail="Villa not found")
-    return restore_datetimes(villa, ["created_at"])
+    return restore_datetimes(clean_villa_data(villa), ["created_at"])
 
 @api_router.put("/villas/{villa_id}", response_model=Villa)
 async def update_villa(villa_id: str, villa_data: VillaCreate, current_user: dict = Depends(get_current_user)):
