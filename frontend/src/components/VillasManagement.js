@@ -230,7 +230,9 @@ const VillasManagementNew = () => {
       extra_people_price_owner: 0,
       max_guests: 0,
       amenities: [],
-      is_active: true
+      is_active: true,
+      catalog_show_pasadia: false,
+      catalog_show_amanecida: false
     });
     setPasadiaPrices([]);
     setAmanecidaPrices([]);
