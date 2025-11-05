@@ -173,6 +173,8 @@ const VillasManagementNew = () => {
       description_evento: villa.evento_description || villa.description_evento || '',
       public_description_pasadia: villa.public_description_pasadia || '',
       public_description_amanecida: villa.public_description_amanecida || '',
+      catalog_description_pasadia: villa.catalog_description_pasadia || '',
+      catalog_description_amanecida: villa.catalog_description_amanecida || '',
       check_in_time_pasadia: villa.default_check_in_time_pasadia || villa.check_in_time_pasadia || '9:00 AM',
       check_out_time_pasadia: villa.default_check_out_time_pasadia || villa.check_out_time_pasadia || '8:00 PM',
       check_in_time_amanecida: villa.default_check_in_time_amanecida || villa.check_in_time_amanecida || '9:00 AM',
