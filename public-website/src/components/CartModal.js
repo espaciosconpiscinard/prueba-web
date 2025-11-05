@@ -35,8 +35,8 @@ const CartModal = () => {
     }
 
     // Validar campos requeridos
-    if (!formData.nombre || !formData.telefono || !formData.fechaInteres) {
-      alert('Por favor, completa todos los campos obligatorios (Nombre, Teléfono, Fecha)');
+    if (!formData.nombre || !formData.telefono || !formData.fechaInteres || !formData.cantidadPersonas) {
+      alert('Por favor, completa todos los campos obligatorios (Nombre, Teléfono, Fecha, Cantidad de Personas)');
       return;
     }
 
