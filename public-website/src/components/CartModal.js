@@ -94,7 +94,62 @@ const CartModal = () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert('✅ ¡Solicitud enviada exitosamente! Nos pondremos en contacto contigo pronto.');
+        // Mostrar modal de confirmación grande
+        const confirmationModal = document.createElement('div');
+        confirmationModal.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0,0,0,0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 10000;
+        `;
+        
+        confirmationModal.innerHTML = `
+          <div style="
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+          ">
+            <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+            <h2 style="color: #080644; margin-bottom: 20px; font-size: 1.8rem;">¡Gracias ${result.nombre}!</h2>
+            <p style="color: #666; font-size: 1.1rem; line-height: 1.6; margin-bottom: 20px;">
+              Tu solicitud ha sido enviada exitosamente.<br/>
+              Nos comunicaremos contigo lo más pronto posible.
+            </p>
+            <div style="
+              background: linear-gradient(135deg, #080644 0%, #CFA57D 100%);
+              color: white;
+              padding: 20px;
+              border-radius: 10px;
+              margin-bottom: 20px;
+            ">
+              <div style="font-size: 0.9rem; margin-bottom: 5px;">Tu número de solicitud es:</div>
+              <div style="font-size: 2.5rem; font-weight: bold;">#${result.request_number}</div>
+            </div>
+            <button onclick="this.parentElement.parentElement.remove()" style="
+              background: #080644;
+              color: white;
+              border: none;
+              padding: 15px 40px;
+              border-radius: 10px;
+              font-size: 1.1rem;
+              cursor: pointer;
+              font-weight: bold;
+            ">
+              Cerrar
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(confirmationModal);
         
         // Limpiar carrito y formulario
         clearCart();
