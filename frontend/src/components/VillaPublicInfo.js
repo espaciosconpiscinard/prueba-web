@@ -9,10 +9,7 @@ const VillaPublicInfo = ({ villa, onClose, onUpdate }) => {
     public_images: villa.public_images || [],
     default_public_image_index: villa.default_public_image_index !== undefined ? villa.default_public_image_index : 0
   });
-  const [newAmenity, setNewAmenity] = useState('');
-  const [newFeature, setNewFeature] = useState('');
   const [uploading, setUploading] = useState(false);
-  const [generatingCatalogAI, setGeneratingCatalogAI] = useState(false);
 
   const handleImageUpload = async (e) => {
     const files = e.target.files;
