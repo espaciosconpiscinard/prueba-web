@@ -158,6 +158,7 @@ const VillasManagementNew = () => {
     
     setFormData({
       code: villa.code,
+      name: villa.name || '',
       description: villa.description || '',
       location: villa.location || '',
       phone: villa.phone || '',
@@ -165,9 +166,11 @@ const VillasManagementNew = () => {
       has_pasadia: villa.has_pasadia || false,
       has_amanecida: villa.has_amanecida || false,
       has_evento: villa.has_evento || false,
+      description_pasadia: villa.description_pasadia || '',
+      description_amanecida: villa.description_amanecida || '',
+      description_evento: villa.description_evento || '',
       public_description_pasadia: villa.public_description_pasadia || '',
       public_description_amanecida: villa.public_description_amanecida || '',
-      description_evento: villa.description_evento || '',
       check_in_time_pasadia: villa.default_check_in_time_pasadia || villa.check_in_time_pasadia || '9:00 AM',
       check_out_time_pasadia: villa.default_check_out_time_pasadia || villa.check_out_time_pasadia || '8:00 PM',
       check_in_time_amanecida: villa.default_check_in_time_amanecida || villa.check_in_time_amanecida || '9:00 AM',
