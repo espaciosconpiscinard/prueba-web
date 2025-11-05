@@ -81,8 +81,10 @@ const CartModal = () => {
           nombre: formData.nombre,
           telefono: formData.telefono,
           fecha_interes: formData.fechaInteres,
+          cantidad_personas: formData.cantidadPersonas,
           modalidad_general: formData.modalidadGeneral,
           tipo_actividad: formData.tipoActividad,
+          nota_adicional: formData.notaAdicional,
           villas: cartItems.map(item => ({
             code: item.code,
             zone: item.zone,
