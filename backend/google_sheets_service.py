@@ -133,8 +133,6 @@ class GoogleSheetsService:
                 }.get(villa['modality'], villa['modality'])
                 
                 detail = f"{villa['code']} ({villa['zone']}) - {modality_label}"
-                if villa.get('price', 0) > 0:
-                    detail += f" - {villa['currency']} {villa['price']:,.0f}"
                 villas_details.append(detail)
             
             # Preparar fila con nuevo orden
