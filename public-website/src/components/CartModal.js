@@ -259,11 +259,6 @@ const CartModal = () => {
                     <div style={{ fontSize: '0.9rem', color: '#666', marginBottom: '3px' }}>
                       {getModalityLabel(item.modality)}
                     </div>
-                    {item.price > 0 && (
-                      <div style={{ fontSize: '0.95rem', color: '#CFA57D', fontWeight: 'bold' }}>
-                        💰 {item.currency} {item.price.toLocaleString()}
-                      </div>
-                    )}
                   </div>
                   <button
                     onClick={() => removeFromCart(item.id)}
