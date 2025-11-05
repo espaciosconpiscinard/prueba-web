@@ -1415,42 +1415,105 @@ const VillasManagementNew = () => {
                             )}
                           </div>
 
-                          {/* Precios detallados */}
+                          {/* Precios detallados - Flexible Prices */}
                           <div className="grid grid-cols-2 gap-4 mt-4">
                             <div className="bg-blue-50 p-3 rounded-md">
                               <p className="text-xs font-bold text-blue-800 mb-2">PRECIOS AL CLIENTE:</p>
-                              <div className="space-y-1 text-sm">
-                                <div className="flex justify-between">
-                                  <span>Pasadía:</span>
-                                  <span className="font-semibold">{formatCurrency(villa.price_pasadia_regular_client || 0)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span>Amanecida:</span>
-                                  <span className="font-semibold">{formatCurrency(villa.price_amanecida_regular_client || 0)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span>Evento:</span>
-                                  <span className="font-semibold">{formatCurrency(villa.price_evento_regular_client || 0)}</span>
-                                </div>
+                              <div className="space-y-2 text-sm">
+                                {/* Pasadía Prices */}
+                                {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
+                                  <div>
+                                    <p className="font-semibold text-blue-700 mb-1">☀️ Pasadía:</p>
+                                    {villa.pasadia_prices.map((price, idx) => (
+                                      <div key={idx} className="flex justify-between items-center text-xs">
+                                        <span>{price.label}</span>
+                                        <span className="font-semibold">
+                                          {formatCurrency(price.client_price || 0)}
+                                          {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {/* Amanecida Prices */}
+                                {villa.amanecida_prices && villa.amanecida_prices.length > 0 && (
+                                  <div>
+                                    <p className="font-semibold text-indigo-700 mb-1">🌙 Amanecida:</p>
+                                    {villa.amanecida_prices.map((price, idx) => (
+                                      <div key={idx} className="flex justify-between items-center text-xs">
+                                        <span>{price.label}</span>
+                                        <span className="font-semibold">
+                                          {formatCurrency(price.client_price || 0)}
+                                          {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {/* Evento Prices */}
+                                {villa.evento_prices && villa.evento_prices.length > 0 && (
+                                  <div>
+                                    <p className="font-semibold text-purple-700 mb-1">🎉 Evento:</p>
+                                    {villa.evento_prices.map((price, idx) => (
+                                      <div key={idx} className="flex justify-between items-center text-xs">
+                                        <span>{price.label}</span>
+                                        <span className="font-semibold">
+                                          {formatCurrency(price.client_price || 0)}
+                                          {price.show_in_web && <span className="text-green-600 ml-1">🌐</span>}
+                                        </span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                                {!villa.pasadia_prices?.length && !villa.amanecida_prices?.length && !villa.evento_prices?.length && (
+                                  <p className="text-gray-400 italic">Sin precios configurados</p>
+                                )}
                               </div>
                             </div>
 
                             {isAdmin && (
                               <div className="bg-green-50 p-3 rounded-md">
                                 <p className="text-xs font-bold text-green-800 mb-2">PAGO AL PROPIETARIO:</p>
-                                <div className="space-y-1 text-sm">
-                                  <div className="flex justify-between">
-                                    <span>Pasadía:</span>
-                                    <span className="font-semibold">{formatCurrency(villa.price_pasadia_regular_owner || 0)}</span>
-                                  </div>
-                                  <div className="flex justify-between">
-                                    <span>Amanecida:</span>
-                                    <span className="font-semibold">{formatCurrency(villa.price_amanecida_regular_owner || 0)}</span>
-                                  </div>
-                                  <div className="flex justify-between">
-                                    <span>Evento:</span>
-                                    <span className="font-semibold">{formatCurrency(villa.price_evento_regular_owner || 0)}</span>
-                                  </div>
+                                <div className="space-y-2 text-sm">
+                                  {/* Pasadía Prices */}
+                                  {villa.pasadia_prices && villa.pasadia_prices.length > 0 && (
+                                    <div>
+                                      <p className="font-semibold text-blue-700 mb-1">☀️ Pasadía:</p>
+                                      {villa.pasadia_prices.map((price, idx) => (
+                                        <div key={idx} className="flex justify-between text-xs">
+                                          <span>{price.label}</span>
+                                          <span className="font-semibold">{formatCurrency(price.owner_price || 0)}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {/* Amanecida Prices */}
+                                  {villa.amanecida_prices && villa.amanecida_prices.length > 0 && (
+                                    <div>
+                                      <p className="font-semibold text-indigo-700 mb-1">🌙 Amanecida:</p>
+                                      {villa.amanecida_prices.map((price, idx) => (
+                                        <div key={idx} className="flex justify-between text-xs">
+                                          <span>{price.label}</span>
+                                          <span className="font-semibold">{formatCurrency(price.owner_price || 0)}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {/* Evento Prices */}
+                                  {villa.evento_prices && villa.evento_prices.length > 0 && (
+                                    <div>
+                                      <p className="font-semibold text-purple-700 mb-1">🎉 Evento:</p>
+                                      {villa.evento_prices.map((price, idx) => (
+                                        <div key={idx} className="flex justify-between text-xs">
+                                          <span>{price.label}</span>
+                                          <span className="font-semibold">{formatCurrency(price.owner_price || 0)}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                  {!villa.pasadia_prices?.length && !villa.amanecida_prices?.length && !villa.evento_prices?.length && (
+                                    <p className="text-gray-400 italic">Sin precios configurados</p>
+                                  )}
                                 </div>
                               </div>
                             )}
