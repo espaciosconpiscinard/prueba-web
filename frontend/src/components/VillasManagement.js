@@ -854,15 +854,6 @@ const VillasManagementNew = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="flex items-center p-2 bg-white border border-green-400 rounded">
-                                <input
-                                  type="checkbox"
-                                  checked={price.show_in_web || false}
-                                  onChange={(e) => updatePrice('amanecida', idx, 'show_in_web', e.target.checked)}
-                                  className="mr-2 w-4 h-4"
-                                />
-                                <Label className="text-xs font-bold">🌐 Mostrar en la Web</Label>
-                              </div>
                             </div>
                           ))}
                         </div>
