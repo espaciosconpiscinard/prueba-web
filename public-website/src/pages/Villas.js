@@ -274,8 +274,8 @@ const Villas = () => {
                             </div>
                           )}
 
-                          {/* AMANECIDA - Show if enabled */}
-                          {(villa.catalog_show_amanecida && villa.amanecida_prices && villa.amanecida_prices.some(p => p.show_in_web)) && (
+                          {/* AMANECIDA */}
+                          {(villa.has_amanecida && villa.amanecida_prices && villa.amanecida_prices.some(p => p.show_in_web)) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eef2ff', borderRadius: '6px', border: '1px solid #6366f1' }}>
                               <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 🌙 Amanecida
