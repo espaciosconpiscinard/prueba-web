@@ -394,7 +394,7 @@ const Villas = () => {
                                   ☀️ Pasadía
                                 </button>
                               )}
-                              {villa.catalog_show_amanecida && (
+                              {villa.has_amanecida && (
                                 <button
                                   onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'amanecida'); }}
                                   style={{
@@ -412,7 +412,7 @@ const Villas = () => {
                                   🌙 Amanecida
                                 </button>
                               )}
-                              {villa.catalog_show_pasadia && villa.catalog_show_amanecida && (
+                              {villa.has_pasadia && villa.has_amanecida && (
                                 <button
                                   onClick={(e) => { e.stopPropagation(); handleAddToCart(villa, 'ambas'); }}
                                   style={{
