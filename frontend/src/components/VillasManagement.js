@@ -843,6 +843,69 @@ const VillasManagementNew = () => {
                             rows="2"
                           />
                         </div>
+
+                        {/* NUEVO: Información para Web Pública */}
+                        <div className="mb-3 p-3 bg-blue-50 border border-blue-300 rounded">
+                          <div className="flex items-center mb-2">
+                            <input
+                              type="checkbox"
+                              checked={formData.catalog_show_amanecida}
+                              onChange={(e) => setFormData({ ...formData, catalog_show_amanecida: e.target.checked })}
+                              className="mr-2"
+                            />
+                            <Label className="text-xs font-bold">🌐 Mostrar Amanecida en Catálogo Web</Label>
+                          </div>
+                          
+                          {formData.catalog_show_amanecida && (
+                            <div className="space-y-2 mt-2">
+                              <div>
+                                <Label className="text-xs">Descripción Corta (Catálogo)</Label>
+                                <textarea
+                                  value={formData.catalog_description_amanecida}
+                                  onChange={(e) => setFormData({ ...formData, catalog_description_amanecida: e.target.value })}
+                                  placeholder="Descripción corta para mostrar en las tarjetas del catálogo..."
+                                  className="w-full p-2 border rounded text-sm"
+                                  rows="2"
+                                />
+                              </div>
+                              
+                              <div>
+                                <Label className="text-xs">Descripción Detallada (Modal)</Label>
+                                <textarea
+                                  value={formData.public_description_amanecida}
+                                  onChange={(e) => setFormData({ ...formData, public_description_amanecida: e.target.value })}
+                                  placeholder="Descripción detallada que se mostrará cuando el cliente haga clic en la villa..."
+                                  className="w-full p-2 border rounded text-sm"
+                                  rows="3"
+                                />
+                              </div>
+                              
+                              <div className="flex items-center gap-2">
+                                <div className="flex-1">
+                                  <Label className="text-xs">Precio para Web</Label>
+                                  <Input
+                                    type="number"
+                                    value={formData.catalog_price_amanecida}
+                                    onChange={(e) => setFormData({ ...formData, catalog_price_amanecida: parseFloat(e.target.value) })}
+                                    placeholder="8000"
+                                    className="text-sm"
+                                  />
+                                </div>
+                                <div>
+                                  <Label className="text-xs">Moneda</Label>
+                                  <select
+                                    value={formData.catalog_currency_amanecida}
+                                    onChange={(e) => setFormData({ ...formData, catalog_currency_amanecida: e.target.value })}
+                                    className="w-full p-2 border rounded text-sm"
+                                  >
+                                    <option value="RD$">RD$</option>
+                                    <option value="USD$">USD$</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                         
                         {/* Precios Amanecida */}
                         <div className="space-y-2">
