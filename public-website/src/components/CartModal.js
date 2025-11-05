@@ -368,6 +368,26 @@ const CartModal = () => {
 
             <div style={{ marginBottom: '15px' }}>
               <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', fontSize: '0.9rem' }}>
+                Cantidad de personas *
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.cantidadPersonas}
+                onChange={(e) => setFormData({...formData, cantidadPersonas: e.target.value})}
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '5px',
+                  border: '1px solid #d1d5db',
+                  fontSize: '1rem'
+                }}
+                placeholder="Ej: 10 personas, 15 adultos y 5 niños, etc."
+              />
+            </div>
+
+            <div style={{ marginBottom: '15px' }}>
+              <label style={{ display: 'block', fontWeight: 'bold', marginBottom: '5px', fontSize: '0.9rem' }}>
                 Modalidad preferida
               </label>
               <select
