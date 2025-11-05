@@ -225,6 +225,8 @@ const VillasManagementNew = () => {
       description_evento: '',
       public_description_pasadia: '',
       public_description_amanecida: '',
+      catalog_description_pasadia: '',
+      catalog_description_amanecida: '',
       villa_currency: 'DOP',
       currency_pasadia: 'DOP',
       currency_amanecida: 'DOP',
