@@ -839,7 +839,15 @@ async def update_villa(villa_id: str, villa_data: VillaCreate, current_user: dic
     if not existing:
         raise HTTPException(status_code=404, detail="Villa not found")
     
+    # Auto-set show_in_web = true for all prices
     update_dict = villa_data.model_dump()
+    for price in update_dict.get("pasadia_prices", []):
+        price["show_in_web"] = True
+    for price in update_dict.get("amanecida_prices", []):
+        price["show_in_web"] = True
+    for price in update_dict.get("evento_prices", []):
+        price["show_in_web"] = True
+    
     await db.villas.update_one({"id": villa_id}, {"$set": update_dict})
     
     updated = await db.villas.find_one({"id": villa_id}, {"_id": 0})
