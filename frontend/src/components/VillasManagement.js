@@ -575,6 +575,7 @@ const VillasManagementNew = () => {
               {itemType === 'villa' ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
+                  {/* INFORMACIÓN BÁSICA */}
                   <div>
                     <Label>Código de Villa *</Label>
                     <Input
@@ -584,13 +585,34 @@ const VillasManagementNew = () => {
                       required
                     />
                   </div>
+
+                  <div className="col-span-2">
+                    <Label>Descripción Corta (Aparece en la Card del Catálogo)</Label>
+                    <textarea
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      placeholder="Villa con piscina, área BBQ, ideal para eventos familiares..."
+                      className="w-full p-2 border rounded"
+                      rows="2"
+                    />
+                    <small className="text-gray-500">Esta descripción breve aparece en la card del catálogo web.</small>
+                  </div>
+
                   <div>
-                    <Label>Nombre (Interno) *</Label>
+                    <Label>Zona/Ubicación</Label>
                     <Input
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Villa Sabrina"
-                      required
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                      placeholder="Ej: Santo Domingo Este"
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Teléfono Contacto</Label>
+                    <Input
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="829-123-4567"
                     />
                   </div>
 
@@ -613,37 +635,7 @@ const VillasManagementNew = () => {
                     </select>
                   </div>
 
-                  <div className="col-span-2">
-                    <Label>Descripción Principal (Para Card del Catálogo Web)</Label>
-                    <textarea
-                      value={formData.description}
-                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                      placeholder="Descripción corta y atractiva que aparecerá en la tarjeta del catálogo..."
-                      className="w-full p-2 border rounded"
-                      rows="2"
-                    />
-                    <small className="text-gray-500">Esta descripción aparecerá en las tarjetas del catálogo web.</small>
-                  </div>
-
-                  <div className="col-span-2">
-                    <Label>Ubicación/Dirección</Label>
-                    <Input
-                      value={formData.location}
-                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                      placeholder="Ej: Santo Domingo, Zona Colonial"
-                    />
-                  </div>
-
-                  <div className="col-span-2">
-                    <Label>Teléfono del Propietario (Opcional)</Label>
-                    <Input
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      placeholder="829-123-4567"
-                    />
-                  </div>
-
-                  {/* MODALIDADES Y DESCRIPCIONES */}
+                  {/* MODALIDADES DISPONIBLES */}
                   <div className="col-span-2 bg-blue-50 p-4 rounded-md border-2 border-blue-200">
                     <h3 className="font-bold text-lg mb-3 text-blue-800">🏖️ Modalidades Disponibles</h3>
                     
