@@ -256,13 +256,13 @@ const Villas = () => {
                           )}
 
                           {/* AMANECIDA */}
-                          {(villa.has_amanecida && villa.amanecida_prices && villa.amanecida_prices.some(p => p.show_in_web)) && (
+                          {(villa.has_amanecida && villa.amanecida_prices && villa.amanecida_prices.length > 0) && (
                             <div style={{ marginBottom: '8px', padding: '8px', background: '#eef2ff', borderRadius: '6px', border: '1px solid #6366f1' }}>
                               <div style={{ fontWeight: 'bold', color: '#4338ca', marginBottom: '4px', fontSize: '0.8rem' }}>
                                 🌙 Amanecida
                               </div>
                               {/* Precios Flexibles */}
-                              {villa.amanecida_prices && villa.amanecida_prices.filter(p => p.show_in_web).map((price, idx) => (
+                              {villa.amanecida_prices.map((price, idx) => (
                                 <div key={idx} style={{ marginBottom: '2px', fontSize: '0.7rem' }}>
                                   <span style={{ color: '#666' }}>{price.label}:</span>{' '}
                                   <span style={{ fontWeight: 'bold', color: '#CFA57D' }}>
